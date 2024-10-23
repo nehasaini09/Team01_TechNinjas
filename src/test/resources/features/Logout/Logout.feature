@@ -7,8 +7,7 @@ Feature: Validation on Logout button
    Then Admin should be redirected to login page
 
  Scenario: Verify back button function
-   Given Admin is logged out of the application
-   And  Admin is in login page
+   Given Admin is logged out of the application and Admin is in login page
    When Admin clicks  browser back button
    Then Admin should receive error message
 
