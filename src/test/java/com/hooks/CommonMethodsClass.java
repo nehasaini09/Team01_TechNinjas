@@ -1,4 +1,4 @@
-package com.utilities;
+package com.hooks;
 
 public class CommonMethodsClass {
 
