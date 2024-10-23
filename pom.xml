@@ -4,6 +4,13 @@
   <artifactId>Team01_TechNinjas</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>18</maven.compiler.source>
+		<maven.compiler.target>18</maven.compiler.target>
+		<!-- <maven.compiler.release>18</maven.compiler.release>-->
+	</properties>
+  
   <dependencies>
 
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -21,9 +28,7 @@
 			<version>5.1.3</version>
 		</dependency>
 
-
-
-
+  
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -119,4 +124,22 @@
 		</dependency>
 
 	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.1</version>
+					<configuration>
+						<release>11</release>
+						<forkCount>4</forkCount> <!-- Number of parallel processes -->
+						<includes>**/TestRunner.java</includes>
+						<parallel>methods</parallel> <!-- Execute tests in parallel by method -->
+						<useUnlimitedThreads>true</useUnlimitedThreads>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
