@@ -6,7 +6,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(strict = true,
-    features = {"src/test/resources/features/02-classmodule.feature"},
+    features = {"src/test/resources/features/Classmodule/02-class_page_validation.feature"},
     glue = {"com.stepDefinition"}, 
     monochrome = true, 
     plugin = {

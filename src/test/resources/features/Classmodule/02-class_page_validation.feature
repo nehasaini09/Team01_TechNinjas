@@ -8,12 +8,18 @@ Feature: Class Page Validation
     
     Scenario: Validating the Header in the Manage class page
     Then Admin should see the "Manage Class" Header
-    
-    Scenario: Admin should see the "Manage Class" Header
-    Then Admin should see the "Manage Class" Header
-    
-    Scenario: Validating the data table headers in the class page
-    Then Admin should see the datatable heading like Batchname,class topic,class descrption,status,class Date,staff name,Edit/Delete
+      
+    Scenario Outline: Validating the data table headers in the class page
+    Then Admin should see the datatable heading like "<headers>"
+    Examples:
+    |headers|
+    | Batch Name|
+     |Class Topic|
+    |Class Description |
+    | Status |
+    | Class Date |
+    | Staff Name |
+   
     
     Scenario: Validating the text and pagination icon in the classpage
     Then Admin should see the " showing x to y of  z entries" and enabled pagination controls under the data table

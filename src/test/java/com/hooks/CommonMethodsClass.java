@@ -30,4 +30,30 @@ public class CommonMethodsClass extends BaseClass{
 		return textValue;
 	}
 
+
+	public boolean validateHeader(WebElement element, String header) {
+	    String headerText = "";
+	    if (element.isDisplayed()) {
+	        headerText = element.getText();
+	        if (headerText.equals(header)) {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    } else {
+	        return false; 
+	    }
 	}
+
+	
+	public String text(WebElement element) {
+		return getText(element);
+	}
+
+
+		
+	}
+
+	
+	
+	

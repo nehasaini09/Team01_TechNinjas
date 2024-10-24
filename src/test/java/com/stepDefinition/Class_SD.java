@@ -1,15 +1,17 @@
 package com.stepDefinition;
 
 import com.hooks.BaseClass;
+import com.hooks.CommonMethodsClass;
 import com.pageObject.Class_Page_Validation;
 import com.utilities.Log;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-//import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 
 public class Class_SD extends BaseClass{
 	
@@ -17,6 +19,7 @@ public class Class_SD extends BaseClass{
 	String pwsd ="LmsHackathon@2024";
 	
 	Class_Page_Validation cp =new Class_Page_Validation();
+	CommonMethodsClass comm = new CommonMethodsClass();
 
 	@Given("Admin is on the dashboard page after login")
 	public void admin_is_on_the_dashboard_page_after_login() {
@@ -38,14 +41,24 @@ public class Class_SD extends BaseClass{
 	}
 
 	@Then("Admin should see the {string} Header")
-	public void admin_should_see_the_Header(String string) {
-
+	public void admin_should_see_the_Header(String header) {
+		Assert.assertEquals( header,cp.validatemanageClassHeader());	
+		Log.logInfo("Actual Title is "+cp.validatemanageClassHeader());
+	   
+	    
 	}
 
-	@Then("Admin should see the datatable heading like Batchname,class topic,class descrption,status,class Date,staff name,Edit\\/Delete")
-	public void admin_should_see_the_datatable_heading_like_Batchname_class_topic_class_descrption_status_class_Date_staff_name_Edit_Delete() {
+	@Then("Admin should see the datatable heading like {string}")
+	public void admin_should_see_the_datatable_heading_like(String header) {
 		
-	}
+		    WebElement headerElement = cp.getHeaderElement(header); 
+		    boolean isValid = comm.validateHeader(headerElement, header);
+		    Assert.assertTrue(header, isValid);
+		    Log.logInfo("Actual headr is "+headerElement.getText());
+		}
+
+	
+	
 
 	@Then("Admin should see the {string} and enabled pagination controls under the data table")
 	public void admin_should_see_the_and_enabled_pagination_controls_under_the_data_table(String string) {
