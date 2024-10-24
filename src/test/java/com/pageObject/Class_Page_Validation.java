@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import com.hooks.BaseClass;
 import com.hooks.CommonMethodsClass;
 
+import junit.framework.Assert;
+
 public class Class_Page_Validation extends BaseClass {
 	
 	//WebDriver driver;
@@ -25,13 +27,10 @@ public class Class_Page_Validation extends BaseClass {
 	private WebElement appHeader;
 	
 	public Class_Page_Validation() {
-        PageFactory.initElements(driver, this);  // Proper initialization
-          // Initialize common actions with driver
+        PageFactory.initElements(driver, this);  
     }
 
-	
-	
-	public void addUsername(String uName) {
+    public void addUsername(String uName) {
 		userName.sendKeys(uName);;
 	}
 	
@@ -41,6 +40,14 @@ public class Class_Page_Validation extends BaseClass {
 	
 	public void clickLoginBtn() {
 		common.click(loginBtn);
+	}
+	
+	public void clickClassBtn() {
+		common.click(classBtn);
+	}
+	
+	public String validateTitle() {
+		return common.getText(appHeader);		
 	}
 
 }

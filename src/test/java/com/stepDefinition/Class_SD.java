@@ -2,10 +2,14 @@ package com.stepDefinition;
 
 import com.hooks.BaseClass;
 import com.pageObject.Class_Page_Validation;
+import com.utilities.Log;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.Assert;
 
 public class Class_SD extends BaseClass{
 	
@@ -24,12 +28,13 @@ public class Class_SD extends BaseClass{
 
 	@When("Admin clicks the Class Navigation bar in the Header")
 	public void admin_clicks_the_Class_Navigation_bar_in_the_Header() {
-
+				cp.clickClassBtn();
 	}
 
 	@Then("Admin should see the {string} Title")
 	public void admin_should_see_the_Title(String string) {
-
+	Assert.assertEquals( string,cp.validateTitle());	
+	Log.logInfo("Actual Title is "+cp.validateTitle());
 	}
 
 	@Then("Admin should see the {string} Header")

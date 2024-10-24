@@ -17,5 +17,17 @@ public class CommonMethodsClass extends BaseClass{
 		element.click();
 	}
 	
-	
-}
+	public String getText(WebElement element) {
+		String textValue = "";
+		if(element.isDisplayed()) {
+			textValue=element.getText();
+			System.out.println("Text value:- "+textValue);
+		}
+		else {
+			System.out.println("Element is not visible");
+		}
+		
+		return textValue;
+	}
+
+	}
