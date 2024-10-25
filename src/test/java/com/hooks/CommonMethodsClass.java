@@ -1,11 +1,10 @@
 package com.hooks;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
+import java.util.List;
 
-public class CommonMethodsClass extends BaseClass{
+import org.openqa.selenium.WebElement;
+
+public class CommonMethodsClass {
 	
 	
 	public void sendKeysToElement(WebElement element, String text) {
@@ -45,14 +44,26 @@ public class CommonMethodsClass extends BaseClass{
 	    }
 	}
 
-	
-	public String text(WebElement element) {
-		return getText(element);
+	public boolean isSortingbuttonDisplayed(List<WebElement> elements) {
+		boolean flag = true; 
+	       if (elements.size() > 1) {
+	    	     for (int i = 1; i < elements.size(); i++) {
+	            WebElement element = elements.get(i);	            
+	              if (!element.isDisplayed()) {
+	                flag = false;
+	                break;  
+	            }
+	        }
+	    } else {
+	        flag = false;  
+	    }
+	    return flag;
 	}
-
-
 		
 	}
+
+		
+	
 
 	
 	

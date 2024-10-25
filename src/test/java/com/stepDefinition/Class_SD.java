@@ -1,7 +1,16 @@
 package com.stepDefinition;
 
-import com.hooks.BaseClass;
+import static org.junit.Assert.assertTrue;
+
+import java.time.Duration;
+
+import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.hooks.CommonMethodsClass;
+import com.hooks.TestContext;
 import com.pageObject.Class_Page_Validation;
 import com.utilities.Log;
 
@@ -9,17 +18,26 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-
-import org.junit.Assert;
-import org.openqa.selenium.WebElement;
-
-public class Class_SD extends BaseClass{
+public class Class_SD {
 	
 	String uName = "Sdet@gmail.com";
 	String pwsd ="LmsHackathon@2024";
 	
-	Class_Page_Validation cp =new Class_Page_Validation();
-	CommonMethodsClass comm = new CommonMethodsClass();
+	  private WebDriverWait wait;
+	  	   private WebDriver driver;
+	   private TestContext context;
+	   private Class_Page_Validation cp;
+	   CommonMethodsClass comm = new   CommonMethodsClass() ;
+	
+	   public Class_SD(TestContext context) {
+		   this.context = context; //  context initialized
+	        this.driver = context.getDriver(); //  WebDriver get initialized
+	       // this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		     this.cp = new Class_Page_Validation(driver);
+		}
+
+
+		
 
 	@Given("Admin is on the dashboard page after login")
 	public void admin_is_on_the_dashboard_page_after_login() {
@@ -34,21 +52,8 @@ public class Class_SD extends BaseClass{
 				cp.clickClassBtn();
 	}
 
-	@Then("Admin should see the {string} Title")
-	public void admin_should_see_the_Title(String string) {
-	Assert.assertEquals( string,cp.validateTitle());	
-	Log.logInfo("Actual Title is "+cp.validateTitle());
-	}
-
-	@Then("Admin should see the {string} Header")
-	public void admin_should_see_the_Header(String header) {
-		Assert.assertEquals( header,cp.validatemanageClassHeader());	
-		Log.logInfo("Actual Title is "+cp.validatemanageClassHeader());
-	   
-	    
-	}
-
-	@Then("Admin should see the datatable heading like {string}")
+	
+	@Then("Admin should see the headers heading like {string}")
 	public void admin_should_see_the_datatable_heading_like(String header) {
 		
 		    WebElement headerElement = cp.getHeaderElement(header); 
@@ -58,20 +63,26 @@ public class Class_SD extends BaseClass{
 		}
 
 	
-	
-
-	@Then("Admin should see the {string} and enabled pagination controls under the data table")
-	public void admin_should_see_the_and_enabled_pagination_controls_under_the_data_table(String string) {
-		
+	@Then("Admin should see the showing \\{int} to \\{int} of \\{int} entries and enabled pagination controls under the data table")
+	public void admin_should_see_the_and_enabled_pagination_controls_under_the_data_table(int x, int y, int z) {
+	    String expectedText = "showing " + x + " to " + y + " of " + z + " entries";
+	    Assert.assertEquals(expectedText, cp.validateShowingEnteries());
 	}
 
 	@Then("Admin should see the Sort icon of all the field in the datatable.")
 	public void admin_should_see_the_Sort_icon_of_all_the_field_in_the_datatable() {
+		boolean status=cp.validateSortingBtn();
+		assertTrue(status);
+		Log.logInfo("Sorting button are visible");
 		
 	}
 
 	@Then("Admin should see the Delete button under the Manage class page header")
 	public void admin_should_see_the_Delete_button_under_the_Manage_class_page_header() {
+		boolean status=cp.deleteBtnDisplayed();
+		assertTrue(status);
+		Log.logInfo("Delete button is visible");
+		
 		
 	}
 

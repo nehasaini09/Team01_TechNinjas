@@ -6,13 +6,13 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(strict = true,
-    features = {"src/test/resources/features/Classmodule/02-class_page_validation.feature"},
-    glue = {"com.stepDefinition"}, 
+    features = {"src/test/resources/features/Classmodule/01-class_page_validation.feature"},
+    glue = {"com.hooks","com.stepDefinition"}, 
     monochrome = true, 
     plugin = {
         "pretty", 
         "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:", 
-        "io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm", // For Allure Reports
+        "io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm", 
         "html:target/Cucumber.html", 
         "json:target/cucumber.json"  
     }

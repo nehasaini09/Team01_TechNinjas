@@ -1,20 +1,22 @@
 package com.pageObject;
 
-import java.util.Optional;
+import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.hooks.BaseClass;
 import com.hooks.CommonMethodsClass;
 
-import junit.framework.Assert;
-
-public class Class_Page_Validation extends BaseClass {
+public class Class_Page_Validation  {
 	
-	//WebDriver driver;
+	private WebDriver driver;
+	 private WebDriverWait wait;
+	 
     CommonMethodsClass common = new CommonMethodsClass();
 	
 	@FindBy(id="username")
@@ -41,11 +43,20 @@ public class Class_Page_Validation extends BaseClass {
 	private WebElement classDateHeader;
 	@FindBy(xpath="//th[text()=' Staff Name ']")
 	private WebElement staffNameHeader;
+	@FindBy(css=".p-paginator-current.ng-star-inserted")
+	private WebElement showingEnteries;
+	@FindBy(xpath="//p-sorticon[@field='batchName']")
+	private WebElement sortBatchNameBtn;
+	@FindBy(className="p-sortable-column-icon")
+	private List<WebElement> sortingBtn;
+	@FindBy(css="button[class='p-button-danger p-button p-component p-button-icon-only']")
+	private WebElement deleteBtnMC;
 	
 	
 	
-	public Class_Page_Validation() {
-        PageFactory.initElements(driver, this);  
+	public Class_Page_Validation(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);  
     }
 
     public void addUsername(String uName) {
@@ -64,16 +75,13 @@ public class Class_Page_Validation extends BaseClass {
 		common.click(classBtn);
 	}
 	
-	public String validateTitle() {
-		return common.getText(appHeader);		
-	}
-	
-	public String validatemanageClassHeader() {
-		return common.getText(manageClassHeader);		
-	}
-			
+				
 	public WebElement getHeaderElement(String headerName) {
 	    switch (headerName) {
+	         case "LMS - Learning Management System":
+                 return appHeader;
+	         case "Manage class":
+                 return manageClassHeader;   
 	        case "Batch Name":
 	            return batchNameHeader;
 	        case "Class Topic":
@@ -90,6 +98,19 @@ public class Class_Page_Validation extends BaseClass {
 	         return null;
 	    
 	    }
+	}
+	
+	public String validateShowingEnteries() {
+		return common.getText(showingEnteries);
+		
+	}
+	
+	public boolean validateSortingBtn() {
+	return  common.isSortingbuttonDisplayed(sortingBtn);
+	}
+
+	public boolean deleteBtnDisplayed() {
+	return	deleteBtnMC.isDisplayed();
 	}
 
 	
