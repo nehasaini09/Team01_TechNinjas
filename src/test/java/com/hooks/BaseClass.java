@@ -1,9 +1,8 @@
 package com.hooks;
-
+import com.utilities.Log;
 import org.openqa.selenium.WebDriver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import com.utilities.ReadConfig;
 /*import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -56,24 +55,20 @@ public class BaseClass {
 	        this.Context = Context;
 	        this.readConfig = new ReadConfig();
 	    }
-
+	    
 	    @Before
 	    public void setUp() {
-	    	   WebDriverManager.chromedriver().setup();
-	        Context.getDriver();
+	        Log.logInfo("Initializing WebDriver");
 	        String browserName = readConfig.getbrowser(); 
-	        
-	        // Initialize the WebDriver using the browser specified in the properties file
 	        WebDriver driver = Context.getDriverFactory().initialiseBrowser(browserName); 
-	        Context.setDriver(driver); // Set the driver in TestContext
-
-	        // Navigate to the URL from ReadConfig
+	        Context.setDriver(driver); 
+	        Log.logInfo("Navigating to: " + readConfig.getApplicationURL());
 	        Context.getDriver().get(readConfig.getApplicationURL());
-	       
 	    }
 
 	    @After
 	    public void tearDown() {
+	    	 Log.logInfo("Closing WebDriver");
 	        Context.closeDriver();
 	    }
 	}
