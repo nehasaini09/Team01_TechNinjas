@@ -21,4 +21,3 @@ plugin = {"pretty",
 public class TestRunner {
 
 }
-
