@@ -1,49 +1,39 @@
 package com.hooks;
 
-import java.time.Duration;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.utilities.Log;
 import com.utilities.ReadConfig;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 
 public class BaseClass {
-
 	
-	static ReadConfig readconfig=new ReadConfig();
-	public static String baseURL=readconfig.getApplicationURL();
-	public static WebDriver driver;
-	public static String browserName = readconfig.getbrowser();
 
-	public static void Initialization() {
+	private TestContext Context;
+	   private ReadConfig readConfig; 
+	
+ // inject TestContext constructor
+    public BaseClass(TestContext Context) {
+        this.Context = Context;
+        this.readConfig = new ReadConfig();
+    }
+    
+    @Before
+    public void setUp() {
+        Log.logInfo("Initializing WebDriver");
+        String browserName = readConfig.getbrowser(); 
+        WebDriver driver = Context.getDriverFactory().initialiseBrowser(browserName); 
+        Context.setDriver(driver); 
+        Log.logInfo("Navigating to: " + readConfig.getApplicationURL());
+        Context.getDriver().get(readConfig.getApplicationURL());
+    }
 
-		if(browserName.equalsIgnoreCase("chrome")) {
-			WebDriverManager.chromedriver().setup();
-			driver=new ChromeDriver();
-		}
-
-		else if(browserName.equalsIgnoreCase("firefox")) {
-			WebDriverManager.firefoxdriver().setup();
-			driver=new FirefoxDriver();
-		}
-
-		else if (browserName.equalsIgnoreCase("edge")) {
-			WebDriverManager.edgedriver().setup();
-			driver=new EdgeDriver();
-		}
-		driver.get(baseURL);
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
-	}
-
-
-	public static void teardown() {
-		driver.close();
-	}
+    @After
+    public void tearDown() {
+    	 Log.logInfo("Closing WebDriver");
+        Context.closeDriver();
+    }
 }
 

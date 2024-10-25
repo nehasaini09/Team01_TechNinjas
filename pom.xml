@@ -4,6 +4,7 @@
   <artifactId>Team01_TechNinjas</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
+    
   <dependencies>
 
 		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -21,10 +22,9 @@
 			<version>5.1.3</version>
 		</dependency>
 
-
-
-
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
+  
+		<!-- JUnit 5 Dependency -->
+<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -39,6 +39,7 @@
 			<version>5.1.3</version>
 			<scope>test</scope>
 		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
@@ -117,6 +118,13 @@
 			<artifactId>webdrivermanager</artifactId>
 			<version>5.5.3</version>
 		</dependency>
+		
+		<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-picocontainer</artifactId>
+    <version>7.17.0</version>
+</dependency>
 
 	</dependencies>
+	
 </project>
