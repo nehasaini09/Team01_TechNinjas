@@ -32,8 +32,7 @@ Feature: Manage Program With Delete Function
   Scenario: Verify Admin is able to delete Multiple programs
     Given Admin is on Program module page
     When  Admin clicks on the delete button on the left top of the program page
-    Then  Programs get selected for deleting on program page
-    
+    Then  Admin lands on Confirmation form on delete details
     
     @tag6
   Scenario: Verify Admin is able to click 'Yes' to delete multiple programs
@@ -52,10 +51,18 @@ Feature: Manage Program With Delete Function
      @tag8
   Scenario: Verify Admin is able to close the window with "X" program page
     Given Admin is on Confirm delete in Program module page
-    When  Admin Click on "X" button
-    Then  Admin can see Confirm Deletion form disappear
+    When  Admin clicks on "X" button of delete pop up of progam page
+    Then  Admin can see Confirm Deletion form disappear in program page
+     
     
     @tag9
+  Scenario: Verify Admin is able to see the deleted program
+    Given Admin is on Program module page
+    When  Admin Searches for "Deleted Program names" on program module page
+    Then  Admin can validate the zero results on program page
+    
+    
+    @tag10
   Scenario: Admin verify the number of programs reduced after delete in program page
     Given Admin is on manage Program module page
     Then  Admin should be able to validate the number of programs reduced
