@@ -1,18 +1,23 @@
 package com.pageObject;
 
 
+import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+import java.util.Arrays;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.utilities.Log;
 
 public class BatchModule {
 
@@ -24,37 +29,68 @@ public class BatchModule {
 	    @FindBy(xpath = "//input[@id='password']")private WebElement passwordField;
 
 	    @FindBy(xpath = "//button[@id='login']")private WebElement loginButton;
+	    
+	    
+        @FindBy (xpath="//mat-toolbar[@color='primary']//span[contains(text(), 'LMS - Learning Management System')]")
+        private WebElement toolbar;
 
+        @FindBy (xpath="button[@class='p-button-danger p-button p-component p-button-icon-only']")
+        private WebElement Multipledelete;
 	 //manage page validation locators
 	    
+       
+        
 	    @FindBy(xpath = "  //th[@psortablecolumn='batchName']")private WebElement nameHeader;
+	    
+	    @FindBy(xpath = ".//th[contains(text(), 'Batch Name')]//i[contains(@class, 'p-sortable-column-icon')]")
+        private WebElement batchNameSortingIcon;
 	  
 	    @FindBy(xpath = "//th[@psortablecolumn='batchDescription']")private WebElement descriptionHeader;
+	    @FindBy(xpath = ".//th[contains(text(), 'Batch Description')]//i[contains(@class, 'p-sortable-column-icon')]")
+	    private WebElement batchDescriptionSortingIcon;
 
 	    @FindBy(xpath = "//th[@psortablecolumn='batchStatus']")private WebElement statusHeader;
+	    @FindBy(xpath = ".//th[contains(text(), 'Batch Status')]//i[contains(@class, 'p-sortable-column-icon')]")
+	    private WebElement batchStatusSortingIcon;
 
 	    @FindBy(css = "th[psortablecolumn='batchNoOfClasses']")private WebElement NoofclassesHeader;
+	    @FindBy(xpath = ".//th[contains(text(), 'No Of Classes')]//i[contains(@class, 'p-sortable-column-icon')]")
+	    private WebElement noOfClassesSortingIcon;
 	    
 	    @FindBy(xpath = "//th[contains(text(), 'Program Name')]")private WebElement programNameHeader;
+	    @FindBy(xpath = ".//th[contains(text(), 'Program Name')]//i[contains(@class, 'p-sortable-column-icon')]")
+	    private WebElement programNameSortingIcon;
 
 	    @FindBy(xpath = "//th[contains(text(), 'Edit / Delete')]")private WebElement editDeleteHeader;
 	    
+	    @FindBy(xpath = "//div[@role='checkbox']")private WebElement checkboxHeader;
+	    
+	    
+	    private List<String> expectedHeaders = Arrays.asList(
+	            "Batch Name", 
+	            "Batch Description", 
+	            "Batch Status", 
+	            "No Of Classes", 
+	            "Program Name", 
+	            "Edit / Delete"
+	        );
 	    @FindBy(xpath="//div[text()=' Manage Batch']")private WebElement HeaderElement;
 
-	    @FindBy(xpath=" //body/app-root[1]/app-batch[1]/div[1]/mat-card[1]/mat-card-content[1]/p-table[1]/div[1]/div[2]/div[1]")
+	    @FindBy(xpath=" //div[contains(@class, 'p-datatable-footer')]//div[contains(text(), 'batches')]")
 	    private WebElement FooterElement;
 	    
-	    @FindBy(xpath="//body/app-root[1]/app-batch[1]/div[1]/mat-card[1]/mat-card-content[1]/p-table[1]/div[1]/p-paginator[1]/div[1]")
-	    private WebElement PaginationElement;
+	    @FindBy(xpath="//p-table//p-paginator/div")private WebElement PaginationElement;
 
-	    @FindBy(xpath="//body/app-root[1]/app-batch[1]/div[1]/mat-card[1]/mat-card-title[1]/div[2]/div[1]/button[1]")
-	    private WebElement MultipleDeleteElement;
-	    
 	    @FindBy(xpath="//input[@id='filterGlobal']")private WebElement search;
 	    
 	    @FindBy (xpath="//span[text()='Batch']")private  WebElement batchicon ;
 	    
 	    @FindBy(className = "cdk-overlay-backdrop")private WebElement overlayBackdrop;
+	    
+	    //Row locators
+	    @FindBy(xpath=" //div[@class='p-checkbox-box p-component']")private WebElement checkbox;
+	 
+	    
 	    
 	    //Pagination frame locators
 	    @FindBy(xpath = "//div[contains(@class, 'p-paginator')]")
@@ -77,6 +113,23 @@ public class BatchModule {
 
 	    @FindBy(xpath = "//button[contains(@class, 'p-paginator-page')]")
 	    private List<WebElement> pageButtons;
+	    
+	 // Locator for the entire table
+	    @FindBy(xpath = "//p-table//table/tbody/tr")
+	    private List<WebElement> rows;
+
+	    // Locator for the edit buttons within each row
+	    @FindBy(xpath = ".//button[contains(@class, 'p-button-success')]")
+	    private List<WebElement> editButtons;
+
+	    // Locator for the delete buttons within each row
+	    @FindBy(xpath = ".//button[contains(@class, 'p-button-danger')]")
+	    private List<WebElement> deleteButtons;
+
+	    // Locator for the checkboxes within each row
+	    @FindBy(xpath = ".//div[@role='checkbox']")
+	    private List<WebElement> checkboxes;
+
 	    
 	    
 	    
@@ -131,73 +184,149 @@ public class BatchModule {
 	        wait.until(ExpectedConditions.elementToBeClickable(batchicon)).click();
 	        
 	    }
-	    public boolean validateBatchPage() {
-	        // Validate header elements
-	        boolean areHeadersValid = true;
-	        try {
-	            areHeadersValid = nameHeader.isDisplayed() &&
-	                             descriptionHeader.isDisplayed() &&
-	                             statusHeader.isDisplayed() &&
-	                             NoofclassesHeader.isDisplayed() &&
-	                             programNameHeader.isDisplayed() &&
-	                             editDeleteHeader.isDisplayed();
-	                 HeaderElement.isDisplayed();
-	        } catch (NoSuchElementException e) {
-	            System.out.println("One or more header elements are not displayed: " + e.getMessage());
-	            areHeadersValid = false; // If any header element is not displayed, set to false
-	        }
 
-	        // Validate pagination elements
-	        boolean isPaginationValid = true;
+	    // Dropdown
+	    public void openProgramDropdown() {
+	        Programdropdowntrigger.click();  // Interact with the dropdown
+	    }
+	    
+	    
+	    public boolean isPaginationVisible() {
+	        return PaginationElement.isDisplayed();
+	    }
+	    
+	  
+	    public boolean toolbarVisible() {
+	        return toolbar.isDisplayed();
+	    }
+	    
+	    public boolean isMultipleDeleteIconDisabled() {
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	        try {
-	            isPaginationValid = pagination.isDisplayed() &&
-	                               currentEntriesText.isDisplayed() &&
-	                               firstButton.isDisplayed() &&
-	                               prevButton.isDisplayed() &&
-	                               nextButton.isDisplayed() &&
-	                               lastButton.isDisplayed() &&
-	                               !pageButtons.isEmpty();
+	            wait.until(ExpectedConditions.visibilityOf(Multipledelete));
+	            return Multipledelete.isEnabled() == false; // Check if it is disabled
 	        } catch (NoSuchElementException e) {
-	            System.out.println("One or more pagination elements are not displayed: " + e.getMessage());
-	            isPaginationValid = false; // If any pagination element is not displayed, set to false
+	            return false; // Handle if the button is not found
 	        }
+	    }
+	    
+	    public List<String> getActualHeaders() {
+	    	//wait.until(ExpectedConditions.visibilityOf(checkboxHeader));
+	    	wait.until(ExpectedConditions.visibilityOf(nameHeader));
+	        wait.until(ExpectedConditions.visibilityOf(descriptionHeader));
+	        wait.until(ExpectedConditions.visibilityOf(statusHeader));
+	        wait.until(ExpectedConditions.visibilityOf(NoofclassesHeader));
+	        wait.until(ExpectedConditions.visibilityOf(programNameHeader));
+	        wait.until(ExpectedConditions.visibilityOf(editDeleteHeader));
 
-	        // Validate search element
-	        boolean isSearchValid = true;
-	        try {
-	            isSearchValid = search.isDisplayed();
-	        } catch (NoSuchElementException e) {
-	            System.out.println("Search element is not displayed: " + e.getMessage());
-	            isSearchValid = false; // If search element is not displayed, set to false
-	        }
-
-	        // Validate footer element
-	        boolean isFooterValid = true;
-	        try {
-	            isFooterValid = FooterElement.isDisplayed();
-	        } catch (NoSuchElementException e) {
-	            System.out.println("Footer element is not displayed: " + e.getMessage());
-	            isFooterValid = false; // If footer element is not displayed, set to false
-	        }
-
+	        return List.of(
+	        	
+	            nameHeader.getText().trim(),
+	            descriptionHeader.getText().trim(),
+	            statusHeader.getText().trim(),
+	            NoofclassesHeader.getText().trim(),
+	            programNameHeader.getText().trim(),
+	            editDeleteHeader.getText().trim()
+	        );
 	        
-	        
-	        // Final validation result
-	        boolean isValid = areHeadersValid && isPaginationValid && isSearchValid && isFooterValid;
+	    }
+	    
 
-	        System.out.println("Debug: Batch page validation result: " + isValid);
-	        return isValid;
+	  /*  public boolean validateHeaders() {
+	        List<String> actualHeaders = getActualHeaders();
+	        return actualHeaders.equals(expectedHeaders);
+	        
+	    }*/
+	    
+	    public void validateHeaders() {
+	        List<String> actualHeaders = getActualHeaders();
+
+	        // Log both actual and expected headers for debugging
+	        System.out.println("Actual Headers: " + actualHeaders);
+	        System.out.println("Expected Headers: " + expectedHeaders);
+
+	        // Assertion to check for header equality
+	        if (!actualHeaders.equals(expectedHeaders)) {
+	            throw new AssertionError("Batch page validation failed. Expected headers: " + expectedHeaders + 
+	                                     ", but found: " + actualHeaders);
+	        }
+	    }
+
+
+		public boolean arePaginationControlsEnabled() {
+			 return PaginationElement.isDisplayed();
+		}
+
+
+		 // Check if all edit buttons are displayed
+	    public boolean areEditButtonsDisplayed() {
+	        for (WebElement editButton : editButtons) {
+	            wait.until(ExpectedConditions.visibilityOf(editButton)); // Wait for edit button to be visible
+	            if (!editButton.isDisplayed()) {
+	                return false; // Return false if any edit button is not displayed
+	            }
+	        }
+	        return true; // All edit buttons are displayed
+	    }
+
+	    // Check if all delete buttons are displayed
+	    public boolean areDeleteButtonsDisplayed() {
+	        for (WebElement deleteButton : deleteButtons) {
+	            wait.until(ExpectedConditions.visibilityOf(deleteButton)); // Wait for delete button to be visible
+	            if (!deleteButton.isDisplayed()) {
+	                return false; // Return false if any delete button is not displayed
+	            }
+	        }
+	        return true; // All delete buttons are displayed
+	    }
+
+	    // Check if all checkboxes are displayed
+	    public boolean areCheckboxesDisplayed() {
+	        for (WebElement checkbox : checkboxes) {
+	            wait.until(ExpectedConditions.visibilityOf(checkbox)); // Wait for checkbox to be visible
+	            if (!checkbox.isDisplayed()) {
+	                return false; // Return false if any checkbox is not displayed
+	            }
+	        }
+	        return true; // All checkboxes are displayed
+	    }
+	    //dataheader checkbox and sort 
+	    public boolean isCheckboxHeaderDisplayed() {
+	        // Wait for the checkbox header to be visible
+	        wait.until(ExpectedConditions.visibilityOf(checkboxHeader));
+	        // Check if the checkbox header is displayed
+	        return checkboxHeader.isDisplayed();
 	    }
 
 	    
+	 // Method to check if sorting is enabled 
+	    public boolean areSortingIconsDisplayed() {
+	        return batchNameSortingIcon.isDisplayed() &&
+	               batchDescriptionSortingIcon.isDisplayed() &&
+	               noOfClassesSortingIcon.isDisplayed() &&
+	               batchStatusSortingIcon.isDisplayed() &&
+	               programNameSortingIcon.isDisplayed();
+	    }
 
-		//dropdown
-			 public void openProgramDropdown() {
-			        Programdropdowntrigger.click();  // Interact with the dropdown
-			    }
-		 
-			 
-				
-				
-		    
+	   
+	    public boolean isHeaderTextCorrect(String expectedText) {
+	        return  HeaderElement.getText().trim().equals(expectedText);
+	    }
+	    
+	    public boolean isToolbarTextCorrect(String expectedText) {
+	        return toolbar.getText().trim().equals(expectedText);
+	    }
+	    
+	    public String getFooterText() {
+	        return FooterElement.getText().trim();
+	    }
+	    
+	    public boolean isFooterTextCorrect(String expectedText) {
+	        return FooterElement.getText().trim().equals(expectedText);
+	    }
 }
+	    
+	    
+	    
+	    
+	    
