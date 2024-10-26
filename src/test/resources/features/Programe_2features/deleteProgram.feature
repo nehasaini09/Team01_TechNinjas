@@ -1,68 +1,24 @@
-
-@tag
+ @tag
 Feature: Manage Program With Delete Function
-  
 
-  @tag1
-  Scenario: Verify delete feature on program module   
-    Given Admin is on Program module page  
-    When Admin clicks on delete button for a program module page
-    Then Admin will get confirm deletion popup for program module page
-    
-  @tag2
-  Scenario: Verify Admin is able to click "Yes" in delete pop up
-    Given Admin is on Confirm pop up for delete on program module page
-    When Admin clicks on "Yes" button for delete on program module page
-    Then Admin can see 'Successful Program Deleted' message in program module page
+  Background: Admin on LMS Portal for delete program
+    Given  Admin logged into LMS portal for Program module delete function
 
-   @tag3
-  Scenario: Verify Admin is able to click "No" in delete pop up 
-    Given Admin is on Confirm pop up for delete program module page
-    When Admin clicks on "No" button for delete on program module page
-    Then Admin can Validate the program was not deleted
-    
-    @tag4
-  Scenario: Verify Admin is able to select multiple delete programs
-    Given Admin is on Program module page
-    When  Admin selects more than one program by clicking on the checkboxes on program module page
-    Then Programs get selected for delete on Program module page 
+  Scenario: Admin checks Succes delete operation with single program delete
+    Given Admin on the program module page after login
+    When Admin clicks on the delete icon on program module page
+    Then Admin able to delete by clicking yes to confirmation pop up
     
     
-    @tag5
-  Scenario: Verify Admin is able to delete Multiple programs
-    Given Admin is on Program module page
-    When  Admin clicks on the delete button on the left top of the program page
-    Then  Admin lands on Confirmation form on delete details
-    
-    @tag6
-  Scenario: Verify Admin is able to click 'Yes' to delete multiple programs
-    Given Admin is on Confirm delete in Program module page
-    When  Admin clicks on "yes" button for deleting in program module page
-    Then  Admin can see "Successful  program deleted" message in program module page
-    
-    
-    @tag7
-  Scenario: Verify Admin is able to click 'No' to delete multiple programs
-    Given Admin is on Confirm delete in Program module page
-    When  Admin clicks on "no" button for deleting in program module page
-    Then  Admin can see Programs are still selected and not deleted in program module page
-    
-    
-     @tag8
-  Scenario: Verify Admin is able to close the window with "X" program page
-    Given Admin is on Confirm delete in Program module page
-    When  Admin clicks on "X" button of delete pop up of progam page
-    Then  Admin can see Confirm Deletion form disappear in program page
+    Scenario: Admin checks delete operation unsucces with single program delete
+    Given Admin on the program module page after login
+    When Admin clicks on the delete icon on program module page
+    Then Admin able to delete by clicking No to confirmation pop up
      
-    
-    @tag9
-  Scenario: Verify Admin is able to see the deleted program
-    Given Admin is on Program module page
-    When  Admin Searches for "Deleted Program names" on program module page
-    Then  Admin can validate the zero results on program page
-    
-    
-    @tag10
-  Scenario: Admin verify the number of programs reduced after delete in program page
-    Given Admin is on manage Program module page
-    Then  Admin should be able to validate the number of programs reduced
+       
+
+  Scenario: Admin validate delete by deleting multiple programs
+    Given Admin on the program module page after login
+    When Admin clicks on the multiple checkboxes on program module page
+    And Admin clicks  on the left delete button on program module page
+    Then Admin able to delete multiple program by clicking yes to confirm
