@@ -10,10 +10,10 @@ Feature: Login Page validation
     Then Admin should see the "<result>"
     Examples:
     | credentials              | result                  |
-    | valid credentials        | Admin should land on dashboard page ( centre of the page will be empty , menu bar is present)|
-    | invalid credentials      | Error message please check Admin name/password                                               |
-    | password                 | Error message please check Admin name/password                                               |
-    | username                 | Error message please check Admin name/password                                               |
+    | valid credentials        | Admin should land on dashboard page             |
+    | invalid credentials      | Error message please check Admin name/password  |
+    | password                 | Error message please check Admin name/password  |
+    | username                 | Error message please check Admin name/password  |
 
     @keyboardLogin
  Scenario: verify login button action through keyboard
