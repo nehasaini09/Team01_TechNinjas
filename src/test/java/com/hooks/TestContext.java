@@ -1,6 +1,8 @@
 package com.hooks;
 
 import java.time.Duration;
+
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,6 +16,7 @@ public class TestContext {
     private DriverFactory driverFactory;
     private WebDriverWait wait;
     private ReadConfig readConfig;
+   
     
  // initializing the DriverFactory
     public TestContext() {
@@ -21,6 +24,7 @@ public class TestContext {
        //this.driver = driverFactory.initialiseBrowser("chrome"); 
        //this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
        this.readConfig = new ReadConfig(); // config reader initilise
+       
        
     }  
     public void setDriver(WebDriver driver) {
@@ -34,9 +38,10 @@ public class TestContext {
     public WebDriver getDriver() {
         return driver;
     }  
+   
 // driver close
     public void closeDriver() {
-        driverFactory.closeDriver();
+      driverFactory.closeDriver();
     }
     public WebDriverWait getWait() {
         return wait;

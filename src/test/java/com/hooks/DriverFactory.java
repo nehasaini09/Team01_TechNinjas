@@ -1,4 +1,5 @@
 package com.hooks;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -45,6 +46,7 @@ public class DriverFactory {
 	                    throw new IllegalArgumentException("Browser not supported: " + browserName);
 	            }
 	            driver.manage().window().maximize();
+	            //driver.manage().window().setSize(new Dimension(1024, 768));
 	            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	        }
 	        return driver;
@@ -56,8 +58,8 @@ public class DriverFactory {
 
 	
 	   public void closeDriver() {
-	        if (driver != null) {
-	            driver.quit();
-	        }
+	       if (driver != null) {
+	         driver.quit();
+	   }
 	    }
 }
