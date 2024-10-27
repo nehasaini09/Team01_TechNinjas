@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -165,4 +166,22 @@ public void Passwordcolor(){
     String expectedColor="rgba(0, 0, 0, 0.87)";
     Assert.assertTrue(Pcolor.equalsIgnoreCase(expectedColor));
 }
+
+public int CountTextFields(){
+    List<WebElement> textFields = driver.findElements(By.xpath("//input[@type='password' or @id='username']"));
+    int count =textFields.size();
+    return count;
+}
+
+public void FirstTextField(){
+    List<WebElement> textFields = driver.findElements(By.xpath("//input[@type='password' or @id='username']"));
+    WebElement firstTextField= textFields.get(0);
+    System.out.println("FIRST TEXT FIELD :"+firstTextField.getAttribute("ng-reflect-placeholder"));
+}
+public void SecondTextField(){
+    List<WebElement> textFields = driver.findElements(By.xpath("//input[@type='password' or @id='username']"));
+    WebElement secondTextField =textFields.get(1);
+    System.out.println("SECOND TEXT FIELD :"+secondTextField.getAttribute("ng-reflect-placeholder"));
+}
+
 }

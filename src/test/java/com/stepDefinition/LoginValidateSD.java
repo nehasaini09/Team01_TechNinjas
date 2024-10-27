@@ -166,8 +166,8 @@ public class LoginValidateSD {
     }
     @Then("Admin should see two text field")
     public void admin_should_see_two_text_field() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        int count= login.CountTextFields();
+        Assert.assertEquals(2,count);
     }
     @Then("Admin should see * symbol next to password text")
     public void admin_should_see_symbol_next_to_password_text() {
@@ -194,15 +194,13 @@ public class LoginValidateSD {
 
     @Then("Admin should {string} in the first text field")
     public void admin_should_in_the_first_text_field(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        login.FirstTextField();
     }
 
 
     @Then("Admin should {string} in the second text field")
     public void admin_should_in_the_second_text_field(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        login.SecondTextField();
     }
 
 

@@ -7,7 +7,7 @@ import io.cucumber.junit.CucumberOptions;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(tags="  @userColor or @passwordColor",
+@CucumberOptions(tags="  @UserFirst or @PasswordSecond",
 		    features ={"src/test/resources/features/"},
             glue = {"com.hooks","com.stepDefinition"},
              monochrome = true,

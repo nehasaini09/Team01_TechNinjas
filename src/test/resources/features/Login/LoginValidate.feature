@@ -53,6 +53,7 @@ Feature: Login Page validation
   Scenario: Verify text field is present
     Then Admin should see two text field
 
+    @UserFirst
   Scenario: Verify text on the first text field
     Then Admin should "User" in the first text field
 
@@ -60,6 +61,7 @@ Feature: Login Page validation
   Scenario: Verify asterisk next to Admin text
     Then Admin should see field mandatory asterisk symbol next to Admin text
 
+  @PasswordSecond
   Scenario: Verify text on the second text field
     Then Admin should "Password" in the second text field
 
