@@ -22,7 +22,7 @@ public class Batch_SD {
 	   private WebDriver driver;
 	   private TestContext context;
 
-
+ String batchname ="java";
 	public Batch_SD(TestContext context) {
         this.context = context; //  context initialized
         this.driver = context.getDriver(); //  WebDriver get initialized
@@ -325,7 +325,7 @@ public class Batch_SD {
 	    public void adminShouldSeeResults(String expectedResult) {
 	    	
 
-	    	switch (expectedResult.toLowerCase()) {
+	    	/*switch (expectedResult.toLowerCase()) {
 	        case "next enabled link":
 	            Assert.assertTrue("Expected 'Next' button to be enabled.", batchModule.isNextButtonEnabled());
 	            break;
@@ -343,25 +343,90 @@ public class Batch_SD {
 	            break;
 	        default:
 	            Assert.fail("Unexpected result description: " + expectedResult);
-	    }
+	    }*/
 	
+	    	switch (expectedResult.toLowerCase()) {
+	    	 case "next enabled link":
+	             Assert.assertTrue("Expected 'Next' button to be enabled.", batchModule.isNextButtonEnabled());
+	             break;
+	        case "last page link with next disabled":
+	            Assert.assertFalse("Expected 'Next' button to be disabled.", batchModule.isNextButtonEnabled());
+	            break;
+	        case "previous page":
+	            Assert.assertTrue("Expected 'Previous' button to be enabled.", batchModule.isPrevButtonEnabled());
+	            break;
+	        case "very first page":
+	            Assert.assertFalse("Expected 'Previous' button to be disabled.", batchModule.isPrevButtonEnabled());
+	            break;
+	        case "last results":
+	            Assert.assertTrue("Expected to see results on the last page.", batchModule.hasNextPageResults());
+	            break;
+	        case "previous results":
+	            Assert.assertTrue("Expected to see results on the previous page.", batchModule.hasNextPageResults());
+	            break;
+	        case "first results":
+	            Assert.assertTrue("Expected to see results on the first page.", batchModule.hasNextPageResults());
+	            break;
+	        default:
+	            Assert.fail("Unexpected result description: " + expectedResult);
+	    }
 	    }
 	    
 	    
 	    
+//Search
+	    @When("^Admin enters the (.*) in the search text box$")
+	    public void admin_enters_the_batch_name_in_the_search_text_box(String batchName){
+	    	
+	    	batchModule.navigateToBatch();
+	    	 batchModule.searchInBatchPage(batchName);
+	    	   
+	   
+	    }
+
+	    @Then("^Admin should see the filtered batches in the data table$")
+	    public void admin_should_see_the_filtered_batches_in_the_data_table() {
+	        Assert.assertNotNull("Batch name should not be null", batchname); 
+	        boolean isBatchDisplayed = batchModule.isBatchDisplayed(batchname);
+	        Assert.assertTrue("Expected batch name not found in the displayed results: " + batchname, isBatchDisplayed);
+	    }
+
+	  
+	  
+
+	  
+	//ad new batch field validation @When("Admin attempts to enter \"<Program Name>\"from dropdown that reflects in Batchname prefix")
+
+	    @When("Admin attempts to enter {string} from dropdown that reflects in Batchname prefix")    
 	    
-	    
-	    
+	    public void admin_attempts_to_enter_Program_Name_from_dropdown_that_reflects_in_Batchname_prefix (String programName) {
+    
+	batchModule.selectProgramFromDropdown(programName); // Select program
+    String prefixText = batchModule.getBatchNamePrefix(); // Get prefix from Batch Name field
+    Assert.assertEquals("Prefix should match selected program", programName, prefixText); // Validate prefix
 }
-	  
-	  
+	    
+	    
+@When("Admin enters {string},  {string}, and  {string} in the popup and clicks {string}")
+public void admin_enters_and_in_the_popup_and_clicks(String batchNameSuffix, String description, String numberOfClasses, String button) {
+	 batchModule.enterBatchSuffix(batchNameSuffix);
+	 batchModule.enterDescription(description);
+	 batchModule.enterNumberOfClasses(numberOfClasses);
+	 batchModule.clickButton(button);
+}
+
+@Then("Admin should see valid inputs for:")
+public void admin_should_see_valid_inputs_for(io.cucumber.datatable.DataTable dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    // For automatic transformation, change DataTable to one of
+    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
+    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
+    // Double, Byte, Short, Long, BigInteger or BigDecimal.
+    //
+    // For other transformations you can register a DataTableType.
+    throw new io.cucumber.java.PendingException();
+}}
   
-	  
-	  
-	  
-	  
-	  
-	  
 	  
 	  
 	  
