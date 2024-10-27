@@ -130,10 +130,11 @@ public class Class_SD {
 		   cp.addingMandatoryFields();
 		}*/
 
-		@When("Admin enters mandatory fields {string} {string} {string} {string} {string} {string} {string} in the form and clicks on save button")
-		public void admin_enters_mandatory_fields_in_the_form_and_clicks_on_save_button(String batchName, String classTopic,String classDescription,String Date,String staffName,String Status,String expectedMsg) throws InterruptedException {
+		@When("Admin enters mandatory fields {string} {string} {string} {string} {string} {string} {string} {string} {string} in the form and clicks on save button")
+		public void admin_enters_mandatory_fields_in_the_form_and_clicks_on_save_button(String batchName, String classTopic,
+				String classDescription,String month,String date1,String date2,String staffName,String Status,String expectedMsg) throws InterruptedException {
 		    
-		    assertTrue(cp.addingMandatoryFields(batchName, classTopic,classDescription,Date,staffName,Status).equals(expectedMsg));
+		    assertTrue(cp.addingMandatoryFields(batchName, classTopic,classDescription,month,date1,date2,staffName,Status).equals(expectedMsg));
 			}
 		
 		@Then("Admin gets message Class added Successfully")
@@ -141,14 +142,15 @@ public class Class_SD {
 		    Log.logInfo("Class created successfully");
 		}
 		
-		@When("Admin selects class date in date picker")
-		public void admin_selects_class_date_in_date_picker() {
+		@When("Admin selects class {string} {string} {string} in date picker")
+		public void admin_selects_class_date_in_date_picker(String month,String date1,String date2) {
+			cp.noOfClasses(month,date1,date2);
 		   
 		}
 
 		@Then("Admin should see no of class value is added automatically")
 		public void admin_should_see_no_of_class_value_is_added_automatically() {
-		   cp.noOfClasses();
+		   cp.validateNoOfClassessUpdated();
 		}
 		
 		@When("Admin skips to add value in mandatory field and enter only the optional field {string} {string} {string}")
@@ -297,6 +299,17 @@ public class Class_SD {
 		public void admin_is_re_directed_to_Login_page() {
 		Assert.assertEquals("Admin is on login page",driver.getCurrentUrl());
 		    
+		}
+		
+// Search by batch name class topic and staff name
+		@When("Admin enter the {string} {string} in search textbox")
+		public void admin_enter_the_in_search_textbox(String field, String value) throws InterruptedException {
+		    cp.searhBoxValidation(field, value);
+		}
+
+		@Then("Admin should see Class details are searched by given fields")
+		public void admin_should_see_class_details_are_searched_by() {
+			
 		}
 
 }
