@@ -724,7 +724,7 @@ public class BatchModule {
 	    public void clickNextPage() {
 	        if (isNextButtonEnabled()) {
 	            doubleClick(nextButton);
-	            waitForResultsToLoad(); 
+	          //  waitForResultsToLoad(); 
 	        }// Ensure results load after clicking
 	        }
 
@@ -737,6 +737,7 @@ public class BatchModule {
 
 	    // Method to click 'First' button
 	    public void clickFirstPage() {
+	    	
 	          doubleClick(firstButton);
 	    }
 
