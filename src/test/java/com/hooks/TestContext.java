@@ -2,8 +2,10 @@ package com.hooks;
 
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.pageObject.DeleteProgramPage;
 import com.utilities.ReadConfig;
 
 
@@ -14,6 +16,8 @@ public class TestContext {
     private DriverFactory driverFactory;
     private WebDriverWait wait;
     private ReadConfig readConfig;
+    private DeleteProgramPage deleteprogrampage;
+    Actions action;
     
  // initializing the DriverFactory
     public TestContext() {
@@ -41,9 +45,16 @@ public class TestContext {
     public WebDriverWait getWait() {
         return wait;
     }
+    public Actions performAction() {
+    	return action;
+    }
 
     public String getApplicationURL() {
         return readConfig.getApplicationURL(); // Method to get URL
     }
 
+    public DeleteProgramPage getDelPrgPg() {
+    	return deleteprogrampage;
+    }
+    
 }

@@ -16,7 +16,6 @@ Feature: Manage Program With Delete Function
     Then Admin able to delete by clicking No to confirmation pop up
      
        
-
   Scenario: Admin validate delete by deleting multiple programs
     Given Admin on the program module page after login
     When Admin clicks on the multiple checkboxes on program module page

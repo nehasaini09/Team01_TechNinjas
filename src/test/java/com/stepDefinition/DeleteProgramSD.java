@@ -26,7 +26,7 @@ public class DeleteProgramSD {
 		this.context= context;
 		this.driver= context.getDriver();
 		this.wait= new WebDriverWait(driver, Duration.ofSeconds(30));
-		this.deleteprogrampage= new DeleteProgramPage(driver);
+		this. deleteprogrampage = new DeleteProgramPage(driver);
 		
 	}
 	

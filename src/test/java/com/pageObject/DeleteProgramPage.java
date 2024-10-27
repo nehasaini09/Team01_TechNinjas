@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class DeleteProgramPage {
 	private WebDriver driver;
 	 private WebDriverWait wait;
+	 Actions action;
 	 	//login
 	     @FindBy(xpath = "//input[@id='username']")private WebElement userName;
 	     @FindBy(xpath = "//input[@id='password']")private WebElement passWord;
@@ -39,6 +40,7 @@ public class DeleteProgramPage {
 	     
 	     public DeleteProgramPage(WebDriver driver) {
 		 this.driver=driver;
+		 this.action = new Actions(driver);
 		 this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	     PageFactory.initElements(driver, this);
 		 }
@@ -61,8 +63,8 @@ public class DeleteProgramPage {
 	     
 	     //when
 	     public void clickOnDeleteIcon() {
-	    	  Actions actions = new Actions(driver);
-	    	  actions.doubleClick(deletebtn).perform();	    	 
+	    	 // Actions actions = new Actions(driver);
+	    	  action.doubleClick(deletebtn).perform();	    	 
 	     }
 	     
 	     //then
@@ -78,8 +80,8 @@ public class DeleteProgramPage {
 	    	 
 	    		     }
 	     public void SelectCheckBoxes() {
-	    	 Actions actions = new Actions(driver);
-	    	 actions.doubleClick(checkbox1).perform();	
+	    	// Actions actions = new Actions(driver);
+	    	 action.doubleClick(checkbox1).perform();	
 	    	 //checkbox1.click();
 	    	 checkbox2.click();
 //	    	 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));

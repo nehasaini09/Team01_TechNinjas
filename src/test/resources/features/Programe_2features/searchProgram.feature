@@ -1,7 +1,8 @@
 @tag
 Feature: Manage Program with search function
   
-
+ Background: Admin on LMS Portal for delete program
+    Given  Admin logged into LMS portal for Program module delete function
   @tag1
   Scenario: Verify Admin is able to search results found for program name  
     Given Admin is on Program module page for search  
