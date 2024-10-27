@@ -1,8 +1,5 @@
 package com.hooks;
 
-import com.pageObject.Dashboard;
-import com.pageObject.Login;
-import com.pageObject.LoginPageDetails;
 import com.utilities.ReadConfig;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;

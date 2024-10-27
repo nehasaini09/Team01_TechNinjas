@@ -1,6 +1,5 @@
 package com.stepDefinition;
 
-import com.hooks.DriverFactory;
 import com.hooks.TestContext;
 import com.pageObject.Login;
 import com.utilities.ReadConfig;
@@ -12,11 +11,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginValidateSD {
 
    private TestContext context;
    private Login login;
+    Map<String, String> result= new HashMap<>();
 
    private WebDriver driver;
     private WebDriverWait wait;
@@ -24,6 +26,9 @@ public class LoginValidateSD {
     String uName="";
     String pwd="";
     String applicationURL;
+    String actualurl="";
+    String homepage_URL="";
+    String actualErrMsg="";
 
     public LoginValidateSD(TestContext testcontext){
         this.context= testcontext;
@@ -64,17 +69,40 @@ public class LoginValidateSD {
                 System.out.println("Enter only the username");
                 uName = config.getUSername();
                 break;
-        }login.validLogin(uName,pwd);
+        }
+        result=login.validLogin(uName,pwd);
 
-        Assert.assertEquals(applicationURL,driver.getCurrentUrl());
         }
 
 
     @Then("Admin should see the {string}")
     public void admin_should_see_the(String expectedResult) {
+
+        if (result.containsKey("current_URL")) {
+            actualurl=result.get("current_URL");
+            homepage_URL= config.getDashboardurl();
+        }
+        if(result.containsKey("error_message")){
+            actualErrMsg=result.get("error_message");
+        }
        switch(expectedResult){
            case "Admin should land on dashboard page":
+               Assert.assertEquals(homepage_URL,actualurl);
+               System.out.println("Logged in successfully");
               break;
+
+           case "Invalid username and password Please try again":
+               System.out.println("actual error message :"+ actualErrMsg);
+               Assert.assertTrue(actualErrMsg.contains("Invalid username and password Please try again"),"Expected error message was not found");
+               break;
+           case "Please enter your password":
+               System.out.println("actual error message :"+ actualErrMsg);
+               Assert.assertTrue(actualErrMsg.contains("Please enter your user name"));
+               break;
+           case "Please enter your user name ":
+               System.out.println("actual error message :"+ actualErrMsg);
+               Assert.assertTrue(actualErrMsg.contains("Please enter your password"));
+               break;
 
        }
     }
@@ -83,15 +111,18 @@ public class LoginValidateSD {
     public void admin_enter_valid_credentials_and_clicks_login_button_through_keyboard() {
         uName = config.getUSername();
         pwd = config.getpassword();
-        login.loginKeyboard(uName,pwd);
+        result= login.loginKeyboard(uName,pwd);
 
     }
 
     @Then("Admin should land on dashboard page")
     public void admin_should_land_on_dashboard_page() {
-        String Homepageurl= config.getDashboardurl();
-        String currentUrl= driver.getCurrentUrl();
-        Assert.assertEquals(Homepageurl,currentUrl);
+        if (result.containsKey("current_URL")) {
+            actualurl=result.get("current_URL");
+            homepage_URL= config.getDashboardurl();
+        }
+        Assert.assertEquals(homepage_URL,actualurl);
+        System.out.println("Logged in successfully");
 
     }
 
@@ -99,7 +130,7 @@ public class LoginValidateSD {
     public void admin_enter_valid_credentials_and_clicks_login_button_through_mouse() {
         uName = config.getUSername();
         pwd = config.getpassword();
-        login.loginMouse(uName,pwd);
+        result= login.loginMouse(uName,pwd);
 
     }
 

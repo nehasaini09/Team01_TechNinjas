@@ -11,9 +11,9 @@ Feature: Login Page validation
     Examples:
     | credentials              | result                  |
     | valid credentials        | Admin should land on dashboard page             |
-    | invalid credentials      | Error message please check Admin name/password  |
-    | password                 | Error message please check Admin name/password  |
-    | username                 | Error message please check Admin name/password  |
+    | invalid credentials      | Invalid username and password Please try again |
+    | password                 | Please enter your user name |
+    | username                 | Please enter your password  |
 
     @keyboardLogin
  Scenario: verify login button action through keyboard
