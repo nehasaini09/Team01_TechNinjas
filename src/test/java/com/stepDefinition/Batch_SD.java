@@ -290,12 +290,62 @@ public class Batch_SD {
 	    @Then("The respective rows in the table should be deleted")
 	    public void the_respective_rows_in_the_table_should_be_deleted() {
 	    	boolean allDeleted = batchModule.areAllRowsDeleted(); // Call the method to verify deletion
+	    	
+	    	
 	        
 	        Assert.assertTrue("Not all rows were deleted.", allDeleted);
 	    }
 	    
+	  //pagination
 	    
-	    
+
+	    @When("^Admin clicks the (Next|Last|Previous|First) link on the data table$")
+	    public void adminClicksPageLink(String pageLink) {
+	    	
+	      	batchModule.navigateToBatch();
+	      	
+	        switch (pageLink.toLowerCase()) {
+	            case "next":
+	            	batchModule.clickNextPage();
+	                break;
+	            case "last":
+	                batchModule.clickLastPage();
+	                break;
+	            case "previous":
+	            	batchModule.clickPreviousPage();
+	                break;
+	            case "first":
+	            	batchModule.clickFirstPage();
+	                break;
+	        }
+	    }
+
+	    // Verify the results based on the <results> description
+	    @Then("^Admin should see the (.*) on the data table$")
+	    public void adminShouldSeeResults(String expectedResult) {
+	    	
+
+	    	switch (expectedResult.toLowerCase()) {
+	        case "next enabled link":
+	            Assert.assertTrue("Expected 'Next' button to be enabled.", batchModule.isNextButtonEnabled());
+	            break;
+	        case "last page link with next disabled":
+	            Assert.assertFalse("Expected 'Next' button to be disabled.", batchModule.isNextButtonEnabled());
+	            break;
+	        case "previous page":
+	            Assert.assertTrue("Expected 'Previous' button to be enabled.", batchModule.isPrevButtonEnabled());
+	            break;
+	        case "very first page":
+	            Assert.assertFalse("Expected 'Previous' button to be disabled.", batchModule.isPrevButtonEnabled());
+	            break;
+	        case "next results":
+	            Assert.assertTrue("Expected to see results for the next page.", batchModule.hasNextPageResults());
+	            break;
+	        default:
+	            Assert.fail("Unexpected result description: " + expectedResult);
+	    }
+	
+	    }
 	    
 	    
 	    
