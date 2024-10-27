@@ -1,20 +1,19 @@
 package com.hooks;
-
-import java.time.Duration;
-
+import com.utilities.Log;
 import org.openqa.selenium.WebDriver;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import com.utilities.ReadConfig;
+/*import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;*/
 
-import com.utilities.ReadConfig;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
 
 	
-	static ReadConfig readconfig=new ReadConfig();
+	/*static ReadConfig readconfig=new ReadConfig();
 	public static String baseURL=readconfig.getApplicationURL();
 	public static WebDriver driver;
 	public static String browserName = readconfig.getbrowser();
@@ -45,5 +44,35 @@ public class BaseClass {
 	public static void teardown() {
 		driver.close();
 	}
-}
+}*/
+
+	
+		private TestContext Context;
+		   private ReadConfig readConfig; 
+		
+	 // inject TestContext constructor
+	    public BaseClass(TestContext Context) {
+	        this.Context = Context;
+	        this.readConfig = new ReadConfig();
+	    }
+	    
+	    @Before
+	    public void setUp() {
+	        Log.logInfo("Initializing WebDriver");
+	        String browserName = readConfig.getbrowser(); 
+	        WebDriver driver = Context.getDriverFactory().initialiseBrowser(browserName); 
+	        Context.setDriver(driver); 
+	        Log.logInfo("Navigating to: " + readConfig.getApplicationURL());
+	        Context.getDriver().get(readConfig.getApplicationURL());
+	    }
+
+	    @After
+	    public void tearDown() {
+	    	 Log.logInfo("Closing WebDriver");
+	        Context.closeDriver();
+	    }
+	}
+
+
+
 

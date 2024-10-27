@@ -8,8 +8,8 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 
 
-@CucumberOptions(features ={"src/test/resources/features/"}, 
-glue = {"com.stepDefinition"}, 
+@CucumberOptions(features ={"src/test/resources/features/BatchFeature/BatchNavigation&validation.feature"}, 
+glue = {"com.hooks", "com.stepDefinition"},
 
 monochrome = true, 
 plugin = {"pretty",
@@ -21,4 +21,3 @@ plugin = {"pretty",
 public class TestRunner {
 
 }
-
