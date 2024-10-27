@@ -4,6 +4,8 @@ import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.pageObject.BatchModule;
+import com.pageObject.ProgramModulePage;
 import com.utilities.ReadConfig;
 
 
@@ -14,6 +16,8 @@ public class TestContext {
     private DriverFactory driverFactory;
     private WebDriverWait wait;
     private ReadConfig readConfig;
+    private ProgramModulePage programModulepage;
+    private BatchModule batchModule;
     
  // initializing the DriverFactory
     public TestContext() {
@@ -26,12 +30,15 @@ public class TestContext {
     public void setDriver(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30)); 
+        this.programModulepage=new ProgramModulePage(driver);
+        this.batchModule=new BatchModule(driver);
     }
     public DriverFactory getDriverFactory() {
         return driverFactory;
     }
  // WebDriver instance
     public WebDriver getDriver() {
+    	
         return driver;
     }  
 // driver close
@@ -45,5 +52,12 @@ public class TestContext {
     public String getApplicationURL() {
         return readConfig.getApplicationURL(); // Method to get URL
     }
+    public ProgramModulePage getProgramModule() {
+    	return programModulepage;
+    }
+    public BatchModule getBatchModule() {
+        return batchModule; // Getter for BatchModule
+    }
+    
 
 }

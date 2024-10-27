@@ -34,7 +34,7 @@ public class Batch_SD {
         driver.get(applicationURL);
         String username = "Sdet@gmail.com";
         String password = "LmsHackathon@2024";
-        batchModule.login(username, password);
+        
        
 	   
 	}

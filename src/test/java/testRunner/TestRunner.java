@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 
 
-@CucumberOptions(features ={"src/test/resources/features/BatchFeature/BatchNavigation&validation.feature"}, 
+@CucumberOptions(features ={"src/test/resources/features/ProgramModule/Navigation.feature"}, 
 glue = {"com.hooks", "com.stepDefinition"},
 
 monochrome = true, 
