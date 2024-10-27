@@ -714,6 +714,66 @@ public class BatchModule {
 	        }
 	        return true; 
 	    }
+	    
+	    //pagination
+	    /*public void clickNextPage() {
+	        if (isNextButtonEnabled()) {
+	            doubleClick(nextButton);
+	        }
+	    }*/
+	    public void clickNextPage() {
+	        if (isNextButtonEnabled()) {
+	            doubleClick(nextButton);
+	            waitForResultsToLoad(); 
+	        }// Ensure results load after clicking
+	        }
 
-    
+	    // Method to click 'Previous' button
+	    public void clickPreviousPage() {
+	        if (isPrevButtonEnabled()) {
+	        	  doubleClick (prevButton);
+	        }
+	    }
+
+	    // Method to click 'First' button
+	    public void clickFirstPage() {
+	          doubleClick(firstButton);
+	    }
+
+	    // Method to click 'Last' button
+	    public void clickLastPage() {
+	        doubleClick(lastButton);
+	    }
+
+	    // Method to click a specific page number
+	    public void clickPageNumber(int pageIndex) {
+	    	 doubleClick(pageButtons.get(pageIndex - 1));
+	    }
+
+	    // Check if 'Next' button is enabled
+	    public boolean isNextButtonEnabled() {
+	        return !nextButton.getAttribute("class").contains("p-disabled");
+	    }
+
+	    // Check if 'Previous' button is enabled
+	    public boolean isPrevButtonEnabled() {
+	        return !prevButton.getAttribute("class").contains("p-disabled");
+	    }
+
+	    // Method to get current pagination text
+	    public String getCurrentEntriesText() {
+	        return currentEntriesText.getText();
+	    }
+	
+	    public boolean hasNextPageResults() {
+	        // Return true if there are results; false otherwise
+	        return !rows.isEmpty(); 
+	    }
+	    private void doubleClick(WebElement element) {
+	        Actions actions = new Actions(driver); // Create an Actions instance
+	        actions.moveToElement(element).doubleClick().perform(); // Move to the element and double-click
+	    }
+	    private void waitForResultsToLoad() {
+	    	wait.until(ExpectedConditions.visibilityOfAllElements(rows));
+	    }
 }

@@ -12,7 +12,9 @@ import io.cucumber.junit.CucumberOptions;
 glue = {"com.hooks", "com.stepDefinition"},
 
 monochrome = true, 
+dryRun = false, 
 plugin = {"pretty",
+		
 		"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
 		"io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm",
 		"html:target/Cucumber.html",
