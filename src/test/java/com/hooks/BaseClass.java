@@ -24,7 +24,7 @@ public class BaseClass {
         WebDriver driver = Context.getDriverFactory().initialiseBrowser(browserName);
         Context.setDriver(driver);
         Log.logInfo("Navigating to: " + readConfig.getApplicationURL());
-        Context.getDriver().get(readConfig.getApplicationURL());
+        //Context.getDriver().get(readConfig.getApplicationURL());
     }
 
     @After

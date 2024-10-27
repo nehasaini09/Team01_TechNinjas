@@ -1,19 +1,13 @@
 package testRunner;
 
-
-import com.hooks.DriverFactory;
-import com.hooks.TestContext;
-import com.utilities.ReadConfig;
-import io.cucumber.testng.AbstractTestNGCucumberTests;
-import io.cucumber.testng.CucumberOptions;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
+import org.junit.runner.RunWith;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 
 
 
-@CucumberOptions(tags="@validLogin",
+@RunWith(Cucumber.class)
+@CucumberOptions(tags="  @userColor or @passwordColor",
 		    features ={"src/test/resources/features/"},
             glue = {"com.hooks","com.stepDefinition"},
              monochrome = true,
@@ -21,8 +15,7 @@ import org.testng.annotations.Parameters;
 		"html:target/Cucumber.html",
 		"json:target/cucumber.json"})
 
-public class TestRunner extends AbstractTestNGCucumberTests {
-
+public class TestRunner {
 
 	}
 

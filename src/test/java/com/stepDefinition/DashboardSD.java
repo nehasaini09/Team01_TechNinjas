@@ -1,10 +1,24 @@
 package com.stepDefinition;
 
+import com.hooks.TestContext;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class DashboardSD {
-
+    private TestContext context;
+    WebDriver driver;
+    private WebDriverWait wait;
+    public DashboardSD(TestContext testcontext){
+        this.context= testcontext;
+        this.driver= context.getDriver();
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        PageFactory.initElements(driver, this);
+    }
     @When("Admin enter valid credentials and clicks login button")
     public void admin_enter_valid_credentials_and_clicks_login_button() {
         // Write code here that turns the phrase above into concrete actions

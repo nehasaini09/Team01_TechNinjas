@@ -2,6 +2,8 @@ package com.pageObject;
 
 import com.hooks.DriverFactory;
 import com.utilities.ReadConfig;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +25,7 @@ public class Login extends DriverFactory {
     private WebDriverWait wait;
    ReadConfig config = new ReadConfig();
    Actions actions;
+    Map<String, String> result = new HashMap<>();
 
     @FindBy(id="username") WebElement username;
     @FindBy(id="password") WebElement password;
@@ -30,9 +33,6 @@ public class Login extends DriverFactory {
     @FindBy(xpath="//div//mat-card//mat-card-content//form//mat-error") WebElement errorMessageBoth;
     @FindBy(xpath="//mat-form-field[1]/div/div[3]/div/mat-error") WebElement UsernameErrmsg;
     @FindBy(xpath="//mat-form-field[2]/div/div[3]/div/mat-error") WebElement passwordErrmsg;
-    String uName=null;
-    String pwd = null;
-    Map<String, String> result = new HashMap<>();
 
 
     public Login(WebDriver driver){
@@ -41,7 +41,7 @@ public class Login extends DriverFactory {
         this.actions= new Actions(driver);
         PageFactory.initElements(driver, this);
     }
-
+//method for Login
         public Map<String,String> validLogin(String uName, String pwd) {
              result = new HashMap<>();
             wait.until(ExpectedConditions.visibilityOf(username)).clear();
@@ -57,7 +57,7 @@ public class Login extends DriverFactory {
         public Map<String,String > validateHomepage(String uName, String pwd){
                 Map<String, String> output = new HashMap<>();
                 String expectedUserName= config.getUSername();
-                String expctedPwd=config.getpassword();
+                String expectedPwd=config.getpassword();
             try {
                 wait.until(ExpectedConditions.not(ExpectedConditions.urlContains("/login")));
                 String currentUrl = driver.getCurrentUrl();
@@ -74,7 +74,7 @@ public class Login extends DriverFactory {
                     }else if(pwd.isEmpty()) {
                         WebElement pwdErr = wait.until(ExpectedConditions.visibilityOf(passwordErrmsg));
                         output.put("error_message", pwdErr.getText());
-                    }else if( !(uName.equalsIgnoreCase(expectedUserName) && pwd.equalsIgnoreCase(expctedPwd))){
+                    }else if( !(uName.equalsIgnoreCase(expectedUserName) && pwd.equalsIgnoreCase(expectedPwd))){
                         WebElement errMsg = wait.until(ExpectedConditions.visibilityOf(errorMessageBoth));
                         output.put("error_message", errMsg.getText());
                     }
@@ -110,4 +110,59 @@ public class Login extends DriverFactory {
         result= validateHomepage(uName,pwd);
         return result;
     }
+    // login page details validations
+
+    public String spellcheckerUSer(){
+        wait.until(ExpectedConditions.visibilityOf(username));
+        return username.getAttribute("ng-reflect-placeholder");
+
+    }
+    public String spellcheckerpasswrd(){
+        wait.until(ExpectedConditions.visibilityOf(password));
+        return    password.getAttribute("ng-reflect-placeholder");
+    }
+    public String spellcheckLoginbutton(){
+        wait.until(ExpectedConditions.visibilityOf(loginBtn));
+        return loginBtn.getText().trim();
+    }
+
+    public int LogoValidate(){
+
+        WebElement logo = driver.findElement(By.cssSelector("img[class='images']"));
+        Assert.assertTrue(logo.isDisplayed());
+        int xCoordinate = logo.getLocation().getX();
+        return xCoordinate;
+
+    }
+
+    public void LmsContentMsg(){
+        WebElement LMStext= driver.findElement(By.xpath("//*[text()='Please login to LMS application']"));
+        String LMS_MSg= LMStext.getText();
+        System.out.println(LMS_MSg);
+
+    }
+    public  void Asteriskpassword(){
+      WebElement UnameStar=driver.findElement(By.xpath("//*[@id='mat-form-field-label-3']/span[2]"));
+       Assert.assertTrue(UnameStar.isDisplayed());
+    }
+public void asteriskUser(){
+    WebElement PwdStar=driver.findElement(By.xpath("//*[@id='mat-form-field-label-1']/span[2]"));
+    Assert.assertTrue(PwdStar.isDisplayed());
+}
+public void loginBtnVisible(){
+    Assert.assertTrue(loginBtn.isDisplayed());
+
+}
+public void USercolor(){
+   String Ucolor= username.getCssValue("color");
+   String expectedColor="rgba(0, 0, 0, 0.87)";
+   System.out.println("user color is :" +Ucolor);
+    Assert.assertTrue(Ucolor.equalsIgnoreCase(expectedColor));
+}
+public void Passwordcolor(){
+   String Pcolor= password.getCssValue("color");
+    System.out.println("pwd color is :" +Pcolor);
+    String expectedColor="rgba(0, 0, 0, 0.87)";
+    Assert.assertTrue(Pcolor.equalsIgnoreCase(expectedColor));
+}
 }
