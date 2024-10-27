@@ -3,26 +3,39 @@ package com.pageObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+import org.openqa.selenium.interactions.Actions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.hooks.TestContext;
+
 import java.time.Duration;
 
 public class ProgramModulePage {
 	private WebDriver driver;
+	private TestContext context;
+	private Actions actions;
+	private WebDriverWait wait;
 	List<String> menuItems;
+	String menuBar;
 	 List<WebElement> manageProgramMenuItems=new ArrayList<>();
 	 WebElement popup;
 	 WebElement closeButton;
 	 WebElement searchBar;
 	 boolean isDisplayed;
-	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	public  ProgramModulePage(WebDriver  driver) {
-		this.driver=driver;
+	 WebElement statusRadioButton ;
+   //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	//public  ProgramModulePage(WebDriver  driver) {
+	public ProgramModulePage(WebDriver driver , TestContext context) {	
+	this.driver=driver;
+		this.context=context;
+		this.actions = context.getActions();
+		
 		}
 	
 	//-----------------------ELEMENTS--------------------------------------//
@@ -30,7 +43,8 @@ public class ProgramModulePage {
 	By userName=By.id("username");
 	By passWord=By.id("password");
 	By Login=By.id("login");
-	 By programBtn=By.id("program");
+	 //By programBtn=By.id("program");
+	By programBtn=By.xpath("//*[@id='program']");
 	 By addNewPgm=By.xpath("//*[@id='mat-menu-panel-0']/div/button");
 	 By searchbtn=By.xpath("//*[@id='filterGlobal']");
 	           //----------------Menubar-------------------------------//
@@ -83,9 +97,15 @@ public class ProgramModulePage {
 		driver.findElement(Login).click();
 	}
 	 
-	 public void ProgramClick(){
-		 wait.until(ExpectedConditions.visibilityOfElementLocated(programBtn));
-			driver.findElement(programBtn).click();
+	 public void ProgramClick() throws InterruptedException{
+		 Thread.sleep(1000);
+		 //wait.until(ExpectedConditions.visibilityOfElementLocated(programBtn));
+		  
+			 WebElement button=driver.findElement(programBtn);
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", button);
+			Thread.sleep(1000);
+			
 			 }
 	 public String programPageTitle() {
 	 String TitleAfterClickProgram=driver.getCurrentUrl();
@@ -103,34 +123,33 @@ public class ProgramModulePage {
 	 }
 	 
 	 
-	 public void testListContainsElements() {
+	 public List<String> testListContainsElements() {
 		 String menuBar=driver.findElement(menu).getText();
 		 
 			 menuItems = Arrays.asList(menuBar.split("\\s+"));
-
-	        Assert.assertTrue(menuItems.contains("Batch"));
-	        Assert.assertTrue(menuItems.contains("Program"));
-	        Assert.assertTrue(menuItems.contains("Class"));
+return menuItems;
+	        
 	        
 	    }
 	 
-	 public void testLogoutIsPresent() {
-		 
-		 Assert.assertTrue(menuItems.contains("Logout"));
+	 public List<String>  testLogoutIsPresent() {
+		 menuItems = Arrays.asList(menuBar.split("\\s+"));
+			 return menuItems;
 	 }
-	 public void testAddNewProgramsIsPresent() {
-		 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='mat-menu-panel-0']/div/button")));
+	 public String testAddNewProgramsIsPresent() {
+		 //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='mat-menu-panel-0']/div/button")));
 		String AddNewProgramUI= driver.findElement(addNewPgm).getText() ;
-		Assert.assertEquals("Add New Program", AddNewProgramUI);
+		
+		return AddNewProgramUI;
 	 }
 	 
 	 //MANAGE PROGRAM
-	 public void testManageHeader() {
+	 public String testManageHeader() {
 		 String manageprogramUI=driver.findElement(manageProgram).getText();
-		 Assert.assertEquals("Manage Program", manageprogramUI);
+		return manageprogramUI;
 	 }
 	 
-	 public void testManageProgramMenu() {
+	 public List<String> testManageProgramMenu() {
 		 WebElement manageProgramMenu = driver.findElement(mangeprogramTable); 
       
 		 manageProgramMenuItems = manageProgramMenu.findElements(By.tagName("th"));
@@ -140,46 +159,51 @@ public class ProgramModulePage {
              itemTextList.add(itemText);
                       }
          
-         Assert.assertTrue(itemTextList.contains("Program Name"));
-	        Assert.assertTrue(itemTextList.contains("Program Description"));
-	        Assert.assertTrue(itemTextList.contains("Program Status"));
+         
+	        return itemTextList;
 		 
 	 }
-	 public void testMultipleDeleteIsDisabled() {
+	 public boolean testMultipleDeleteIsDisabled() {
 	 WebElement multipleDeleteButton =driver.findElement(multipleDelete);
      boolean isEnabled = multipleDeleteButton.isEnabled();
-     System.out.println("Is Delete button enabled? " + isEnabled);
+     //System.out.println("Is Delete button enabled? " + isEnabled);
 
      boolean isDisabled = !isEnabled;
      System.out.println("Is Delete button disabled? " + isDisabled);
-     Assert.assertTrue("The Delete button should be disabled",isDisabled);
+     
 		//Assertion is failed
+     return isDisabled;
 	 }
 	 
-	 public void testSearchBar() {
+	 public String testSearchBar() {
 		 WebElement searchBar=driver.findElement(searchbtn);
          Assert.assertTrue("Search bar should be visible", searchBar.isDisplayed());
          String placeholderText = searchBar.getAttribute("placeholder");
-          Assert.assertEquals( "Search...", placeholderText);
+          
+          return placeholderText;
 		 	 }
-	 public void testPDefaultCheckbox() {
+	 public boolean testPDefaultCheckbox() {
 		 WebElement pcheckbox =driver.findElement(pCheckBox);
 		 boolean isChecked = pcheckbox.isSelected();
 	     System.out.println("Is CHECKBOX button enabled? " + isChecked);
 
 	     boolean isDisabled = !isChecked;
-	     
-	     Assert.assertTrue("The CHECKBOX button should be disabled",isDisabled); 
+	     return isDisabled;
+	      
 	 }
 	 
-	 public void checkboxesAreUnchecked() {
+	 public void testAreUnchecked() {
 	 
 		 List<WebElement> checkboxes = driver.findElements(tableCheckbox);
 
 			for (WebElement checkbox : checkboxes) {
+				
              Assert.assertFalse("Checkbox is checked when it should be unchecked", checkbox.isSelected());
+			
          }
          System.out.println("All checkboxes are unchecked as expected.");
+         
+         
 }
 	    public void testSortArrowsVisibility() {
 	    	for (WebElement item : manageProgramMenuItems) {
@@ -261,13 +285,14 @@ public class ProgramModulePage {
              
 	    }
 	    
-	    public void VerifyTitleOfAddNewPopwindow() {
+	    public String VerifyTitleOfAddNewPopwindow() {
 	    	
 	          
 	          wait.until(ExpectedConditions.visibilityOfElementLocated(TitlePopUp));
 	          String programHeader=driver.findElement(TitlePopUp).getText();
 	          System.out.println(programHeader);
 	         Assert.assertEquals( "Program Details", programHeader);
+	          return programHeader;
 	    		    	
 	    }
 	    
@@ -283,12 +308,14 @@ public class ProgramModulePage {
            Assert.assertEquals("Asterisk color should be red", "rgba(255, 0, 0, 1)", asteriskColor); 
 	    	
 	    }
-	    
-	    public void testRequiredFieldMessage() {
+	    public void saveClick() {
 	    	driver.findElement(saveProgram).click();
+	    }
+	    public String testRequiredFieldMessage() {
+	    	
 			String  fieldText=driver.findElement(requiredText).getText();
-            String expectedMessage = "Program name is required."; // Adjust this to match the expected message
-            Assert.assertEquals( expectedMessage,fieldText );
+             
+            return fieldText;
 	    }
 	     public void cancelbuttonclick() {
 	    	 
@@ -296,10 +323,11 @@ public class ProgramModulePage {
 	           
 	            closeButton.click();
 	     }
-	    public void IsPopUpDisplayed() {
+	    public  boolean IsPopUpDisplayed() {
 	    	//Assert.assertTrue("Program Details form should be visible", popup.isDisplayed());
 	    	 boolean isDisplayed = popup.isDisplayed();
 	    	 Assert.assertTrue("Program Details form should be visible", isDisplayed);
+	    	 return isDisplayed;
 	    }
 	    
 	    public void IspopupNotDisplayed() {
@@ -330,12 +358,14 @@ public class ProgramModulePage {
 	    }
 	    
 	   
-	    
+	    public void clickStatus() {
+	    	WebElement statusRadioButton = driver.findElement(active);
+			 statusRadioButton.click();
+	    }
 
 	    // Method to check if a status is selected
 	    public boolean isStatusSelected() {
-	    	WebElement statusRadioButton = driver.findElement(active);
-			 statusRadioButton.click();
+	    	
 		   statusRadioButton.isSelected();
 		   //Assert.assertFalse("The radio button for active selected.",statusRadioButton.isSelected());
 		  return statusRadioButton.isSelected();
@@ -373,6 +403,13 @@ public class ProgramModulePage {
 	    	 XButton.click();
 	    	 System.out.println(popup.isDisplayed());
 	    	 //assertion fail
+	    }
+	    
+	    public void createForm() {
+	    	driver.findElement(pname).sendKeys("zxcv");;
+	    	driver.findElement(pDescription).sendKeys("games");
+	    	
+	   	    	
 	    }
 	    
 	 
