@@ -4,12 +4,12 @@ import com.hooks.DriverFactory;
 import com.hooks.TestContext;
 import com.utilities.ReadConfig;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+
 
 import java.time.Duration;
 
@@ -35,7 +35,7 @@ public class Dashboard extends DriverFactory {
         wait.until(ExpectedConditions.urlToBe(homepage_URL));
         long endTime = System.currentTimeMillis();
         long totaltime = endTime - startTime;
-        Assert.assertTrue(totaltime<30000,"Navigation time exceeds 30s");
+        Assert.assertTrue("Navigation time exceeds 30s",totaltime<30000);
 
 
 
