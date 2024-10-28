@@ -139,6 +139,66 @@ public class Batch_SD {
 		 Assert.assertTrue("Field not found in popup: " + field, batchModule.isFieldDisplayed(field));
 	    }
 	 
+	 
+	//Add new batch
+	    
+	 
+	  
+
+	    @When("Admin leaves one mandatory field blank and clicks the save button")
+	    public void admin_leaves_one_mandatory_field_blank_and_clicks_the_save_button() {
+	    	Log.debug("batchpopvalidation.");
+	    	 batchModule.navigateToBatch();
+	    	 batchModule.enterDescription(""); 
+		        batchModule.enterNumberOfClasses(""); 
+		        batchModule.clickSaveButton(); 
+	    }
+
+	  
+	    @Then("Admin should see a error message {string}")
+	    public void admin_should_see_a_error_message(String string) {
+	        Log.error("Errormessage");
+	        Assert.assertTrue("Error message should be displayed under the description field", 
+	                batchModule.isDescriptionErrorDisplayed());
+	        Assert.assertTrue("Error message should be displayed under the number of classes field", 
+	                batchModule.isNumberOfClassesErrorDisplayed());
+	    
+	    }
+
+
+	    @When("Admin enters valid data in all mandatory fields and clicks the save button")
+	    public void admin_enters_valid_data_in_all_mandatory_fields_and_clicks_the_save_button() {
+	    	Log.logInfo("value entered in mandatory field");
+	        batchModule.enterValidDataAllMandatoryFields();
+	        batchModule.clickSaveButton();
+	    }
+
+	    @Then("Admin should see a successful message {string}")
+	    public void admin_should_see_a_successful_message(String string) {
+	    	Log.logInfo("Success message batch creation assertion");
+	    	  Assert.assertTrue("SuccessMessage:batch created successfully", 
+		                batchModule.isSuccessMessageDisplayed());
+	       
+	    }
+
+	  
+	    @When("Admin enters valid data in all mandatory fields and clicks the cancel button")
+	    public void admin_enters_valid_data_in_all_mandatory_fields_and_clicks_the_cancel_button() {
+	    	 batchModule.enterValidDataAllMandatoryFields();
+	    	 batchModule.clickCancelButton();
+	    }
+
+	    @Then("Admin should see the Batch Details pop-up closes without creating any batch")
+	    public void admin_should_see_the_Batch_Details_pop_up_closes_without_creating_any_batch() {
+	 
+	    }
+
+	 
+	 
+	 
+	 
+	 
+	 
 /**********************************/	
 	 
 	 //Add new batch pop field input validation
@@ -172,6 +232,7 @@ public class Batch_SD {
 			 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			 //batchModule.selectProgramFromDropdown();
 	        batchModule.enterBatchNameSuffix(input);
+	        
 	    }
 
 	   // @Then("Admin should get an (.*)")
@@ -203,25 +264,28 @@ public class Batch_SD {
 	      //  Assert.assertTrue("Batch details pop-up should be displayed", batchModule.isBatchDetailsPopupVisible());
 	    }
 
-	    @Then("Admin should see the Program name field disabled for editing")
-	    public void admin_should_see_the_Program_name_field_disabled_for_editing() {
+	  @Then("Admin should see the Program name field  abn batchname prefix field disabled for editing")
+	  public void admin_should_see_the_Program_name_field_abn_batchname_prefix_field_disabled_for_editing()  {
 	        Assert.assertTrue("Program name field should be disabled", batchModule.isProgramNameFieldDisabled());
 	        Assert.assertTrue("Batch name field should be disabled", batchModule.isBatchNameFieldDisabled());
 	    }
 
-	    @When("Admin updates the description and No. of classes fields with invalid data and clicks the save button")
-	    public void admin_updates_the_description_and_No_of_classes_fields_with_invalid_data_and_clicks_the_save_button() {
+	  @When("Admin updates the description and No. of classes fields with and clicks the save button")
+	  public void admin_updates_the_description_and_No_of_classes_fields_with_and_clicks_the_save_button()  {
 	        batchModule.enterDescription(""); 
 	        batchModule.enterNumberOfClasses(""); 
 	        batchModule.clickSaveButton(); 
 	    }
 
-	    @Then("Admin should get an error message under the respective field")
-	    public void admin_should_get_an_error_message_under_the_respective_field() {
-	        Assert.assertTrue("Error message should be displayed under the description field", 
-	                batchModule.isDescriptionErrorDisplayed());
-	        Assert.assertTrue("Error message should be displayed under the number of classes field", 
-	                batchModule.isNumberOfClassesErrorDisplayed());
+
+           @Then("Admin should get  message batch updated")
+            public void admin_should_get_message_batch_updated() {
+	        //Assert.assertTrue("Error message should be displayed under the description field", 
+	       //         batchModule.isDescriptionErrorDisplayed());
+	       // Assert.assertTrue("Error message should be displayed under the number of classes field", 
+	      //          batchModule.isNumberOfClassesErrorDisplayed());
+        	   Assert.assertTrue("Batch details pop-up should be closed", batchModule.isSuccessMessageDisplayed()); 
+        	   
 	    }
 
 	    @Given("Admin is on the Batch Details pop-up window")
@@ -232,14 +296,15 @@ public class Batch_SD {
 	      //  Assert.assertTrue("Batch details pop-up should be displayed", batchModule.isBatchDetailsPopupVisible());
 	    }
 
-	    @When("Admin enters valid data in all mandatory fields and clicks the cancel button")
-	    public void admin_enters_valid_data_in_all_mandatory_fields_and_clicks_the_cancel_button() {
+	    @When("Admin enters data clicks the cancel button")
+	    public void admin_enters_data_clicks_the_cancel_button() {
 	        batchModule.enterValidDataInMandatoryFields(); 
 	        batchModule.clickCancelButton(); 
 	    }
 
-	    @Then("Admin can see the Batch Details pop-up closes without editing the batch")
-	    public void admin_can_see_the_Batch_Details_pop_up_closes_without_editing_the_batch() {
+
+@Then("Admin should see the Batch Details pop-up closes without editing the batch")
+public void admin_should_see_the_Batch_Details_pop_up_closes_without_editing_the_batch()  {
 	        Assert.assertFalse("Batch details pop-up should be closed", batchModule.isSuccessMessageDisplayed());
 	    }
 	
