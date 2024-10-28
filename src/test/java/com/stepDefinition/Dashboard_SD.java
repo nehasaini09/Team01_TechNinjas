@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DashboardSD {
+public class Dashboard_SD {
     private TestContext context;
     WebDriver driver;
     private WebDriverWait wait;
@@ -20,7 +20,7 @@ public class DashboardSD {
     private Dashboard homepage;
     private Login login;
 
-    public DashboardSD(TestContext testcontext){
+    public Dashboard_SD(TestContext testcontext){
         this.context= testcontext;
         this.driver= context.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -50,26 +50,22 @@ public void Maxnavigationtime(){
 
     @Then("LMS title should be on the top left corner of page")
     public void lms_title_should_be_on_the_top_left_corner_of_page() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        homepage.LMSTitleLocation();
     }
 
     @Then("Admin should see correct spelling in navigation bar text")
     public void admin_should_see_correct_spelling_in_navigation_bar_text() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        homepage.getNavItems();
     }
 
     @Then("Admin should see correct spelling and space in LMS title")
     public void admin_should_see_correct_spelling_and_space_in_LMS_title() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+       homepage.LMSTItleSpellcheck();
     }
 
     @Then("Admin should see the navigation bar text on the top right side")
     public void admin_should_see_the_navigation_bar_text_on_the_top_right_side() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    	homepage.getNavbar();
     }
 
 
@@ -81,8 +77,7 @@ public void Maxnavigationtime(){
 
     @Then("Admin should see program in order")
     public void admin_should_see_navbarText() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        homepage.getNavItems();
     }
 
     @Then("Admin should see batch in the 3rd place")

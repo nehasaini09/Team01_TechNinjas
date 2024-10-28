@@ -22,22 +22,28 @@ Feature: Dashboard Page
     When  Admin enter valid credentials and clicks login button
     Then Admin should see LMS -Learning management system as title
 
+@LMSPosition
   Scenario: Verify LMS title alignment
     When  Admin enter valid credentials and clicks login button
     Then LMS title should be on the top left corner of page
 
+@NavTextSpellcheck
   Scenario: Validate navigation bar text
     When  Admin enter valid credentials and clicks login button
     Then Admin should see correct spelling in navigation bar text
 
+@LMSTItleSpellcheck
   Scenario: Validate LMS title has correct spelling and space
     When  Admin enter valid credentials and clicks login button
     Then Admin should see correct spelling and space in LMS title
-
+    
+@NavBarTextLoc
   Scenario: Validate alignment for navigation bar
     When  Admin enter valid credentials and clicks login button
     Then   Admin should see the navigation bar text on the top right side
 
+
+@NavBArItems
   Scenario: Validate navigation bar order  program,batch,class,logout
     When  Admin enter valid credentials and clicks login button
     Then  Admin should see program in order

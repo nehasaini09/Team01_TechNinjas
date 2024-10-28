@@ -15,7 +15,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginValidateSD {
+public class LoginValidate_SD {
 
    private TestContext context;
    private Login login;
@@ -31,7 +31,7 @@ public class LoginValidateSD {
     String homepage_URL="";
     String actualErrMsg="";
 
-    public LoginValidateSD(TestContext testcontext){
+    public LoginValidate_SD(TestContext testcontext){
         this.context= testcontext;
         this.driver= context.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));

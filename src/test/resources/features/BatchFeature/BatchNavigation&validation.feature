@@ -1,7 +1,7 @@
 Feature: Batch Page Navigation and Validation
 
   Background: 
-       Given Admin is logged into the LMS portal and on the dashboard page
+     #  Given Admin is logged into the LMS portal and on the dashboard page
    # And Admin navigates to the 'Batch' page from the navigation bar clicking "Batch icon"
 
   Scenario Outline: Validate Batch Page elements

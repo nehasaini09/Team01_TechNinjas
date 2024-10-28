@@ -9,7 +9,7 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 
 @CucumberOptions(strict = true,
-           tags="@logout2",
+           tags="@LMSTItleSpellcheck",
             features = { "src/test/resources/features/" },
     glue = {"com.hooks","com.stepDefinition"}, 
     monochrome = true, 

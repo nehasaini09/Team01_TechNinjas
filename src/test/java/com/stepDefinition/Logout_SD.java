@@ -12,7 +12,7 @@ import com.pageObject.Logout;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class LogoutSD {
+public class Logout_SD {
 
 	private TestContext context;
     WebDriver driver;
@@ -21,7 +21,7 @@ public class LogoutSD {
     Logout lg;
     String finalURL;
     
-	 public LogoutSD(TestContext testcontext){
+	 public Logout_SD(TestContext testcontext){
 	        this.context= testcontext;
 	        this.driver= context.getDriver();
 	        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
