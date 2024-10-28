@@ -789,13 +789,13 @@ public class BatchModule {
 	     
 	     public void enterValidDataAllMandatoryFields() {
 	    	    
-	    	    selectProgram("YourProgramName"); // Pass the desired program name
+	    	    selectProgram("Java"); 
 	    	    
 	    	   
 	    	    batchsuffixfield.sendKeys("12");
 
 	    	    
-	    	    numberOfClassesInput.sendKeys("5"); // Example number of classes
+	    	    numberOfClassesInput.sendKeys("5"); 
 
 	    	  
 	    	    Activeradiobutton.click();
