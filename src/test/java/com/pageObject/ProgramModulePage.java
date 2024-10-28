@@ -1,6 +1,8 @@
 package com.pageObject;
+import java.time.Duration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Arrays;
 import java.util.List;
 import org.openqa.selenium.interactions.Actions;
@@ -19,7 +21,7 @@ import java.time.Duration;
 public class ProgramModulePage {
 	private WebDriver driver;
 	private TestContext context;
-	private Actions actions;
+	private Actions  action;;
 	private WebDriverWait wait;
 	List<String> menuItems;
 	String menuBar;
@@ -34,7 +36,8 @@ public class ProgramModulePage {
 	public ProgramModulePage(WebDriver driver , TestContext context) {	
 	this.driver=driver;
 		this.context=context;
-		this.actions = context.getActions();
+		this.action = context.getActions();
+		 this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		
 		}
 	
@@ -85,8 +88,179 @@ public class ProgramModulePage {
 	 
 	By Xbutton=By.xpath("//app-program/p-dialog/div/div/div[1]/div/button/span");
 	 
+	// ----------------------------------------Deleteprogram---------------------------------------
 	 
-	 
+	//By programclick=By.xpath ( "//button//span[text()='Program']") ;
+	By deletebtn=By.xpath( "//tr[1]//*[@id=\"deleteProgram\"]/span[1]");
+   // @FindBy(xpath = "//button//span[@class='pi pi-times ng-tns-c204-7']")private WebElement confirmX;
+	By confirmyes=By.xpath( "//button//span[text()='Yes']");
+	By confirmno=By.xpath(  "//button//span[text()='No']");
+	By successdelete=By.xpath( "//div[text()='Successful']");
+    
+    //delete multiple program locators
+	By checkbox1= By.xpath( "//div/mat-card/mat-card-content/p-table/div/div[1]/table/tbody/tr[1]/td[1]/p-tablecheckbox/div/div[2]");
+	By checkbox2=By.xpath( "//div/mat-card/mat-card-content/p-table/div/div[1]/table/tbody/tr[3]/td[1]/p-tablecheckbox/div/div[2]"); 
+	By dubdelete_icon=By.xpath( "//div/mat-card/mat-card-title/div[2]/div[1]/button/span[1]") ;
+    By dubdelete_yes=By.xpath(  "//button//span[text()='Yes']");
+    By success_dbdelete=By.xpath( "//div/p-toastitem/div/div/div/div[2]") ;
+    //----------------------SORT-----------------
+    
+	By progNameSort=By.xpath("//thead//tr//th[2]//i") ;
+	By progDescrpSort=By.xpath( "//thead//tr//th[3]//i") ;
+	By progStatusSort=By.xpath( "//thead//tr//th[4]//i") ;
+	//list
+	By programnameList=By.xpath( "//tbody//td[2]") ;
+	By descriptionnmList=By.xpath( "//tbody//td[3]");
+	By programstatusList=By.xpath( "//tbody//td[4]");
+	
+	
+	public void clickProgramNameSort(){	
+		WebElement proGNameSort=driver.findElement(progNameSort);
+        action.click(proGNameSort).perform();
+        action.click(proGNameSort).perform();
+	}
+	
+	public void clickProgramNameSortDec(){
+		WebElement proGNameSort=driver.findElement(progNameSort);
+        action.click(proGNameSort).perform();
+        action.click(proGNameSort).perform();
+        action.click(proGNameSort).perform();
+//      action.doubleClick(progNameSort).perform();
+	}
+	public void clickProgramDescrSort(){	
+		WebElement progDescrpsort=driver.findElement(progDescrpSort);
+        action.click(progDescrpsort).perform();
+        action.click(progDescrpsort).perform();
+		
+	}
+	public void clickProgramDescrSortDes(){		
+		WebElement progDescrpsort=driver.findElement(progDescrpSort);
+        action.click(progDescrpsort).perform();
+        action.click(progDescrpsort).perform();
+        action.click(progDescrpsort).perform();
+		
+	}
+	public void clickProgramStatusSort(){	
+		WebElement progStatussort=driver.findElement(progStatusSort);
+        action.click(progStatussort).perform();
+        action.click(progStatussort).perform();
+		
+	}
+	public void clickProgramStatusSortDes(){	
+		WebElement progStatussort=driver.findElement(progStatusSort);
+        action.click(progStatussort).perform();
+        action.click(progStatussort).perform();
+        action.click(progStatussort).perform();
+		
+	}
+	
+	public List<String> getOriginalList(String type) {
+		//List<String> originalList = null;
+		List<String> originalList = new ArrayList<>();
+		List<WebElement> programnameLisT =driver.findElements(programnameList);
+		List<WebElement> programstatusLisT =driver.findElements(programstatusList);
+		List<WebElement> descriptionnmLisT =driver.findElements(descriptionnmList);
+		if(type.equals("progName")) {
+			originalList=printWebElements(programnameLisT);
+		
+		}else if(type.equals("ProgramDescription")) {
+			originalList = printWebElements(descriptionnmLisT);
+		
+		}else {
+			originalList = printWebElements(programstatusLisT);
+		}
+		return originalList;	
+	}
+	
+	public List<String> printWebElements(List<WebElement> options) {
+		List<String> texts = new ArrayList<String>();
+		int i=0;
+		for(WebElement option: options) {
+			texts.add(i,option.getText());
+			i++;
+		}
+		System.out.println("The number of items in the list are: "+ texts.size());
+		return texts;
+	}
+	
+    
+	
+	public List<String> getSortedList(List<String> originalList){
+		System.out.println("Original List Before sorting is"+ originalList);
+        List<String> sortedList = new ArrayList<>(originalList);
+        Collections.sort(sortedList, String.CASE_INSENSITIVE_ORDER);
+		System.out.println("Sorted List After sorting is"+ sortedList);
+        return sortedList;
+	}
+	
+public List<String> getSortedListDescending(List<String> originalList){
+		
+		System.out.println("Original List Before sorting is"+ originalList);
+        List<String> sortedList = new ArrayList<>(originalList);
+//        Collections.sort(sortedList, (s1, s2) -> s2.compareToIgnoreCase(s1));
+//        Collections.sort(sortedList, Collections.reverseOrder());
+        Collections.sort(sortedList, String.CASE_INSENSITIVE_ORDER.reversed());
+		System.out.println("Sorted List After sorting is"+ sortedList);
+        return sortedList;
+	}	
+
+
+
+	
+	
+
+	//when
+    public void clickOnDeleteIcon(){
+   	 // Actions actions = new Actions(driver);
+    	WebElement deleteBtn=driver.findElement(deletebtn);
+   	  action.doubleClick(deleteBtn).perform();	    	 
+    }
+   //then
+    public void deleteSingleProgram() {
+    	WebElement	confirmYes=driver.findElement(confirmyes);
+    			confirmYes.click();
+   	 String text1;
+   	WebElement	successDelete=driver.findElement(successdelete);
+   	 text1 = successDelete.getText();
+   	 System.out.println(text1);
+   }
+    
+    public void DropDeleteSingleProgram() {
+    	WebElement	confirmNo=driver.findElement(confirmno);
+    	confirmNo.click();	   
+   	 
+   		     }
+    
+    public void SelectCheckBoxes() {
+    	// Actions actions = new Actions(driver);
+    	WebElement	checkBox1=driver.findElement(checkbox1);
+    	 action.doubleClick(checkBox1).perform();	
+    	 //checkbox1.click();
+    	 WebElement	checkBox2=driver.findElement(checkbox2);
+    	 checkBox2.click();
+//    	 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+//	     wait.until(ExpectedConditions.elementToBeClickable(checkbox1)).click(); 
+//    	 wait.until(ExpectedConditions.elementToBeClickable(checkbox2)).click(); 
+    	 System.out.println("this function executed:");
+    		 
+     
+     }
+    
+    public void MultipleDelete() {
+   	 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+   	 
+	     wait.until(ExpectedConditions.elementToBeClickable(dubdelete_icon)).click(); 
+   	 
+    }
+   
+    public void DeleteSuccess() {
+    	WebElement dubdelete_Yes=driver.findElement(dubdelete_yes);
+      	 dubdelete_Yes.click();
+   	 String text2; 
+   	WebElement success_Dbdelete=driver.findElement(success_dbdelete);
+   	 text2 = success_Dbdelete.getText();
+   	 System.out.println(text2);
+    }
 	 
 	 //Actions
 	
@@ -429,7 +603,7 @@ Thread.sleep(1000);
 	    }
 	    
 	    public void createForm() {
-	    	driver.findElement(pname).sendKeys("GGG");;
+	    	driver.findElement(pname).sendKeys("JOOG");;
 	    	driver.findElement(pDescription).sendKeys("games");
 	    	
 	   	    	

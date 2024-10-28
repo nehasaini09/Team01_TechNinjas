@@ -50,6 +50,8 @@ public class Program_SD {
 	       // context.get(applicationURL);
 	                       //get(applicationURL);
         	}
+	
+
 
 	@When("Admin enter valid credentials  and clicks login button through keyboard")
 	public void admin_enter_valid_credentials_and_clicks_login_button_through_keyboard() {
@@ -390,9 +392,148 @@ public class Program_SD {
 			programModulePage.IsPopUpDisplayed();
 		}
 
+//-------------------------DeleteProgram---------------------
+		//sc1
+		
+		@Given("Admin clicks {string} on the navigation bar in program module for delete and sort")
+		public void admin_clicks_on_the_navigation_bar_Delete(String string) throws InterruptedException {
+			programModulePage.ProgramClick();
+		}
+		@When("Admin clicks on the delete icon on program module page")
+		public void admin_clicks_on_the_delete_icon_on_program_module_page() {
+			programModulePage.clickOnDeleteIcon();
+			
+		}
+
+		
+		@Then("Admin able to delete by clicking yes to confirmation pop up")
+		public void admin_able_to_delete_by_clicking_yes_to_confirmation_pop_up() {
+			programModulePage.deleteSingleProgram();
+		}
+		
+
+		
+		
+		//sc2
+		@Then("Admin able to delete by clicking No to confirmation pop up")
+		public void Admin_able_to_delete_by_clicking_No_to_confirmation_pop_up() {
+			programModulePage.DropDeleteSingleProgram();
+		}
+
+		
+		
+		@When("Admin clicks on the multiple checkboxes on program module page")
+		public void admin_clicks_on_the_multiple_checkboxes_on_program_module_page() {
+			programModulePage.SelectCheckBoxes();
+		}
+
+		@When("Admin clicks  on the left delete button on program module page")
+		public void admin_clicks_on_the_left_delete_button_on_program_module_page() {
+			programModulePage.MultipleDelete();
+		}
+
+		@Then("Admin able to delete multiple program by clicking yes to confirm")
+		public void admin_able_to_delete_multiple_program_by_clicking_yes_to_confirm() {
+			programModulePage.DeleteSuccess();
+		}
+
+//----------------------------sort--------------------------------------------------
+		
+
+		@When("Admin clicks on Arrow next to program Name of Program module page for sort")
+		public void admin_clicks_on_Arrow_next_to_program_Name_of_Program_module_page_for_sort() {
+			programModulePage.clickProgramNameSort();
+		}
+
+		@Then("Admin See the Program Name is sorted Ascending order in Program module page for sort")
+		public void admin_See_the_Program_Name_is_sorted_Ascending_order_in_Program_module_page_for_sort() {
+
+			List<String> originalList = programModulePage.getOriginalList("progName");
+			List<String> sortedList = programModulePage.getSortedList(originalList);
+			System.out.println("sorted name list" + sortedList.toString() );
+			Assert.assertTrue(originalList.equals(sortedList));
+			
+			
+		}
+
+
+		@When("Admin clicks on Arrow next to program Name of Program module page for sort descend")
+		public void admin_clicks_on_Arrow_next_to_program_Name_of_Program_module_page_for_sort_descend() {
+			programModulePage.clickProgramNameSortDec();
+		
+		
+		}
+		
+		@Then("Admin See the Program Name is sorted Descending order in Program module page")
+		public void admin_See_the_Program_Name_is_sorted_Descending_order_in_Program_module_page() {
+			List<String> originalList = programModulePage.getOriginalList("progName");
+			List<String> sortedList = programModulePage.getSortedListDescending(originalList);
+			System.out.println("Descending sorted name list " + sortedList.toString() );
+			Assert.assertTrue(originalList.equals(sortedList));
+			
+		    
+		}
+
+
+		@When("Admin clicks on Arrow next to program description of Program module page for sort")
+		public void admin_clicks_on_Arrow_next_to_program_description_of_Program_module_page_for_sort() {
+			programModulePage.clickProgramDescrSort();
+			
+		}
+
+		@Then("Admin See the Program description is sorted Ascending order in Program module page")
+		public void admin_See_the_Program_description_is_sorted_Ascending_order_in_Program_module_page() {
+			List<String> originalList = programModulePage.getOriginalList("ProgramDescription");
+			List<String> sortedList = programModulePage.getSortedList(originalList);
+			System.out.println("sorted name list" + sortedList.toString() );
+			Assert.assertTrue(originalList.equals(sortedList));
+		}
+
+
+		@When("Admin clicks on Arrow next to program description of Program module page for sort descend")
+		public void admin_clicks_on_Arrow_next_to_program_description_of_Program_module_page_for_sort_descend() {
+			programModulePage.clickProgramDescrSortDes();
+			
+			
+		}
+
+		@Then("Admin See the Program description is sorted Descending order in Program module page")
+		public void admin_See_the_Program_description_is_sorted_Descending_order_in_Program_module_page() {
+			List<String> originalList = programModulePage.getOriginalList("ProgramDescription");
+			List<String> sortedList = programModulePage.getSortedListDescending(originalList);
+			System.out.println("Descending sorted name list " + sortedList.toString() );
+			Assert.assertTrue(originalList.equals(sortedList));
+		}
 
 
 
+		@When("Admin clicks on Arrow next to program status of Program module page for sort")
+		public void admin_clicks_on_Arrow_next_to_program_status_of_Program_module_page_for_sort() {
+			programModulePage.clickProgramStatusSort();
+		}
+
+		@Then("Admin See the Program status is sorted Ascending order in Program module page")
+		public void admin_See_the_Program_status_is_sorted_Ascending_order_in_Program_module_page() {
+			List<String> originalList = programModulePage.getOriginalList("status");
+			List<String> sortedList = programModulePage.getSortedList(originalList);
+			System.out.println("sorted name list" + sortedList.toString() );
+			Assert.assertTrue(originalList.equals(sortedList));
+		}
+
+
+
+		@When("Admin clicks on Arrow next to program status of Program module page for sor descend")
+		public void admin_clicks_on_Arrow_next_to_program_status_of_Program_module_page_for_sor_descend() {
+			programModulePage.clickProgramStatusSortDes();
+		}
+
+		@Then("Admin See the Program status is sorted Descending order in Program module page")
+		public void admin_See_the_Program_status_is_sorted_Descending_order_in_Program_module_page() {
+			List<String> originalList = programModulePage.getOriginalList("status");
+			List<String> sortedList = programModulePage.getSortedListDescending(originalList);
+			System.out.println("Descending sorted name list " + sortedList.toString() );
+			Assert.assertTrue(originalList.equals(sortedList));
+		}
 
 
 

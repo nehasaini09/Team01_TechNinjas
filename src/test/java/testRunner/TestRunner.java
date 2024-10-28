@@ -8,7 +8,8 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 
 
-@CucumberOptions(features ={"src/test/resources/features/ProgramModule/4_Menubar_program_AddNewProgram.feature"},
+@CucumberOptions(strict = true,
+		features ={"src/test/resources/features/ProgramModule/Program.feature"},
 dryRun=false,
 glue = {"com.hooks", "com.stepDefinition"},
 

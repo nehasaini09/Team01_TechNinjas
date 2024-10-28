@@ -1,4 +1,4 @@
-Feature: Navigation
+Feature: Navigation,Menubar,Managepage,EditAddNewProgram Validation
 
   #These all steps are from login Module
 Background: Admin is logged in to LMS Portal
@@ -12,7 +12,6 @@ Scenario: Verify that Admin is able to navigate to Program module
     Then Admin should be navigated to Program module
    #---------------------------------------------------------------------------------- 
     Scenario: Verify heading in menu bar  
-   # Given Admin is on dashboard page after Login
     When  Admin clicks "Program" on the navigation bar in program module
     Then Admin should see the heading "LMS - Learning Management System" for program
     
@@ -159,3 +158,93 @@ Scenario: Verify footer message in manage program
     Given Admin clicks on "New Program" under the "Program" menu bar
     When  Admin Click on "X" button
     Then Admin can see program details form disappear
+    
+   # --------------------------------------DELETEProgram------------------------------------------------------------------
+    
+    Scenario: Admin checks Succes delete operation with single program delete
+    #Given Admin on the program module page after login
+    Given  Admin clicks "Program" on the navigation bar in program module for delete and sort
+    When Admin clicks on the delete icon on program module page
+    Then Admin able to delete by clicking yes to confirmation pop up
+    
+     Scenario: Admin checks delete operation unsucces with single program delete
+    #Given Admin on the program module page after login
+    Given  Admin clicks "Program" on the navigation bar in program module for delete and sort
+    When Admin clicks on the delete icon on program module page
+    Then Admin able to delete by clicking No to confirmation pop up
+    
+    Scenario: Admin validate delete by deleting multiple programs
+    #Given Admin on the program module page after login
+    Given  Admin clicks "Program" on the navigation bar in program module for delete and sort
+    When Admin clicks on the multiple checkboxes on program module page
+    And Admin clicks  on the left delete button on program module page
+    Then Admin able to delete multiple program by clicking yes to confirm
+    
+    
+    #-------------------------Sort-------------------------------------
+    
+    
+      @tag1
+  Scenario: Verify sorting of Program name in Ascending order
+   Given  Admin clicks "Program" on the navigation bar in program module for delete and sort
+    When Admin clicks on Arrow next to program Name of Program module page for sort
+    Then Admin See the Program Name is sorted Ascending order in Program module page for sort
+
+  @tag2
+  Scenario: Verify sorting of Program name in Descending order
+   Given  Admin clicks "Program" on the navigation bar in program module for delete and sort
+    When Admin clicks on Arrow next to program Name of Program module page for sort descend
+    Then Admin See the Program Name is sorted Descending order in Program module page 
+
+  @tag3
+  Scenario: Verify sorting of Program description in Ascending order
+   Given  Admin clicks "Program" on the navigation bar in program module for delete and sort
+    When Admin clicks on Arrow next to program description of Program module page for sort 
+    Then Admin See the Program description is sorted Ascending order in Program module page 
+    
+    @tag4
+  Scenario: Verify sorting of Program description in Descending order
+    Given  Admin clicks "Program" on the navigation bar in program module for delete and sort
+    When Admin clicks on Arrow next to program description of Program module page for sort descend
+    Then Admin See the Program description is sorted Descending order in Program module page
+
+  @tag5
+  Scenario: Verify sorting of Program status in Ascending order
+    Given  Admin clicks "Program" on the navigation bar in program module for delete and sort
+    When Admin clicks on Arrow next to program status of Program module page for sort
+    Then Admin See the Program status is sorted Ascending order in Program module page
+
+  @tag6
+  Scenario: Verify sorting of Program status in Descending order
+    Given  Admin clicks "Program" on the navigation bar in program module for delete and sort
+    When Admin clicks on Arrow next to program status of Program module page for sor descend
+     Then Admin See the Program status is sorted Descending order in Program module page
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
