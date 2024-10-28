@@ -1,20 +1,36 @@
 package com.pageObject;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+
+
+
+
+import org.openqa.selenium.StaleElementReferenceException;
+
+
+
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Arrays;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+
+
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.hooks.TestContext;
+
+
+
 import com.utilities.Log;
 
 public class BatchModule {
@@ -22,8 +38,12 @@ public class BatchModule {
 	private WebDriver driver;
 	 private WebDriverWait wait;
 	 private TestContext context;
+
 	 private JavascriptExecutor js;
  //Locators for login
+
+
+
 	 	@FindBy(xpath = "//input[@id='username']")private WebElement usernameField;
 
 	    @FindBy(xpath = "//input[@id='password']")private WebElement passwordField;
@@ -130,6 +150,7 @@ public class BatchModule {
 	    // Locator for the checkboxes within each row
 	    @FindBy(xpath = ".//div[@role='checkbox']")
 	    private List<WebElement> checkboxes;
+
 	    
 	    @FindBy(xpath = "//tbody/tr[1]/td[7]/div[1]/span[2]/button[1]")
 	    private WebElement firstDeleteButton; 
@@ -148,8 +169,29 @@ public class BatchModule {
 	    
  //Add new Batch pop locators
 	    
-	    @FindBy (xpath="//button[text()='Add New Batch']")private WebElement Addnewbatchbutton;
+	  
 	    @FindBy (xpath="//div[@class='p-dialog-header ng-tns-c168-6 ng-star-inserted']")private WebElement PopupAddBatch;
+
+	    
+	    @FindBy(xpath = "//tbody/tr[1]/td[7]/div[1]/span[2]/button[1]")
+	    private WebElement firstDeleteButton; 
+	    
+	    @FindBy(xpath = "//tbody/tr[1]//div[@class='p-checkbox-box p-component']")
+	    private WebElement firstCheckbox;
+	    
+	    @FindBy(xpath = "//p-confirmdialog//button[text()='Yes']") 
+	    private WebElement yesButton;
+	    @FindBy(xpath = "//button//span[text()='No']") 
+	    private WebElement noButton;
+
+	    
+	    @FindBy(xpath = "//div[@role='alert']")
+	    private WebElement alertMsg;
+	    
+ //Add new Batch pop locators
+	    
+	    @FindBy (xpath="//button[text()='Add New Batch']")private WebElement Addnewbatchbutton;
+
 	  @FindBy (xpath="//*[@id='programName']/div/input")private WebElement programnameinput;
 	  
 	    @FindBy(css = "span.p-dropdown-trigger-icon.pi.pi-chevron-down") private WebElement Programdropdowntrigger;
@@ -157,12 +199,19 @@ public class BatchModule {
 	    @FindBy(tagName = "li") private List<WebElement> dropdownItems;
 	    @FindBy(xpath="//input[@id='batchProg']")private WebElement batchprefixfield;
 	    @FindBy (xpath="//*[@id='batchName']")private WebElement batchsuffixfield;
+
 	    @FindBy (xpath="//small[text()='Batch Name is required.']")private WebElement batcherror;
 	    @FindBy(xpath="//small[text()='Batch Description is required.']")private WebElement DescriptionError;
 	 
 	    @FindBy(xpath="//small[text()='Number of classes is required.']")private WebElement Noofclasseserror;
 	    	
 	    @FindBy(xpath="//small[text()='Status is required.']")private WebElement Statuserror;
+
+
+	    @FindBy(xpath="//small[@class='p-invalid ng-star-inserted']")private WebElement DescriptionError;
+	   
+	   
+
 //add batch label 
 	    @FindBy(css = "label[for='programName']")private WebElement programNameLabel;
 	    @FindBy(css = "label[for='batchName']")private WebElement batchNameLabel;
@@ -173,6 +222,7 @@ public class BatchModule {
 
 	    @FindBy(css = "label[for='batchNoOfClasses']")private WebElement numberOfClassesLabel;
 	    @FindBy(css = "input#batchNoOfClasses")private WebElement numberOfClassesInput;
+
 	    @FindBy(css = "input#batchDescription")private WebElement batchDecriptioninput;
 	    @FindBy(xpath="//input[@id='batchDescription']")private WebElement batchDescription;
 	    @FindBy(xpath="//button[@label='Cancel']")private WebElement cancelButton;
@@ -185,20 +235,41 @@ public class BatchModule {
 	   
 	    @FindBy(xpath = "//div[contains(@class, 'ng-tns-c168-6 p-dialog-content')]")
 	    private WebElement batchDetailsPopup;
+
+
+	    
+	    @FindBy(xpath="")private WebElement cancelButton;
+	    
+	    @FindBy(xpath = "//button[normalize-space(text())='Save']")private WebElement saveButton;
+	    @FindBy (xpath="//button[@type='button' and contains(@class, 'p-dialog-header-close')]")private WebElement closeButton;
+	  
+	  //button[@label='Save']"
+	   
+
+
 	    @FindBy(xpath = "//div[text()='Successful']")
 	    private WebElement successMessage;
 	    @FindBy(xpath="/html/body/app-root/app-batch/p-confirmdialog/div/div/div[3]")private WebElement alertBox;
 		private Actions actions;
+
 		
 		 @FindBy (xpath="//li[contains(@class, 'p-dropdown-item')]")   private List<WebElement> programOptions;
 	  
 	public BatchModule(WebDriver driver , TestContext context) {
 		this.driver = context.getDriver();
+
+	  
+	public BatchModule(WebDriver driver , TestContext context) {
+		this.driver=driver;
+
 	    this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	this.context=context;
 	    PageFactory.initElements(driver, this);
 	    this.actions = context.getActions();
+
 	    this.js = (JavascriptExecutor) driver;
+
+
 	  
 	}
 	
@@ -367,6 +438,25 @@ public class BatchModule {
 	    }
 	    
 
+
+
+//	    public boolean isFieldDisplayed(String fieldName) {
+//	        switch (fieldName) {
+//	            case "Batch Name":
+//	                return batchNameLabel.isDisplayed();
+//	            case "Number of classes":
+//	                return numberOfClassesLabel.isDisplayed() && numberOfClassesInput.isDisplayed();
+//	            case "Description as text box":
+//	                return batchdescription.isDisplayed();
+//	            case "Program Name as drop down":
+//	                return programNameLabel.isDisplayed() && Programdropdowntrigger.isDisplayed();
+//	            case "Status as radio button":
+//	                return statusLabel.isDisplayed();
+//	            default:
+//	                return false;
+//	        }
+//	    }
+
 	    
 	    
 	    public boolean isFieldDisplayed(String fieldName) {
@@ -414,7 +504,27 @@ public class BatchModule {
 	        
 	    
 	    }
+
 	  
+
+	    public void selectProgramFromDropdown() {
+	        // Click to open the dropdown
+	        wait.until(ExpectedConditions.elementToBeClickable(Programdropdowntrigger)).click();
+
+	        // Wait for dropdown items to be visible
+	        wait.until(ExpectedConditions.visibilityOfAllElements(dropdownItems));
+
+	        // Ensure there are dropdown items to select
+	        if (!dropdownItems.isEmpty()) {
+	            dropdownItems.get(0).click(); // Click the first program in the list
+	        } else {
+	            System.out.println("Dropdown is empty");
+	            throw new RuntimeException("No items in the dropdown");
+	        }
+	        ensureDropdownIsClosed();
+	    }
+
+
 	    private void ensureDropdownIsClosed() {
 	        // Check if the dropdown is open and close it if necessary
 	        String ariaExpanded = Programdropdowntrigger.getAttribute("aria-expanded");
@@ -431,11 +541,106 @@ public class BatchModule {
 	
 	    public String getBatchPrefixValue() {
 	        // Wait for the batch prefix field to be visible
+
 	        wait.until(ExpectedConditions.visibilityOf(batchprefixfield)).click();
+
+	        wait.until(ExpectedConditions.visibilityOf(batchprefixfield));
+
 	        // Return the value of the batch prefix field
 	        return batchprefixfield.getAttribute("value");
 	    }
 	    
+
+
+
+	 // Check if the selected program is reflected in the batch prefix field
+	 // Selected program is reflected in the prefix
+	  
+
+//	    public void selectProgramFromDropdown(){
+//	        for (int attempts = 0; attempts < 3; attempts++) { // Retry up to 3 times
+//	            try {
+//	                wait.until(ExpectedConditions.elementToBeClickable(Programdropdowntrigger)).click();
+//	                List<WebElement> items = wait.until(ExpectedConditions.visibilityOfAllElements(dropdownItems));
+//	                if (!items.isEmpty()) {
+//	                    String selectedProgram = items.get(0).getText();
+//	                    items.get(0).click(); // Click the first item
+//	                    System.out.println("Selected program: " + selectedProgram);
+//	                    ensureDropdownIsClosed();
+//	                    return; // Exit after successful selection
+//	                } else {
+//	                    System.out.println("Dropdown is empty");
+//	                    throw new RuntimeException("No items in the dropdown");
+//	                }
+//	            } catch (TimeoutException e) {
+//	                System.out.println("Timeout while waiting for dropdown items. Retrying...");
+//	            }
+//	        }
+//	        throw new RuntimeException("Failed to select program after multiple attempts.");
+//	    }
+//
+//	    public boolean isSelectedProgramReflected() {
+//	        while (true) {
+//	            try {
+//	                // Wait for the batch prefix field to be visible
+//	                wait.until(ExpectedConditions.visibilityOf(batchprefixfield));
+//
+//	                // Get the value of the batch prefix field
+//	                String prefixValue = batchprefixfield.getAttribute("value");
+//	                System.out.println("Actual program name in prefix box: " + prefixValue);
+//
+//	                // Refetch the dropdown items before comparison
+//	                List<WebElement> items = wait.until(ExpectedConditions.visibilityOfAllElements(dropdownItems));
+//	                if (!items.isEmpty()) {
+//	                    String selectedProgramName = items.get(0).getText();
+//	                    System.out.println("Expected program name: " + selectedProgramName);
+//	                    return prefixValue.equalsIgnoreCase(selectedProgramName);
+//	                } else {
+//	                    System.out.println("Dropdown items are empty when checking the prefix.");
+//	                    return false;
+//	                }
+//	            } catch (StaleElementReferenceException e) {
+//	                System.out.println("StaleElementReferenceException caught. Retrying...");
+//	                // Optionally, add a delay before retrying
+//	                try {
+//	                    Thread.sleep(100); // Wait a short time before retrying
+//	                } catch (InterruptedException ie) {
+//	                    Thread.currentThread().interrupt(); // Restore the interrupted status
+//	                }
+//	            } catch (Exception e) {
+//	                System.out.println("An exception occurred: " + e.getMessage());
+//	                return false; // Handle other exceptions appropriately
+//	            }
+//	        }
+//	    }
+//
+//
+//	    public String getBatchPrefixValue() {
+//	        // Wait for the batch prefix field to be visible
+//	        wait.until(ExpectedConditions.visibilityOf(batchprefixfield));
+//	        return batchprefixfield.getAttribute("value");
+//	    }
+//
+//	
+//
+//	   
+//
+//
+//	    private void ensureDropdownIsClosed() {
+//	        // Check if the dropdown is open and close it if necessary
+//	        String ariaExpanded = Programdropdowntrigger.getAttribute("aria-expanded");
+//	        if ("true".equals(ariaExpanded)) { // Ensure we're comparing to "true" safely
+//	            Programdropdowntrigger.click(); // Click to close the dropdown
+//        }
+//
+//}
+	    
+	    
+	    public void enterBatchNameSuffix(String input) {
+	        wait.until(ExpectedConditions.visibilityOf(batchsuffixfield));
+	        batchsuffixfield.clear();
+	        batchsuffixfield.sendKeys(input);
+	    }
 
 	    
 	 
@@ -450,10 +655,17 @@ public class BatchModule {
 	    }
 //Edit validation
 	    public void clickEditButton() {
+
 	      
 	      
 
 	        //  list of edit buttons is not empty
+
+	        // Wait for any overlay to disappear before clicking
+	      
+
+	        // Check if the list of edit buttons is not empty
+
 	        if (!editButtons.isEmpty()) {
 	           
 	            waitUntilEditButtonIsClickable(editButtons.get(0));
@@ -465,21 +677,34 @@ public class BatchModule {
 	        }
 	    }
 
+
 	    // Wait 
+=======
+	    // Wait until a specific button is clickable
+
 	    private void waitUntilEditButtonIsClickable(WebElement button) {
 	        wait.until(ExpectedConditions.elementToBeClickable(button));
 	    }
 
+
 	    //  program name field is disabled method
+=======
+	    // Check if the program name field is disabled
+
 	    public boolean isProgramNameFieldDisabled() {
 	        return !programnameinput.isEnabled();
 	    }
 
+
 	    //  batch name field is disabled method
+=======
+	    // Check if the batch name field is disabled
+
 	    public boolean isBatchNameFieldDisabled() {
 	        return !batchprefixfield.isEnabled();
 	    }
 	    
+
 	    public void clickSaveButton() {
 	        saveButton.click();
 	    }
@@ -509,6 +734,8 @@ public class BatchModule {
 	    }
 
 	    
+=======
+
 //single delete 
 	   
 	    public void clickOnDeleteIcon() {
@@ -528,11 +755,19 @@ public class BatchModule {
 	            System.out.println("Yes button is not interactable.");
 	            return; // Exit the method if the button isn't clickable
 	        }
+
 // creating object for action class
 	      
 	    	  Actions actions = context.getActions();
 
 	        //movin gto Yes button and clicking
+
+
+	        // Create an Actions object
+	    	  Actions actions = context.getActions();
+
+	        // Move to the Yes button and click it
+
 	        actions.moveToElement(yesButton).click().perform();
 
 	        // Wait for the success message to be visible
@@ -564,6 +799,7 @@ public class BatchModule {
 	    }
 	    //single row delete 
 	    
+
 	    
 	    public void clickDeleteIconForSpecificBatch() {
 	        
@@ -731,8 +967,69 @@ public class BatchModule {
 	        return rows.stream().anyMatch(row -> row.getText().equalsIgnoreCase(batchname));
 	    }
 	
+
 	    
+	    public void clickDeleteIconForSpecificBatch() {
+	        
+	        for (WebElement checkbox : checkboxes) {
+	            if (firstCheckbox.isEnabled() && firstCheckbox.isDisplayed()) {
+	            	  Actions actions = context.getActions();
+	                actions.moveToElement(checkbox).click().perform(); //  the checkbox
+	                break; // checkbox clik then break
+	            }
+	        }
+	        actions.moveToElement(firstDeleteButton).click().perform(); // Click the delete icon
+	    }
+
+	    // Method to verify the row has been deleted
+	    public boolean isRowDeleted() {
+	        //  a list of all rows in table 
+	        for (WebElement row : rows) {
+	            
+	            if (row.getText().contains("BatchIdentifier")) { 
+	                return false; // Row still exists
+	            }
+	        }
+	        return true; // Row has been deleted
+	    }
 	    
+//multiple delete
+	    public void multipleDeleteAction() {
+	       
+	        actions.moveToElement(checkbox1).click().perform();
+
+	       
+	        for (WebElement checkbox : checkboxes) {
+	            if (checkbox.isEnabled() && checkbox.isDisplayed()) {
+	               
+	                actions.moveToElement(checkbox).click().perform();
+	            }
+	        }
+
+	        // Move to the multiple delete button and click
+	        if (Multipledelete.isEnabled() && Multipledelete.isDisplayed()) {
+	            actions.moveToElement(Multipledelete).click().perform();
+	            System.out.println("Multiple delete action performed.");
+	        } else {
+	            System.out.println("Multiple delete button is not clickable.");
+	        }
+
+	    
+	}
+	
+	    // Method to verify that all rows have been deleted
+	    public boolean areAllRowsDeleted() {
+	        
+	        for (WebElement row : rows) {
+	            
+	            if (row.getText().contains("batchIdentifier")) {
+	                return false; 
+	            }
+	        }
+	        return true; 
+	    }
+	    
+
 	     public void enterBatchNameSuffix(String input) {
         wait.until(ExpectedConditions.visibilityOf(batchsuffixfield));
         batchsuffixfield.clear();
@@ -761,35 +1058,29 @@ public class BatchModule {
 	       
 	         Programdropdowntrigger.click();
 
-<<<<<<< HEAD
-	        
-=======
-	       
->>>>>>> origin/Saranya
+
+
 	         wait.until(ExpectedConditions.visibilityOfAllElements(programOptions));
 
 	         boolean programFound = false; 
 
 	      
 	         for (WebElement option : programOptions) {
-<<<<<<< HEAD
-	         
-=======
-	             
->>>>>>> origin/Saranya
+
+
 	             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", option);
 	             wait.until(ExpectedConditions.elementToBeClickable(option)); 
 
 	             if (option.getText().equals(programName)) {
-<<<<<<< HEAD
+
 	                 option.click(); 
 	                 programFound = true; 
 	                 break; // Exit the loop once the option is selected
-=======
+
 	                 option.click(); // Select the desired option
 	                 programFound = true; // Mark as found
 	                 break; 
->>>>>>> origin/Saranya
+
 	             }
 	         }
 
@@ -818,7 +1109,7 @@ public class BatchModule {
 	    	  
 	    	    batchDescription.sendKeys("class for SDET.");
 	    	}
-<<<<<<< HEAD
+
 	  
 	     public boolean isPopupDisplayed() {
 	    	   
@@ -828,8 +1119,73 @@ public class BatchModule {
 	     return   Deletepopup.isDisplayed();  
 	     }
 }
-=======
+
 
 
 }
->>>>>>> origin/Saranya
+
+
+	    //pagination
+	    /*public void clickNextPage() {
+	        if (isNextButtonEnabled()) {
+	            doubleClick(nextButton);
+	        }
+	    }*/
+	    public void clickNextPage() {
+	        if (isNextButtonEnabled()) {
+	            doubleClick(nextButton);
+	          //  waitForResultsToLoad(); 
+	        }// Ensure results load after clicking
+	        }
+
+	    // Method to click 'Previous' button
+	    public void clickPreviousPage() {
+	        if (isPrevButtonEnabled()) {
+	        	  doubleClick (prevButton);
+	        }
+	    }
+
+	    // Method to click 'First' button
+	    public void clickFirstPage() {
+	    	
+	          doubleClick(firstButton);
+	    }
+
+	    // Method to click 'Last' button
+	    public void clickLastPage() {
+	        doubleClick(lastButton);
+	    }
+
+	    // Method to click a specific page number
+	    public void clickPageNumber(int pageIndex) {
+	    	 doubleClick(pageButtons.get(pageIndex - 1));
+	    }
+
+	    // Check if 'Next' button is enabled
+	    public boolean isNextButtonEnabled() {
+	        return !nextButton.getAttribute("class").contains("p-disabled");
+	    }
+
+	    // Check if 'Previous' button is enabled
+	    public boolean isPrevButtonEnabled() {
+	        return !prevButton.getAttribute("class").contains("p-disabled");
+	    }
+
+	    // Method to get current pagination text
+	    public String getCurrentEntriesText() {
+	        return currentEntriesText.getText();
+	    }
+	
+	    public boolean hasNextPageResults() {
+	        // Return true if there are results; false otherwise
+	        return !rows.isEmpty(); 
+	    }
+	    private void doubleClick(WebElement element) {
+	        Actions actions = new Actions(driver); // Create an Actions instance
+	        actions.moveToElement(element).doubleClick().perform(); // Move to the element and double-click
+	    }
+	    private void waitForResultsToLoad() {
+	    	wait.until(ExpectedConditions.visibilityOfAllElements(rows));
+	    }
+}	    
+

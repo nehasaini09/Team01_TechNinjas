@@ -25,18 +25,30 @@ public class Batch_SD {
         this.driver = context.getDriver(); //  WebDriver get initialized
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30)); // Initializes WebDriverWait
         
+
         this.batchModule = new BatchModule(driver, context); // Passes driver to BatchModule
+
+        this.batchModule = new BatchModule(driver, context);
+
     }
 
 	
 	@Given("Admin is logged into the LMS portal and on the dashboard page")
 	public void admin_is_logged_into_the_LMS_portal_and_on_the_dashboard_page() {
 		Log.logInfo("Navigating to application URL");
+
 	 context.getApplicationURL(); 
        // context.get(applicationURL);
         String username = "Sdet@gmail.com";
         String password = "LmsHackathon@2024";
         batchModule.login(username, password);
+
+		 context.getApplicationURL(); 
+	       // context.get(applicationURL);
+	        String username = "Sdet@gmail.com";
+	        String password = "LmsHackathon@2024";
+	        batchModule.login(username, password);
+
        
 	   
 	}
