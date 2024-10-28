@@ -1,5 +1,5 @@
 package com.hooks;
-
+import com.pageObject.ClassModule;
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,6 +18,7 @@ public class TestContext {
     private WebDriverWait wait;
     private ReadConfig readConfig;
     private ProgramModule programModulepage;
+	 private ClassModule cp;
     private BatchModule batchModule;
     private Actions actions;
     
@@ -64,6 +65,10 @@ public class TestContext {
     public Actions getActions() {
         return actions;
     }
+	public ClassModule getClassModule() {
+    	return cp;
+    }
+
     
 
 }
