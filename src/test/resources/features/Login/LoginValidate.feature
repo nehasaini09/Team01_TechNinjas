@@ -11,7 +11,7 @@ Feature: Login Page validation
     Examples:
     | credentials              | result                  |
     | valid credentials        | Admin should land on dashboard page             |
-    | invalid credentials      | Invalid username and password Please try again |
+   | invalid credentials      | Invalid username and password Please try again |
     | password                 | Please enter your user name |
     | username                 | Please enter your password  |
 

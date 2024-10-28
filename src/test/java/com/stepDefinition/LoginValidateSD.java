@@ -51,27 +51,7 @@ public class LoginValidateSD {
     @When("Admin enter valid {string} and clicks login button")
     public void admin_enter_valid_and_clicks_login_button(String credentials) {
 
-        switch(credentials) {
-            case "valid credentials":
-                System.out.println("Enter valid credentials");
-                uName = config.getUSername();
-                pwd = config.getpassword();
-                break;
-            case "invalid credentials":
-                System.out.println("Enter invalid credentials");
-                uName = config.getinvalidUSername();
-                pwd = config.getinvalidpassword();
-                break;
-            case "password":
-                System.out.println("Enter only the password");
-                pwd = config.getpassword();
-                break;
-            case "username":
-                System.out.println("Enter only the username");
-                uName = config.getUSername();
-                break;
-        }
-        result=login.validLogin(uName,pwd);
+        result=login.validLogin(credentials);
 
         }
 
@@ -89,7 +69,7 @@ public class LoginValidateSD {
        switch(expectedResult){
            case "Admin should land on dashboard page":
                Assert.assertEquals(homepage_URL,actualurl);
-               System.out.println("Logged in successfully");
+               System.out.println("Logged in successfully and is on dashboard page");
               break;
 
            case "Invalid username and password Please try again":

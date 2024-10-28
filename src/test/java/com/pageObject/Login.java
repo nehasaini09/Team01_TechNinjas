@@ -43,8 +43,30 @@ public class Login extends DriverFactory {
         PageFactory.initElements(driver, this);
     }
 //method for Login
-        public Map<String,String> validLogin(String uName, String pwd) {
+        public Map<String,String> validLogin(String credentials) {
              result = new HashMap<>();
+            String uName = "";
+            String pwd = "";
+            switch(credentials) {
+                case "valid credentials":
+                    System.out.println("Enter valid credentials");
+                    uName = config.getUSername();
+                    pwd = config.getpassword();
+                    break;
+                case "invalid credentials":
+                    System.out.println("Enter invalid credentials");
+                    uName = config.getinvalidUSername();
+                    pwd = config.getinvalidpassword();
+                    break;
+                case "password":
+                    System.out.println("Enter only the password");
+                    pwd = config.getpassword();
+                    break;
+                case "username":
+                    System.out.println("Enter only the username");
+                    uName = config.getUSername();
+                    break;
+            }
             wait.until(ExpectedConditions.visibilityOf(username)).clear();
             username.sendKeys(uName);
             wait.until(ExpectedConditions.visibilityOf(password)).clear();
@@ -131,8 +153,7 @@ public class Login extends DriverFactory {
 
         WebElement logo = driver.findElement(By.cssSelector("img[class='images']"));
         Assert.assertTrue(logo.isDisplayed());
-        int xCoordinate = logo.getLocation().getX();
-        return xCoordinate;
+        return logo.getLocation().getX();
 
     }
 
@@ -169,8 +190,7 @@ public void Passwordcolor(){
 
 public int CountTextFields(){
     List<WebElement> textFields = driver.findElements(By.xpath("//input[@type='password' or @id='username']"));
-    int count =textFields.size();
-    return count;
+    return textFields.size();
 }
 
 public void FirstTextField(){

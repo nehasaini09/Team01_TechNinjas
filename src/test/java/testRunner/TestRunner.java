@@ -7,7 +7,7 @@ import io.cucumber.junit.CucumberOptions;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(tags="  @UserFirst or @PasswordSecond",
+@CucumberOptions(tags="@DashboardPageloadtime",
 		    features ={"src/test/resources/features/"},
             glue = {"com.hooks","com.stepDefinition"},
              monochrome = true,

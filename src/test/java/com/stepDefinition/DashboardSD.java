@@ -1,6 +1,9 @@
 package com.stepDefinition;
 
 import com.hooks.TestContext;
+import com.pageObject.Dashboard;
+import com.pageObject.Login;
+import com.utilities.ReadConfig;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
@@ -8,39 +11,43 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DashboardSD {
     private TestContext context;
     WebDriver driver;
     private WebDriverWait wait;
+    Map<String, String> result= new HashMap<>();
+    private Dashboard homepage;
+    private Login login;
+
     public DashboardSD(TestContext testcontext){
         this.context= testcontext;
         this.driver= context.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        PageFactory.initElements(driver, this);
+        this.homepage= new Dashboard(driver);
+
     }
     @When("Admin enter valid credentials and clicks login button")
     public void admin_enter_valid_credentials_and_clicks_login_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        String credentials="valid credentials";
+        result=login.validLogin(credentials);
     }
+@When("Admin logins to validate the navigation time")
+public void Maxnavigationtime(){
+    homepage.validateResponseTime();
 
-    @Then("Admin should see dashboard")
-    public void admin_should_see_dashboard() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
+}
 
     @Then("Maximum navigation time in milliseconds, defaults to {int} seconds")
     public void maximum_navigation_time_in_milliseconds_defaults_to_seconds(Integer int1) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
     }
 
     @Then("Admin should see LMS -Learning management system as title")
     public void admin_should_see_LMS_Learning_management_system_as_title() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        homepage.getDashboardTitle();
     }
 
     @Then("LMS title should be on the top left corner of page")
@@ -74,8 +81,8 @@ public class DashboardSD {
         throw new io.cucumber.java.PendingException();
     }
 
-    @Then("Admin should see program in the 2nd place")
-    public void admin_should_see_program_in_the_2nd_place() {
+    @Then("Admin should see program in order")
+    public void admin_should_see_navbarText() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
