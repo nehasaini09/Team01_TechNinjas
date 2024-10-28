@@ -142,13 +142,14 @@ public class BatchModule {
 	    @FindBy(xpath = "//button//span[text()='No']") 
 	    private WebElement noButton;
 
-	    
+	    @FindBy(xpath="//tbody/tr[1]/td[7]/div[1]/span[2]/button[1]")private WebElement Deletepopup;
 	    @FindBy(xpath = "//div[@role='alert']")
 	    private WebElement alertMsg;
 	    
  //Add new Batch pop locators
 	    
 	    @FindBy (xpath="//button[text()='Add New Batch']")private WebElement Addnewbatchbutton;
+	    @FindBy (xpath="//div[@class='p-dialog-header ng-tns-c168-6 ng-star-inserted']")private WebElement PopupAddBatch;
 	  @FindBy (xpath="//*[@id='programName']/div/input")private WebElement programnameinput;
 	  
 	    @FindBy(css = "span.p-dropdown-trigger-icon.pi.pi-chevron-down") private WebElement Programdropdowntrigger;
@@ -757,28 +758,28 @@ public class BatchModule {
 	   
 	     //
 	     public void selectProgram(String programName) {
-	         // Open the dropdown
+	       
 	         Programdropdowntrigger.click();
 
-	         // Wait for options to be visible
+	        
 	         wait.until(ExpectedConditions.visibilityOfAllElements(programOptions));
 
-	         boolean programFound = false; // Flag for found program
+	         boolean programFound = false; 
 
-	         // Iterate through the options to find and click the desired one
+	      
 	         for (WebElement option : programOptions) {
-	             // Scroll to the option using the injected driver
+	         
 	             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", option);
-	             wait.until(ExpectedConditions.elementToBeClickable(option)); // Ensure the option is clickable
+	             wait.until(ExpectedConditions.elementToBeClickable(option)); 
 
 	             if (option.getText().equals(programName)) {
-	                 option.click(); // Select the desired option
-	                 programFound = true; // Mark as found
+	                 option.click(); 
+	                 programFound = true; 
 	                 break; // Exit the loop once the option is selected
 	             }
 	         }
 
-	         // Handle the case where the program name is not found
+	   
 	         if (!programFound) {
 	             throw new NoSuchElementException("Program option not found: " + programName);
 	         }
@@ -789,13 +790,13 @@ public class BatchModule {
 	     
 	     public void enterValidDataAllMandatoryFields() {
 	    	    
-	    	    selectProgram("YourProgramName"); // Pass the desired program name
+	    	    selectProgram("Java"); 
 	    	    
 	    	   
 	    	    batchsuffixfield.sendKeys("12");
 
 	    	    
-	    	    numberOfClassesInput.sendKeys("5"); // Example number of classes
+	    	    numberOfClassesInput.sendKeys("5"); 
 
 	    	  
 	    	    Activeradiobutton.click();
@@ -803,6 +804,12 @@ public class BatchModule {
 	    	  
 	    	    batchDescription.sendKeys("class for SDET.");
 	    	}
-
-
+	  
+	     public boolean isPopupDisplayed() {
+	    	   
+	    	    return PopupAddBatch.isDisplayed();  
+	    	}
+	     public boolean isDeletePopUpDisplayed() {
+	     return   Deletepopup.isDisplayed();  
+	     }
 }
