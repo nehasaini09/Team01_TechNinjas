@@ -761,21 +761,35 @@ public class BatchModule {
 	       
 	         Programdropdowntrigger.click();
 
+<<<<<<< HEAD
 	        
+=======
+	       
+>>>>>>> origin/Saranya
 	         wait.until(ExpectedConditions.visibilityOfAllElements(programOptions));
 
 	         boolean programFound = false; 
 
 	      
 	         for (WebElement option : programOptions) {
+<<<<<<< HEAD
 	         
+=======
+	             
+>>>>>>> origin/Saranya
 	             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", option);
 	             wait.until(ExpectedConditions.elementToBeClickable(option)); 
 
 	             if (option.getText().equals(programName)) {
+<<<<<<< HEAD
 	                 option.click(); 
 	                 programFound = true; 
 	                 break; // Exit the loop once the option is selected
+=======
+	                 option.click(); // Select the desired option
+	                 programFound = true; // Mark as found
+	                 break; 
+>>>>>>> origin/Saranya
 	             }
 	         }
 
@@ -804,6 +818,7 @@ public class BatchModule {
 	    	  
 	    	    batchDescription.sendKeys("class for SDET.");
 	    	}
+<<<<<<< HEAD
 	  
 	     public boolean isPopupDisplayed() {
 	    	   
@@ -813,3 +828,8 @@ public class BatchModule {
 	     return   Deletepopup.isDisplayed();  
 	     }
 }
+=======
+
+
+}
+>>>>>>> origin/Saranya
