@@ -16,7 +16,7 @@ import io.qameta.allure.Allure;
 
 public class BaseClass {
 
-	private TestContext context;
+	private TestContext Context;
 	private ReadConfig readConfig;
 
 	// inject TestContext constructor
@@ -30,22 +30,22 @@ public class BaseClass {
 	public void setUp() {
 		Log.logInfo("Initializing WebDriver");
 		String browserName = readConfig.getbrowser();
-		WebDriver driver = context.getDriverFactory().initialiseBrowser(browserName);
-		context.setDriver(driver);
+		WebDriver driver = Context.getDriverFactory().initialiseBrowser(browserName);
+		Context.setDriver(driver);
 		Log.logInfo("Navigating to: " + readConfig.getApplicationURL());
-		context.getDriver().get(readConfig.getApplicationURL());
+		Context.getDriver().get(readConfig.getApplicationURL());
 	}
 
 	@After
 	public void tearDown(Scenario scenario) {
 		if (scenario.isFailed()) {
 			Log.logInfo("Scenario failed: capturing screenshot.");
-			byte[] sourcePath = ((TakesScreenshot) context.getDriver()).getScreenshotAs(OutputType.BYTES);
+			byte[] sourcePath = ((TakesScreenshot) Context.getDriver()).getScreenshotAs(OutputType.BYTES);
 
 			Allure.addAttachment("Failed Screenshot: " + scenario.getName(), new ByteArrayInputStream(sourcePath));
 		}
            Log.logInfo("Closing WebDriver");
-		context.closeDriver();
+		Context.closeDriver();
 	}
 
 	/*
