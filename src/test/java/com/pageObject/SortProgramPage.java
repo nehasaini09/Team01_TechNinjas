@@ -20,9 +20,9 @@ public class SortProgramPage {
 	private WebDriverWait wait;
 	Actions action;
 	//login
-    @FindBy(xpath = "//input[@id='username']")private WebElement user_Name;
-    @FindBy(xpath = "//input[@id='password']")private WebElement pass_Word;
-    @FindBy(xpath = "//button[@id='login']")private WebElement login_Btn;
+    @FindBy(xpath = "//input[@id='username']")private WebElement userName;
+    @FindBy(xpath = "//input[@id='password']")private WebElement passWord;
+    @FindBy(xpath = "//button[@id='login']")private WebElement loginBtn;
 	//sort element locators
 	@FindBy(xpath = "//button//span[text()='Program']")private WebElement programpgclick;
 	//sort 
@@ -44,29 +44,58 @@ public class SortProgramPage {
 	
 	
 	public void loginforSort(String username, String password) {
-		 wait.until(ExpectedConditions.visibilityOf(user_Name)).sendKeys(username);
-	        wait.until(ExpectedConditions.visibilityOf(pass_Word)).sendKeys(password);
-	        wait.until(ExpectedConditions.elementToBeClickable(login_Btn)).click();
+		 wait.until(ExpectedConditions.visibilityOf(userName)).sendKeys(username);
+	        wait.until(ExpectedConditions.visibilityOf(passWord)).sendKeys(password);
+	        wait.until(ExpectedConditions.elementToBeClickable(loginBtn)).click();
 		    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
    }
 	public void clickOnProgramModuleSort() {
-   	 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-	        wait.until(ExpectedConditions.elementToBeClickable(programpgclick)).click();  	
-    
+   	 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));  	 
+	 wait.until(ExpectedConditions.elementToBeClickable(programpgclick)).click();
+
+//		programpgclick.click();
     }
 	
-	public void clickProgramNameSort(){			
-		action.doubleClick(progNameSort).perform();
-		
+	public void clickProgramNameSort(){	
+//		action.contextClick(progNameSort).perform();
+//		action.click();
+//        action.doubleClick(progNameSort).perform();
+        action.click(progNameSort).perform();
+        action.click(progNameSort).perform();
 	}
 	
+	public void clickProgramNameSortDec(){	
+        action.click(progNameSort).perform();
+        action.click(progNameSort).perform();
+        action.click(progNameSort).perform();
+//      action.doubleClick(progNameSort).perform();
+	}
+//	public void singleclickProgramNameSort(){			
+//		progNameSort.click();
+//	}
+	
 	public void clickProgramDescrSort(){			
-		action.doubleClick(progDescrpSort).perform();
+        action.click(progDescrpSort).perform();
+        action.click(progDescrpSort).perform();
+		
+	}
+	public void clickProgramDescrSortDes(){			
+        action.click(progDescrpSort).perform();
+        action.click(progDescrpSort).perform();
+        action.click(progDescrpSort).perform();
 		
 	}
 	
 	public void clickProgramStatusSort(){			
-		action.doubleClick(progStatusSort).perform();
+        action.click(progStatusSort).perform();
+        action.click(progStatusSort).perform();
+		
+	}
+	
+	public void clickProgramStatusSortDes(){			
+        action.click(progStatusSort).perform();
+        action.click(progStatusSort).perform();
+        action.click(progStatusSort).perform();
 		
 	}
 	
@@ -96,6 +125,17 @@ public class SortProgramPage {
         return sortedList;
 	}	
 	
+	public List<String> getSortedListDescending(List<String> originalList){
+		
+		System.out.println("Original List Before sorting is"+ originalList);
+        List<String> sortedList = new ArrayList<>(originalList);
+//        Collections.sort(sortedList, (s1, s2) -> s2.compareToIgnoreCase(s1));
+//        Collections.sort(sortedList, Collections.reverseOrder());
+        Collections.sort(sortedList, String.CASE_INSENSITIVE_ORDER.reversed());
+		System.out.println("Sorted List After sorting is"+ sortedList);
+        return sortedList;
+	}	
+	
 // covert web element to java string list	
 	public List<String> printWebElements(List<WebElement> options) {
 		List<String> texts = new ArrayList<String>();
@@ -107,6 +147,8 @@ public class SortProgramPage {
 		System.out.println("The number of items in the list are: "+ texts.size());
 		return texts;
 	}
+	
+	
 	
 	
 }//class end
