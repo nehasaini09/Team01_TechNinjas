@@ -16,14 +16,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.hooks.TestContext;
 
+
 public class ClassModule {
 
 	private WebDriver driver;
 	private WebDriverWait wait;
-	 //JavascriptExecutor js;// = (JavascriptExecutor) driver;
+	 
 	// TestContext context;
 	 //JavascriptExecutor js = (JavascriptExecutor) driver;
-	//CommonMethodsClass common = new CommonMethodsClass();
+	
 
 	@FindBy(id = "username")	private WebElement userName;
 	@FindBy(id = "password")	private WebElement password;
@@ -146,7 +147,7 @@ public class ClassModule {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		//js=context.getJs();
 		js.executeScript("document.body.style.zoom='80%'");
-		// wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		
 	}
 
 	public WebElement getHeaderElement(String headerName) {
@@ -394,7 +395,9 @@ public class ClassModule {
 	}
 
 	public void logoutClick() throws InterruptedException {
-		logoutBtn.click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));  	 
+		 wait.until(ExpectedConditions.elementToBeClickable(logoutBtn)).click();
+		
 	}
 
 	public void searhBoxValidation(String field, String value) throws InterruptedException {
@@ -419,22 +422,21 @@ public class ClassModule {
 
 	public void logicForValidatingSearch(String value) {
 		boolean found = false;
-		for (int i = 1; i <= noOfRows.size(); i++) {
-			List<WebElement> searchedValues = driver
-					.findElements(By.cssSelector("tbody tr:nth-child(" + i + ") td:nth-child(2)"));
-			for (WebElement v : searchedValues) {
+		List<WebElement> searchedValues = driver.findElements(By.xpath("//tbody//td[2]"));
+					for (WebElement v : searchedValues) {
 				if (v.getText().equalsIgnoreCase(value)) {
 					System.out.println("Search is success for value: " + value);
 					found = true;
 					break;
 				}
 			}
-		}
+		//}
 
 		if (!found) {
 			System.out.println("Search is not success for value: " + value);
 		}
 	}
+	
 	
 	public boolean validateHeader(WebElement element, String header) {
 	    String headerText = "";
