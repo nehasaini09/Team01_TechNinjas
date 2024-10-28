@@ -14,23 +14,23 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.hooks.CommonMethodsClass;
 import com.hooks.TestContext;
 
 public class ClassModule {
 
 	private WebDriver driver;
 	private WebDriverWait wait;
-	 JavascriptExecutor js;// = (JavascriptExecutor) driver;
-	 TestContext context;
-	CommonMethodsClass common = new CommonMethodsClass();
+	 //JavascriptExecutor js;// = (JavascriptExecutor) driver;
+	// TestContext context;
+	 //JavascriptExecutor js = (JavascriptExecutor) driver;
+	//CommonMethodsClass common = new CommonMethodsClass();
 
 	@FindBy(id = "username")	private WebElement userName;
 	@FindBy(id = "password")	private WebElement password;
 	@FindBy(xpath = "//span[text()='Class']")	private WebElement classBtn;
 	@FindBy(className = "login-button")	private WebElement loginBtn;
 	@FindBy(xpath = "//span[text()=' LMS - Learning Management System ']")	private WebElement appHeader;
-	@FindBy(xpath = "//div[text()=' Manage Class']")	private WebElement manageClassHeader;
+	@FindBy(xpath = "//div[normalize-space()='Manage Class']")	private WebElement manageClassHeader;
 	@FindBy(xpath = "//th[text()=' Batch Name ']")	private WebElement batchNameHeader;
 	@FindBy(xpath = "//th[text()='Class Topic ']")	private WebElement classTopicHeader;
 	@FindBy(xpath = "//th[text()='Class Description ']")	private WebElement classDescriptionHeader;
@@ -122,7 +122,7 @@ public class ClassModule {
 		this.driver = driver;
 	
 		PageFactory.initElements(driver, this);
-		this.js=context.getJs();
+		//this.js=context.getJs();
 	}
 
 	public void addUsername(String uName) {
@@ -135,16 +135,16 @@ public class ClassModule {
 	}
 
 	public void clickLoginBtn() {
-		common.click(loginBtn);
+		loginBtn.click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	}
 
 	public void clickClassBtn() {
 
-		common.click(classBtn);
+		classBtn.click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		//JavascriptExecutor js = (JavascriptExecutor) driver;
-		js=context.getJs();
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		//js=context.getJs();
 		js.executeScript("document.body.style.zoom='80%'");
 		// wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	}
@@ -184,7 +184,7 @@ public class ClassModule {
 	}
 
 	public boolean validateSortingBtn() {
-		return common.isSortingbuttonDisplayed(sortingBtn);
+		return isSortingbuttonDisplayed(sortingBtn);
 	}
 
 	public boolean deleteBtnDisplayed() {
@@ -193,8 +193,6 @@ public class ClassModule {
 
 	public void clickAddNewClass() throws InterruptedException {
 
-		// WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		// addNewClassBtn.click();
 		for (int i = 0; i < 3; i++) {
 			try {
 				addNewClassBtn.click();
@@ -220,14 +218,14 @@ public class ClassModule {
 
 	public boolean batchNameOnPopupDisp() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		//JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", batchNamePopup);
 		return batchNamePopup.isDisplayed();
 	}
 
 	public boolean classTopicOnPopupDisp() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		//JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", batchNamePopup);
 		return classTopicPopup.isDisplayed();
 	}
@@ -235,16 +233,15 @@ public class ClassModule {
 	public String addingMandatoryFields(String batchName, String ClassTopic, String ClassDescription, String month,
 			String date1, String date2, String StaffName, String Status) throws InterruptedException {
 		batchNameDrpdw.click();
-		common.sendKeysToElement(batchNameDrpdw, batchName);
+		batchNameDrpdw.sendKeys(batchName);
 		classTopic.click();
-		common.sendKeysToElement(classTopic, ClassTopic);
+		classTopic.sendKeys(ClassTopic);
 		classDescription.click();
-		common.sendKeysToElement(classDescription, ClassDescription);
-		
-		//JavascriptExecutor js=  (JavascriptExecutor) driver;
+		classDescription.sendKeys(ClassDescription);
+		noOfClasses(month, date1, date2);
+		JavascriptExecutor js=  (JavascriptExecutor) driver;
 		  js.executeScript("arguments[0].scrollIntoView(true);", noOfClasses);
 		 
-		noOfClasses(month, date1, date2);
 		staffName.click();
 		staffName.sendKeys(StaffName);
 		if (Status.equals("Active")) {
@@ -288,11 +285,11 @@ public class ClassModule {
 
 	public void selectOptionalFields(String comments, String Notes, String Recording) {
 
-		//JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true);", statusInActive);
-		common.sendKeysToElement(classComments, comments);
-		common.sendKeysToElement(notes, Notes);
-		common.sendKeysToElement(recording, Recording);
+		classComments.sendKeys(comments);
+		notes.sendKeys(Notes);
+		recording.sendKeys(Recording);
 
 		saveAddClass.click();
 
@@ -319,7 +316,7 @@ public class ClassModule {
 	}
 
 	private String getTextFromMandatoryFields(WebElement element) {
-		//JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true);", element);
 		return element.getText();
 	}
@@ -388,7 +385,7 @@ public class ClassModule {
 	}
 
 	public void editClassDetails(String editClass) {
-		common.sendKeysToElement(classDescription, editClass);
+		classDescription.sendKeys(editClass);
 	}
 
 	public String saveEditClass() {
@@ -397,11 +394,11 @@ public class ClassModule {
 	}
 
 	public void logoutClick() throws InterruptedException {
-		common.click(logoutBtn);
+		logoutBtn.click();
 	}
 
 	public void searhBoxValidation(String field, String value) throws InterruptedException {
-		//JavascriptExecutor js = (JavascriptExecutor) driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", searchBox);
 
 		switch (field) {
@@ -438,5 +435,35 @@ public class ClassModule {
 			System.out.println("Search is not success for value: " + value);
 		}
 	}
+	
+	public boolean validateHeader(WebElement element, String header) {
+	    String headerText = "";
+	    if (element.isDisplayed()) {
+	        headerText = element.getText();
+	        if (headerText.equals(header)) {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    } else {
+	        return false; 
+	    }
+	}
 
-}
+	public boolean isSortingbuttonDisplayed(List<WebElement> elements) {
+		boolean flag = true; 
+	       if (elements.size() > 1) {
+	    	     for (int i = 1; i < elements.size(); i++) {
+	            WebElement element = elements.get(i);	            
+	              if (!element.isDisplayed()) {
+	                flag = false;
+	                break;  
+	            }
+	        }
+	    } else {
+	        flag = false;  
+	    }
+	    return flag;
+	}
+		
+	}

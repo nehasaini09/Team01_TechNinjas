@@ -16,15 +16,15 @@ public class TestContext {
     private DriverFactory driverFactory;
     private WebDriverWait wait;
     private ReadConfig readConfig;
-    JavascriptExecutor js;
+    //JavascriptExecutor js;
    
     
- public JavascriptExecutor getJs() {
+/* public JavascriptExecutor getJs() {
 		return js;
 	}
 	public void setJs(JavascriptExecutor js) {
 		this.js = js;
-	}
+	}*/
 	// initializing the DriverFactory
     public TestContext() {
        this.driverFactory = new DriverFactory();
@@ -36,7 +36,7 @@ public class TestContext {
     }  
     public void setDriver(WebDriver driver) {
         this.driver = driver;
-        this.js=(JavascriptExecutor) driver;
+       // this.js=(JavascriptExecutor) driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30)); 
     }
     public DriverFactory getDriverFactory() {

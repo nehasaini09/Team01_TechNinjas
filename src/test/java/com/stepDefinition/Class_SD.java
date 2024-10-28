@@ -8,8 +8,6 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import com.hooks.CommonMethodsClass;
 import com.hooks.TestContext;
 import com.pageObject.ClassModule;
 import com.utilities.Log;
@@ -29,7 +27,7 @@ public class Class_SD {
 	   private TestContext context;
 	   private ClassModule cp;
 	   boolean status;
-	   CommonMethodsClass comm = new   CommonMethodsClass() ;
+	  
 	
 	   public Class_SD(TestContext context) {
 		   this.context = context; 
@@ -57,7 +55,7 @@ public class Class_SD {
 	public void admin_should_see_the_datatable_heading_like(String header) {
 		
 		    WebElement headerElement = cp.getHeaderElement(header); 
-		    boolean isValid = comm.validateHeader(headerElement, header);
+		    boolean isValid = cp.validateHeader(headerElement, header);
 		    Assert.assertTrue(header, isValid);
 		    Log.logInfo("Actual headr is "+headerElement.getText());
 		}

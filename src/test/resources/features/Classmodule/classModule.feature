@@ -39,15 +39,15 @@ Feature: Class Page Validation and Add new class
     When clicks add new class under the class menu bar
     Then Admin should see few input fields and their respective text boxes in the class details window
 
-  Scenario Outline: Check if class is created when only mandatory fields are entered with valid data
+ Scenario Outline: Check if class is created when only mandatory fields are entered with valid data
     Given clicks add new class under the class menu bar
     When Admin enters mandatory fields "<BatchName>" "<ClassTopic>" "<ClassDescription>" "<month>" "<date1>" "<date2>" "<StaffName>" "<Status>" "<SuccessMsg>" in the form and clicks on save button
     Then Admin gets message Class added Successfully
 
     Examples: 
-      | BatchName |  | ClassTopic |  | ClassDescription |  | month    |  | date1 |  | date2 |  | StaffName |               | Status |          | SuccessMsg |              |
-      | SMPO10    |  | Java       |  | Core Java        |  | November |  |    15 |  |    20 |  | Sarnaya   |               | Active |          | Successful |              |
-      | SMPO2     |  | @@         |  | %^U^**&          |  |          |  |       |  |       |  |           | Geetha Thakur |        | Inactive |            | Unsuccessful |
+      | BatchName |  | ClassTopic |  | ClassDescription |  | month    |  | date1 |  | date2 |  | StaffName |   | Status ||SuccessMsg |             
+      | SMPO10    |  | Java       |  | Core Java        |  | November |  |    15 |  |    20 |  | Sarnaya   |   | Active || Successful |            
+      | SMPO2     |  | @@         |  | %^U^**&          |  | December |  |   26  |  |   31    |  | Geetha Thakur|| Inactive || Unsuccessful |
 
   Scenario Outline: Check no classes value added when selecting class dates
     Given clicks add new class under the class menu bar
