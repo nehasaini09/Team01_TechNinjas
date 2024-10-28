@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.time.Duration;
 import com. utilities.*;
-import io.cucumber.datatable.DataTable;
-import java.util.Map;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -49,6 +47,7 @@ public class Batch_SD {
 		
 	}*/
 
+/******************************************************************************************************************/	
 	@When("Admin clicks on the Batch menu from the header")
 	//@When("^Admin clicks on the (.+?) menu from the header$")
 	public void admin_clicks_on_the_Batch_menu_from_the_header() {
@@ -59,13 +58,6 @@ public class Batch_SD {
 	@Then("Admin should see the {string} in the Batch Page")
 	public void admin_should_see_in_the_Batch_Page(String expectedText) {
 		
-		
-		
-//		 boolean isBatchPageValid = batchModule.validateHeaders();
-//		 Assert.assertTrue("Batch page validation failed. One or more elements are not displayed.", isBatchPageValid);
-//		 
-	
-	
 	 Log.debug("Validating expected text in the Batch Page: " + expectedText);
      
    
@@ -86,6 +78,7 @@ public class Batch_SD {
          case "disabled Delete Icon under the header ":
              Assert.assertTrue("Multiple Delete icon should be disabled.", batchModule.isMultipleDeleteIconDisabled());
              break;
+        	
              
          case "enabled pagination controls under the data table":
          
@@ -123,12 +116,14 @@ public class Batch_SD {
      }
 
 	}
+	
+	
 	//Add new batch pop up  label validation
-	 @When("^Admin clicks on \"([^\"]*)\" under the Batch menu bar$")
-	 public void admin_clicks_on_add_new_batch(String button) {
-		 Log.debug("label validation.");
-		 batchModule.navigateToBatch();
-		 batchModule.clickAddNewBatchButton();
+	@When("^Admin clicks on \"([^\"]*)\" under the Batch menu bar$")
+		public void admin_clicks_on_add_new_batch(String button) {
+				Log.debug("label validation.");
+					batchModule.navigateToBatch();
+					batchModule.clickAddNewBatchButton();
 		 
 	 }
 	 
@@ -138,25 +133,30 @@ public class Batch_SD {
 		 Log.debug("pop label.");
 		 Assert.assertTrue("Field not found in popup: " + field, batchModule.isFieldDisplayed(field));
 	    }
+
+/******************************************************************************************************************/		 
 	 
-	 
-	//Add new batch
+	//Add new batch input 
 	    
 	 
 	  
 
-	    @When("Admin leaves one mandatory field blank and clicks the save button")
+	 @When("Admin leaves one mandatory field blank and clicks the save button")
 	    public void admin_leaves_one_mandatory_field_blank_and_clicks_the_save_button() {
 	    	Log.debug("batchpopvalidation.");
 	    	 batchModule.navigateToBatch();
+	    	 batchModule.clickAddNewBatchButton();
+	    	 
 	    	 batchModule.enterDescription(""); 
 		        batchModule.enterNumberOfClasses(""); 
 		        batchModule.clickSaveButton(); 
 	    }
 
 	  
-	    @Then("Admin should see a error message {string}")
-	    public void admin_should_see_a_error_message(String string) {
+	@Then("Admin should see a error message under Description field and No of classes field")
+	   public void admin_should_see_a_error_message_under_Description_field_and_No_of_classes_field() {
+	       
+	    
 	        Log.error("Errormessage");
 	        Assert.assertTrue("Error message should be displayed under the description field", 
 	                batchModule.isDescriptionErrorDisplayed());
@@ -166,14 +166,20 @@ public class Batch_SD {
 	    }
 
 
-	    @When("Admin enters valid data in all mandatory fields and clicks the save button")
-	    public void admin_enters_valid_data_in_all_mandatory_fields_and_clicks_the_save_button() {
+	@When("Admin enters valid data in all mandatory fields and clicks the save button")
+	     public void admin_enters_valid_data_in_all_mandatory_fields_and_clicks_the_save_button() {
+		
+		 batchModule.navigateToBatch();
+		 batchModule.clickAddNewBatchButton();
+		 
+		 
 	    	Log.logInfo("value entered in mandatory field");
 	        batchModule.enterValidDataAllMandatoryFields();
+	        
 	        batchModule.clickSaveButton();
 	    }
 
-	    @Then("Admin should see a successful message {string}")
+	 @Then("Admin should see a successful message {string}")
 	    public void admin_should_see_a_successful_message(String string) {
 	    	Log.logInfo("Success message batch creation assertion");
 	    	  Assert.assertTrue("SuccessMessage:batch created successfully", 
@@ -182,29 +188,27 @@ public class Batch_SD {
 	    }
 
 	  
-	    @When("Admin enters valid data in all mandatory fields and clicks the cancel button")
+	 @When("Admin enters valid data in all mandatory fields and clicks the cancel button")
 	    public void admin_enters_valid_data_in_all_mandatory_fields_and_clicks_the_cancel_button() {
+		     batchModule.navigateToBatch();
+	    	 batchModule.clickAddNewBatchButton();
+	    	
 	    	 batchModule.enterValidDataAllMandatoryFields();
+	    	 
 	    	 batchModule.clickCancelButton();
 	    }
 
-	    @Then("Admin should see the Batch Details pop-up closes without creating any batch")
-	    public void admin_should_see_the_Batch_Details_pop_up_closes_without_creating_any_batch() {
-	 
-	    }
+	@Then("Admin should see the Batch Details pop-up closes without creating any batch")
+	   public void admin_should_see_the_Batch_Details_pop_up_closes_without_creating_any_batch() {
+	    	boolean isPopupClosed = !batchModule.isPopupDisplayed();
+	        Assert.assertTrue("The Batch Details pop-up should be closed", isPopupClosed);
 
+	    } 
 	 
 	 
 	 
 	 
-	 
-	 
-/**********************************/	
-	 
-	 //Add new batch pop field input validation
-	 
-	 
-	 @When("Admin selects program name present in the dropdown")
+ @When("Admin selects program name present in the dropdown")
 	    public void admin_selects_program_name_present_in_the_dropdown() {
 		 Log.logInfo("Dropdown");
 		 batchModule.navigateToBatch();
@@ -232,28 +236,28 @@ public class Batch_SD {
 			 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 			 //batchModule.selectProgramFromDropdown();
 	        batchModule.enterBatchNameSuffix(input);
-	        
 	    }
 
-	   // @Then("Admin should get an (.*)")
+	 
 	  @Then("^Admin should get an (.+)$")
-	 // @Then("Admin should get an {string}")
+	
 	    public void checkExpectedMessage(String expectedMessage) {
 		  
 		  Log.debug("Validating expected text in the AddnewBatch popup Page: " + expectedMessage);
 		
 		      String actualMessage = batchModule.getErrorMessage().trim(); // Ensure to trim whitespace
 		      
-		      // Check if we expect an error message or if it should be empty
+		    
 		      if (expectedMessage.equals("(no message)") || expectedMessage.isEmpty()) {
-		          // No error message is expected for valid inputs
+		        
 		          assertTrue("Expected no error message but got: " + actualMessage, actualMessage.isEmpty());
 		      } else {
-		          // An error message is expected for invalid inputs
+		      
 		          assertEquals("Expected error message does not match", expectedMessage, actualMessage);
 		      }
 		  }
-	  
+
+/******************************************************************************************************************/		  
 	  
 	//Edit icon Steps
 
@@ -263,23 +267,25 @@ public class Batch_SD {
 	        batchModule.clickEditButton();
 	      //  Assert.assertTrue("Batch details pop-up should be displayed", batchModule.isBatchDetailsPopupVisible());
 	    }
-
-	  @Then("Admin should see the Program name field  abn batchname prefix field disabled for editing")
-	  public void admin_should_see_the_Program_name_field_abn_batchname_prefix_field_disabled_for_editing()  {
+	  
+   @Then("Admin should see the Program name field  and batchname prefix field disabled for editing")
+	  public void admin_should_see_the_Program_name_field_and_batchname_prefix_field_disabled_for_editing()  {
 	        Assert.assertTrue("Program name field should be disabled", batchModule.isProgramNameFieldDisabled());
 	        Assert.assertTrue("Batch name field should be disabled", batchModule.isBatchNameFieldDisabled());
 	    }
 
-	  @When("Admin updates the description and No. of classes fields with and clicks the save button")
-	  public void admin_updates_the_description_and_No_of_classes_fields_with_and_clicks_the_save_button()  {
+  @When("Admin updates the description and No. of classes fields with and clicks the save button")
+	 public void admin_updates_the_description_and_No_of_classes_fields_with_and_clicks_the_save_button()  {
 	        batchModule.enterDescription(""); 
 	        batchModule.enterNumberOfClasses(""); 
 	        batchModule.clickSaveButton(); 
 	    }
 
 
-           @Then("Admin should get  message batch updated")
-            public void admin_should_get_message_batch_updated() {
+  @Then("Admin should get  message batch updated")
+         public void admin_should_get_message_batch_updated() {
+      
+  
 	        //Assert.assertTrue("Error message should be displayed under the description field", 
 	       //         batchModule.isDescriptionErrorDisplayed());
 	       // Assert.assertTrue("Error message should be displayed under the number of classes field", 
@@ -288,56 +294,62 @@ public class Batch_SD {
         	   
 	    }
 
-	    @Given("Admin is on the Batch Details pop-up window")
-	    public void admin_is_on_the_Batch_Details_pop_up_window() {
+    @Given("Admin is on the Batch Details pop-up window")
+	   public void admin_is_on_the_Batch_Details_pop_up_window() {
 	       
 	        batchModule.navigateToBatch(); 
 	        batchModule.clickEditButton(); 
 	      //  Assert.assertTrue("Batch details pop-up should be displayed", batchModule.isBatchDetailsPopupVisible());
 	    }
 
-	    @When("Admin enters data clicks the cancel button")
-	    public void admin_enters_data_clicks_the_cancel_button() {
+    @When("Admin enters data clicks the cancel button")
+	  public void admin_enters_data_clicks_the_cancel_button() {
 	        batchModule.enterValidDataInMandatoryFields(); 
 	        batchModule.clickCancelButton(); 
 	    }
 
 
-@Then("Admin should see the Batch Details pop-up closes without editing the batch")
-public void admin_should_see_the_Batch_Details_pop_up_closes_without_editing_the_batch()  {
+   @Then("Admin should see the Batch Details pop-up closes without editing the batch")
+      public void admin_should_see_the_Batch_Details_pop_up_closes_without_editing_the_batch()  {
 	        Assert.assertFalse("Batch details pop-up should be closed", batchModule.isSuccessMessageDisplayed());
 	    }
 	
 
 	    
-	    
+
+/******************************************************************************************************************/		    
 	    
 // Single row delete and multi row delete and No Delete validation
 		
 
-	    @When("Admin  clicks the delete icon by selecting the checkbox for a specific batch")
-	    public void admin_clicks_the_delete_icon_by_selecting_the_checkbox_for_a_specific_batch() {
+	@When("Admin should see the popup with yes or no by clicking the delete icon by from a specific batch" )
+	 public void admin_should_see_the_popup_with_yes_or_no_by_clicking_the_delete_icon_by_from_a_specific_batch() {
 	    	batchModule.navigateToBatch();
 	       batchModule.clickDeleteIconForSpecificBatch();
+	       boolean isDeletePopUpDisplayed = batchModule.isDeletePopUpDisplayed(); 
+	       Assert.assertTrue("Deletion popup should be open", isDeletePopUpDisplayed);
 	    }
-	    
 
 	    @Then("The respective row in the table should be deleted")
 	    public void the_respective_row_in_the_table_should_be_deleted() {
-	    	boolean isDeleted = batchModule.isRowDeleted(); // Call the method that checks if the row is deleted
+	    	
+	    	boolean isDeleted = batchModule.isRowDeleted(); 
 
 	        Assert.assertTrue("The batch should be deleted but is still present.", isDeleted);
 	    }
 
-       @When("Admin clicks on the delete icon on  batch page")
+     @When("Admin clicks on the delete icon on  batch page")
        		public void admin_clicks_on_the_delete_icon_on_batch_page() {
     	   		batchModule.navigateToBatch();
     	   			batchModule.clickDeleteIconForSpecificBatch();
        }
 
-      @Then("Admin should not be able to delete  the batch by clicking No to to go back the batch page")
+    @Then("Admin should not be able to delete  the batch by clicking No to to go back the batch page")
     public void admin_should_not_be_able_to_delete_the_batch_by_clicking_No_to_to_go_back_the_batch_page() {
     batchModule.cancelDeletion();
+    
+	boolean isDeletionpopupclosed = !batchModule.isDeletePopUpDisplayed();
+    Assert.assertTrue("Deletion popup should be closed", isDeletionpopupclosed);
                 }
 
       @When("Admin clicks the delete icon under the Manage Batch header by selecting the checkboxes for multiple batches")
@@ -348,7 +360,7 @@ public void admin_should_see_the_Batch_Details_pop_up_closes_without_editing_the
 	
 
      @Then("The respective rows in the table should be deleted")
-          public void the_respective_rows_in_the_table_should_be_deleted() {
+        public void the_respective_rows_in_the_table_should_be_deleted() {
 	boolean allDeleted = batchModule.areAllRowsDeleted(); // Call the method to verify deletion
 	
 	
@@ -358,11 +370,12 @@ public void admin_should_see_the_Batch_Details_pop_up_closes_without_editing_the
 	    
 	      
 
+/******************************************************************************************************************/	
 	  
 	  //pagination
 	    
 
-	    @When("^Admin clicks the (Next|Last|Previous|First) link on the data table$")
+	 @When("^Admin clicks the (Next|Last|Previous|First) link on the data table$")
 	    public void adminClicksPageLink(String pageLink) {
 	    	
 	      	batchModule.navigateToBatch();
@@ -384,7 +397,7 @@ public void admin_should_see_the_Batch_Details_pop_up_closes_without_editing_the
 	    }
 
 	    // Verify the results based on the <results> description
-	    @Then("^Admin should see the (.*) on the data table$")
+	@Then("^Admin should see the (.*) on the data table$")
 	    public void adminShouldSeeResults(String expectedResult) {
 	    	
 
@@ -435,10 +448,11 @@ public void admin_should_see_the_Batch_Details_pop_up_closes_without_editing_the
 	    }
 	    }
 	    
-	    
+
+/******************************************************************************************************************/		    
 	    
 //Search
-	    @When("^Admin enters the (.*) in the search text box$")
+    @When("^Admin enters the (.*) in the search text box$")
 	    public void admin_enters_the_batch_name_in_the_search_text_box(String batchname){
 	    //	String batchname ="java";
 	    	 // this.batchname = batchName; // Store the batch name for later use
@@ -448,19 +462,14 @@ public void admin_should_see_the_Batch_Details_pop_up_closes_without_editing_the
 	   
 	    }
 
-	    @Then("^Admin should see the filtered batches in the data table$")
+    @Then("^Admin should see the filtered batches in the data table$")
 	    public void admin_should_see_the_filtered_batches_in_the_data_table() {
 	        Assert.assertNotNull("Batch name should not be null", batchname); 
 	        boolean isBatchDisplayed = batchModule.isBatchDisplayed(batchname);
 	        Assert.assertTrue("Expected batch name not found in the displayed results: " + batchname, isBatchDisplayed);
 	    }
 
-	  
-	  
-
-	  
-
-
+	
 	  
 
 }
