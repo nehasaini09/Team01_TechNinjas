@@ -1,5 +1,6 @@
 package com.hooks;
-import org.openqa.selenium.Dimension;
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -8,19 +9,8 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-import java.time.Duration;
-
 public class DriverFactory {
 	 private WebDriver driver;
-	 
-	 //private static WebDriver driver;// singleton instance for global point to access one instance
- 
-	// Method to initialize the WebDriver based on the browser name
-	 
-	 //public static WebDriver initialiseBrowser(String browserName)//singleton
-
-	 
-	 
 	 
 	 
 	 public WebDriver initialiseBrowser(String browserName) {
@@ -46,8 +36,7 @@ public class DriverFactory {
 	                    throw new IllegalArgumentException("Browser not supported: " + browserName);
 	            }
 	            driver.manage().window().maximize();
-	            //driver.manage().window().setSize(new Dimension(1024, 768));
-	            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	        }
 	        return driver;
 	    }

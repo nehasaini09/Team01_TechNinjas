@@ -2,10 +2,11 @@ package com.hooks;
 
 import java.time.Duration;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.pageObject.ClassModule;
 import com.utilities.ReadConfig;
 
 
@@ -16,22 +17,13 @@ public class TestContext {
     private DriverFactory driverFactory;
     private WebDriverWait wait;
     private ReadConfig readConfig;
-    //JavascriptExecutor js;
-   
+    private ClassModule cp;
+    Actions action;
     
-/* public JavascriptExecutor getJs() {
-		return js;
-	}
-	public void setJs(JavascriptExecutor js) {
-		this.js = js;
-	}*/
 	// initializing the DriverFactory
     public TestContext() {
        this.driverFactory = new DriverFactory();
-       //this.driver = driverFactory.initialiseBrowser("chrome"); 
-       //this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-       this.readConfig = new ReadConfig(); // config reader initilise
-       
+        this.readConfig = new ReadConfig();        
        
     }  
     public void setDriver(WebDriver driver) {
@@ -54,9 +46,17 @@ public class TestContext {
     public WebDriverWait getWait() {
         return wait;
     }
+    
+    public Actions performAction() {
+    	return action;
+    }
 
     public String getApplicationURL() {
         return readConfig.getApplicationURL(); // Method to get URL
+    }
+    
+    public ClassModule getClassModule() {
+    	return cp;
     }
 
 }
