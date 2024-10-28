@@ -1,6 +1,8 @@
 package com.pageObject;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -14,16 +16,16 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.hooks.TestContext;
 
 public class ClassModule {
 
 	private WebDriver driver;
 	private WebDriverWait wait;
-	 //JavascriptExecutor js;// = (JavascriptExecutor) driver;
+	Actions action;
+	 
 	// TestContext context;
 	 //JavascriptExecutor js = (JavascriptExecutor) driver;
-	//CommonMethodsClass common = new CommonMethodsClass();
+	
 
 	@FindBy(id = "username")	private WebElement userName;
 	@FindBy(id = "password")	private WebElement password;
@@ -114,13 +116,24 @@ public class ClassModule {
 	@FindBy(xpath = "(//div[@class='action'])")	private List<WebElement> noOfRows;
 	@FindBy(xpath = "//input[@placeholder]")	private WebElement searchBx;
 	@FindBy(xpath = "//input[@placeholder]")	private WebElement searchox;
+	
+	//sort element locators
+	//sort 
+	@FindBy(xpath = "//thead//tr//th[2]//i")private WebElement BatchNameSort;
+	@FindBy(xpath = "//thead//tr//th[3]//i")private WebElement classTopicSort;
+	@FindBy(xpath = "//thead//tr//th[4]//i")private WebElement classDescripSort;
+	//list
+	@FindBy(xpath = "//tbody//td[2]")private List<WebElement> BatchNameList;
+	@FindBy(xpath = "//tbody//td[3]")private List<WebElement> classTopicList;
+	@FindBy(xpath = "//tbody//td[4]")private List<WebElement> classDescripList;
 
 	// Logout
 	@FindBy(id = "logout")	private WebElement logoutBtn;
 
 	public ClassModule(WebDriver driver) {
 		this.driver = driver;
-	
+		this.action=new Actions(driver);
+		this.wait=new WebDriverWait(driver,Duration.ofSeconds(30));	
 		PageFactory.initElements(driver, this);
 		//this.js=context.getJs();
 	}
@@ -146,7 +159,7 @@ public class ClassModule {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		//js=context.getJs();
 		js.executeScript("document.body.style.zoom='80%'");
-		// wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		
 	}
 
 	public WebElement getHeaderElement(String headerName) {
@@ -368,8 +381,8 @@ public class ClassModule {
 	}
 
 	public void clickOnEdit() {
-		Actions actions = new Actions(driver);
-		actions.doubleClick(editBtn).perform();
+		//Actions actions = new Actions(driver);
+		action.doubleClick(editBtn).perform();
 	}
 
 	public boolean editPopup() {
@@ -394,7 +407,9 @@ public class ClassModule {
 	}
 
 	public void logoutClick() throws InterruptedException {
-		logoutBtn.click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));  	 
+		 wait.until(ExpectedConditions.elementToBeClickable(logoutBtn)).click();
+		
 	}
 
 	public void searhBoxValidation(String field, String value) throws InterruptedException {
@@ -419,22 +434,112 @@ public class ClassModule {
 
 	public void logicForValidatingSearch(String value) {
 		boolean found = false;
-		for (int i = 1; i <= noOfRows.size(); i++) {
-			List<WebElement> searchedValues = driver
-					.findElements(By.cssSelector("tbody tr:nth-child(" + i + ") td:nth-child(2)"));
-			for (WebElement v : searchedValues) {
+		List<WebElement> searchedValues = driver.findElements(By.xpath("//tbody//td[2]"));
+					for (WebElement v : searchedValues) {
 				if (v.getText().equalsIgnoreCase(value)) {
 					System.out.println("Search is success for value: " + value);
 					found = true;
 					break;
 				}
 			}
-		}
+		
 
 		if (!found) {
 			System.out.println("Search is not success for value: " + value);
 		}
 	}
+	
+	public void clickBatchNameSort(){	
+        action.click(BatchNameSort).perform();
+        action.click(BatchNameSort).perform();
+	}
+	
+	public void clickBatchNameSortDec(){	
+        action.click(BatchNameSort).perform();
+        action.click(BatchNameSort).perform();
+        action.click(BatchNameSort).perform();
+
+	}
+
+	
+	public void clickclassTopicSort(){			
+        action.click(classTopicSort).perform();
+        action.click(classTopicSort).perform();
+		
+	}
+	public void clickclassTopicSortDes(){			
+        action.click(classTopicSort).perform();
+        action.click(classTopicSort).perform();
+        action.click(classTopicSort).perform();
+		
+	}
+	
+	public void clickclassDescriptionSort(){			
+        action.click(classDescripSort).perform();
+        action.click(classDescripSort).perform();
+		
+	}
+	
+	public void clickclassDescriptionSortDes(){			
+        action.click(classDescripSort).perform();
+        action.click(classDescripSort).perform();
+        action.click(classDescripSort).perform();
+		
+	}
+	
+//get and return original list	
+	public List<String> getOriginalList(String type) {
+		List<String> originalList = null;
+		
+		if(type.equals("BatchName")) {
+			originalList = printWebElements(BatchNameList);
+		
+		}else if(type.equals("ClassTopic")) {
+			originalList = printWebElements(classTopicList);
+		
+		}else {
+			originalList = printWebElements(classDescripList);
+		}
+		return originalList;	
+	}
+	
+	
+// this method will sort the given list
+	public List<String> getSortedList(List<String> originalList){
+		System.out.println("Original List Before sorting is"+ originalList);
+        List<String> sortedList = new ArrayList<>(originalList);
+        Collections.sort(sortedList, String.CASE_INSENSITIVE_ORDER);
+		System.out.println("Sorted List After sorting is"+ sortedList);
+        return sortedList;
+	}	
+	
+	public List<String> getSortedListDescending(List<String> originalList){
+		
+		System.out.println("Original List Before sorting is"+ originalList);
+        List<String> sortedList = new ArrayList<>(originalList);
+//        Collections.sort(sortedList, (s1, s2) -> s2.compareToIgnoreCase(s1));
+//        Collections.sort(sortedList, Collections.reverseOrder());
+        Collections.sort(sortedList, String.CASE_INSENSITIVE_ORDER.reversed());
+		System.out.println("Sorted List After sorting is"+ sortedList);
+        return sortedList;
+	}	
+	
+// covert web element to java string list	
+	public List<String> printWebElements(List<WebElement> options) {
+		List<String> texts = new ArrayList<String>();
+		int i=0;
+		for(WebElement option: options) {
+			texts.add(i,option.getText());
+			i++;
+		}
+		System.out.println("The number of items in the list are: "+ texts.size());
+		return texts;
+	}
+	
+	
+	
+	
+
 	
 	public boolean validateHeader(WebElement element, String header) {
 	    String headerText = "";
