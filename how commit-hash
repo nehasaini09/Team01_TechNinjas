@@ -1,0 +1,111 @@
+[33mcommit 55834b0c29d3d32bd0614bd419b050551af1e2c5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mSaranya[m[33m, [m[1;31morigin/Saranya[m[33m)[m
+Author: saranyashanmugam2024 <saranyashanmugam2023@gmail.com>
+Date:   Thu Oct 24 12:30:50 2024 -0400
+
+    First commit
+
+[33mcommit 4e42897b179c2fd49d442b8458c63318dcdd266c[m
+Merge: 6f27ec3 436a47a
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Wed Oct 23 11:11:09 2024 -0700
+
+    Merge pull request #8 from nehasaini09/Neha
+    
+    Neha
+
+[33mcommit 436a47a03b84eb288bb5099f9436ff20b9d51264[m
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Wed Oct 23 10:36:53 2024 -0700
+
+    Framework changes
+
+[33mcommit a76e0b1f8c610281ff43c79f69196a466d4f6b64[m
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Wed Oct 23 09:31:01 2024 -0700
+
+    BaseClass,Log,Config
+
+[33mcommit 6f27ec305838e04a66268fd790c7aac3d35ddb2f[m
+Merge: 023aa17 1d1c2a5
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Wed Oct 23 09:13:13 2024 -0700
+
+    Merge pull request #7 from nehasaini09/Neha
+    
+    Neha
+
+[33mcommit 1d1c2a56166ad11e8e7bb85efa1212b346772927[m
+Merge: 50714f0 012a87f
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Wed Oct 23 09:10:36 2024 -0700
+
+    Merge branch 'Neha' of https://github.com/nehasaini09/Team01_TechNinjas.git into Neha
+
+[33mcommit 023aa173393a4d6f915b3d5a2c4fccf659544659[m
+Merge: fea5fd7 012a87f
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Wed Oct 23 09:10:08 2024 -0700
+
+    Merge pull request #6 from nehasaini09/Neha
+    
+    Merge pull request #5 from nehasaini09/master
+
+[33mcommit 012a87f24ad38e1bfc7327645eeea7b7c8ffe0ca[m
+Merge: b0eef24 fea5fd7
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Wed Oct 23 09:09:38 2024 -0700
+
+    Merge pull request #5 from nehasaini09/master
+    
+    Merge pull request #4 from nehasaini09/Neha
+
+[33mcommit 50714f00ff1097131c8ece1d29d9312b7dc7be78[m
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Wed Oct 23 09:07:08 2024 -0700
+
+    Step definition, runner class
+
+[33mcommit fea5fd7958d6c2ae4343f69938b088f410814393[m
+Merge: aa9db28 b0eef24
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Tue Oct 22 19:27:03 2024 -0700
+
+    Merge pull request #4 from nehasaini09/Neha
+    
+    Neha
+
+[33mcommit b0eef24109ed7832ea2347d7aa541337cf1527d2[m
+Merge: 3972d2f aa9db28
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Tue Oct 22 19:26:00 2024 -0700
+
+    Merge pull request #3 from nehasaini09/master
+    
+    Merge pull request #1 from nehasaini09/Neha
+
+[33mcommit 3972d2fea39f9ddb97e7e90cec44b96b608cd4fa[m
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Tue Oct 22 19:24:51 2024 -0700
+
+    Feature folder
+
+[33mcommit aa9db2892bc4779256a8e955712d57d82ee38095[m
+Merge: f483c40 acf5a4e
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Tue Oct 22 19:05:35 2024 -0700
+
+    Merge pull request #1 from nehasaini09/Neha
+    
+    Second commit
+
+[33mcommit acf5a4e0b8d4badd22bbc08dee1d586edfd7c7fd[m
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Tue Oct 22 19:05:00 2024 -0700
+
+    Second commit
+
+[33mcommit f483c40dc98e158dff63371fc4e522e64bec9b70[m
+Author: nehasaini09 <116294426+nehasaini09@users.noreply.github.com>
+Date:   Tue Oct 22 16:48:44 2024 -0700
+
+    First commit
