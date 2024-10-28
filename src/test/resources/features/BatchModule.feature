@@ -2,11 +2,10 @@ Feature: Batch Page Navigation and Validation
 
   Background: 
        Given Admin is logged into the LMS portal and on the dashboard page
-   # And Admin navigates to the 'Batch' page from the navigation bar clicking "Batch icon"
+    And Admin navigates to the 'Batch' page from the navigation bar clicking "Batch icon"
 
   Scenario Outline: Validate Batch Page elements
     When Admin clicks on the Batch menu from the header
- 
    Then  Admin should see the "<Element>" in the Batch Page
 
     Examples:
@@ -33,8 +32,8 @@ Feature: Batch Page Navigation and Validation
       | Description as text box             |
       | Program Name as drop down           |
       | Status as radio button              |
-      |Save Button												  |
-      |Cancel Button												|
+      | Save Button												  |
+      | Cancel Button												|
       | close                               |
       
   Scenario: Validate batch name field and dropdown
@@ -44,8 +43,7 @@ Feature: Batch Page Navigation and Validation
   
  Scenario: Validate error messages when leaving mandatory fields blank
     When Admin leaves one mandatory field blank and clicks the save button
-    Then Admin should see a error message "Error message should be displayed under the description field"
-    And Admin should see a error message "Error message should be displayed under the number of classes field"
+    Then Admin should see a error message under Description field and No of classes field 
 
   Scenario: Save a new batch with valid mandatory fields
     When Admin enters valid data in all mandatory fields and clicks the save button
@@ -73,17 +71,10 @@ Feature: Batch Page Navigation and Validation
     Then Admin should get  message batch updated
     When Admin enters data clicks the cancel button
     Then Admin should see the Batch Details pop-up closes without editing the batch
-    
-    
-    When Admin enters valid data in all mandatory fields and clicks the save button
-    Then Admin should get a successful message for editing the batch
-
-  Scenario: Validate cancel button in Batch Details pop-up
-    Given Admin is on the Batch Details pop-up window
    
 
   Scenario: Validate single row delete 
-    When Admin  clicks the delete icon by selecting the checkbox for a specific batch
+    When Admin should see the popup with yes or no by clicking the delete icon by from a specific batch 
     Then The respective row in the table should be deleted
     
     
