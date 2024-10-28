@@ -5,7 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.pageObject.BatchModule;
-import com.pageObject.ProgramModulePage;
+import com.pageObject.ProgramModule;
+//import com.pageObject.ProgramModulePage;
 import com.utilities.ReadConfig;
 import org.openqa.selenium.interactions.Actions;
 
@@ -16,7 +17,7 @@ public class TestContext {
     private DriverFactory driverFactory;
     private WebDriverWait wait;
     private ReadConfig readConfig;
-    private ProgramModulePage programModulepage;
+    private ProgramModule programModulepage;
     private BatchModule batchModule;
     private Actions actions;
     
@@ -32,7 +33,7 @@ public class TestContext {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30)); 
         this.actions = new Actions(driver);
-        this.programModulepage=new ProgramModulePage(driver, this);
+        this.programModulepage=new ProgramModule(driver, this);
         this.batchModule=new BatchModule(driver,this);
     }
     public DriverFactory getDriverFactory() {
@@ -54,7 +55,7 @@ public class TestContext {
     public String getApplicationURL() {
         return readConfig.getApplicationURL(); // Method to get URL
     }
-    public ProgramModulePage getProgramModule() {
+    public ProgramModule getProgramModule() {
     	return programModulepage;
     }
     public BatchModule getBatchModule() {

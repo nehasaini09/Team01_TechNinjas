@@ -4,17 +4,13 @@ import java.time.Duration;
 import java.util.List;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import com.hooks.BaseClass;
 import com.hooks.TestContext;
 import com.pageObject.BatchModule;
-import com.pageObject.ProgramModulePage;
+import com.pageObject.ProgramModule;
+//import com.pageObject.ProgramModulePage;
 import com.utilities.Log;
-import com.hooks.CommonMethodsClass;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -24,7 +20,7 @@ public class Program_SD {
 	
 	
 	private WebDriverWait wait;
-	   private ProgramModulePage programModulePage;
+	   private ProgramModule programModulePage;
 	   private WebDriver driver;
 	   private TestContext context;
 	   private BatchModule batchModule;
@@ -36,7 +32,7 @@ public class Program_SD {
      this.driver = context.getDriver(); //  WebDriver get initialized
      this.wait = new WebDriverWait(driver, Duration.ofSeconds(30)); // Initializes WebDriverWait
      
-    this.programModulePage = new ProgramModulePage(driver,context); 
+    this.programModulePage = new ProgramModule(driver,context); 
      //this.programModulePage=context.getProgramModule();
     this.batchModule = new BatchModule(driver, context);
  }
