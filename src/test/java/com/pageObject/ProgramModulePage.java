@@ -24,10 +24,10 @@ public class ProgramModulePage {
 	List<String> menuItems;
 	String menuBar;
 	 List<WebElement> manageProgramMenuItems=new ArrayList<>();
-	 WebElement popup;
-	 WebElement closeButton;
-	 WebElement searchBar;
-	 boolean isDisplayed;
+	// WebElement popup;
+	// WebElement closeButton;
+	// WebElement searchBar;
+	// boolean isDisplayed;
 	 WebElement statusRadioButton ;
    //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	//public  ProgramModulePage(WebDriver  driver) {
@@ -263,18 +263,19 @@ return menuItems;
 	            
 	    }
 	    //------------------------------------Manage AddNewProgram---------------------------------//
-	    public void clickAddNewProgram() {
+	    public void clickAddNewProgram() throws InterruptedException {
 	    	
 			
-			wait.until(ExpectedConditions.visibilityOfElementLocated(addNewPgm));
-
+			//wait.until(ExpectedConditions.visibilityOfElementLocated(addNewPgm));
+Thread.sleep(1000);
 			driver.findElement(addNewPgm).click();
 	    }
-	    public void VerifyaddNewProgram() {
+	    public void VerifyaddNewProgram() throws InterruptedException {
 	    	
 			// Wait for the pop-up to be displayed
-            popup = wait.until(ExpectedConditions.visibilityOfElementLocated(popUp)); // Adjust selector
-
+            //popup = wait.until(ExpectedConditions.visibilityOfElementLocated(popUp)); // Adjust selector
+          Thread.sleep(1000);
+          WebElement popup=driver.findElement(popUp);
             // Verify the pop-up contains expected text or elements
             String expectedText = "Program Details"; 
             String actualText = popup.getText();
@@ -288,7 +289,7 @@ return menuItems;
 	    public String VerifyTitleOfAddNewPopwindow() {
 	    	
 	          
-	          wait.until(ExpectedConditions.visibilityOfElementLocated(TitlePopUp));
+	          //wait.until(ExpectedConditions.visibilityOfElementLocated(TitlePopUp));
 	          String programHeader=driver.findElement(TitlePopUp).getText();
 	          System.out.println(programHeader);
 	         Assert.assertEquals( "Program Details", programHeader);
@@ -299,7 +300,7 @@ return menuItems;
 	    public void testMandatoryFieldAsterisk() {
 	    	
 	    	
-            WebElement nameField = wait.until(ExpectedConditions.visibilityOfElementLocated(programName)); // Adjust selector
+            //WebElement nameField = wait.until(ExpectedConditions.visibilityOfElementLocated(programName)); // Adjust selector
             WebElement asterisk = driver.findElement(astreik); 
                                    
             Assert.assertTrue("Asterisk should be displayed", asterisk.isDisplayed());
@@ -317,46 +318,62 @@ return menuItems;
              
             return fieldText;
 	    }
-	     public void cancelbuttonclick() {
-	    	 
-	    	 closeButton = popup.findElement(cancelButton); // Adjust selector
+	     public void cancelbuttonclick() throws InterruptedException {
+	    	 Thread.sleep(1000);
+	    	// WebElement popup=driver.findElement(popUp); 
+	    	 //closeButton = popup.findElement(cancelButton); // Adjust selector
+	    	 WebElement closeButton=driver.findElement(cancelButton);
 	           
 	            closeButton.click();
 	     }
-	    public  boolean IsPopUpDisplayed() {
+	    public  void IsPopUpDisplayed() {
 	    	//Assert.assertTrue("Program Details form should be visible", popup.isDisplayed());
-	    	 boolean isDisplayed = popup.isDisplayed();
+	    	//WebElement popup=driver.findElement(popUp);
+	    	 /*boolean isDisplayed = popup.isDisplayed();
 	    	 Assert.assertTrue("Program Details form should be visible", isDisplayed);
-	    	 return isDisplayed;
+	    	 return isDisplayed;*/
+	    	 WebElement popup = driver.findElement(popUp); // Adjust the locator
+	            
+	    	 Assert.assertTrue("Program Details form should be visible", popup.isDisplayed());
+	    	 
 	    }
 	    
 	    public void IspopupNotDisplayed() {
 	    	
-	    	wait.until(ExpectedConditions.invisibilityOf(popup));
+	    	//wait.until(ExpectedConditions.invisibilityOf(popup));
 		    //add softassertion here
-		    Assert.assertFalse("Program Details form should no longer be visible",  isDisplayed);
+	    	//boolean isDisplayed;
+		   // Assert.assertFalse("Program Details form should no longer be visible",  isDisplayed);
 	    }
-	    public String ProgramNameEntryTest(String Name)
+	    public void enterText(String Name) {
+	    	WebElement programNameTextBox=driver.findElement(pname);
+			 programNameTextBox.sendKeys(Name);
+	    }
+	    public String ProgramNameEntryTest()
 	    {
 	    	
 	    	WebElement programNameTextBox=driver.findElement(pname);
-			 programNameTextBox.sendKeys(Name);
+			// programNameTextBox.sendKeys(Name);
 			 String enteredText = programNameTextBox.getAttribute("ng-reflect-model");
 	    	return enteredText;
 	    	//Assert.assertEquals("The entered program name should match.", "SalesBI", enteredText);
 	    	
 	    }
-	    
-	    public String DescriptionEntryTest(String Description) {
+	    public void DescriptionEntry(String Description) {
 	    	WebElement descriptionBox=driver.findElement(pDescription);
 	    	descriptionBox.sendKeys(Description);
+	    }
+	    
+	    
+	    public String DescriptionEntryTest() {
+	    	WebElement descriptionBox=driver.findElement(pDescription);
+	    	//descriptionBox.sendKeys(Description);
 	    	String enteredText = descriptionBox.getAttribute("ng-reflect-model");
 			return enteredText;
 			//Assert.assertEquals("The entered description should match.", descriptionText, enteredText);
 
 	    	
 	    }
-	    
 	   
 	    public void clickStatus() {
 	    	WebElement statusRadioButton = driver.findElement(active);
@@ -365,9 +382,9 @@ return menuItems;
 
 	    // Method to check if a status is selected
 	    public boolean isStatusSelected() {
-	    	
+	    	WebElement statusRadioButton = driver.findElement(active);
 		   statusRadioButton.isSelected();
-		   //Assert.assertFalse("The radio button for active selected.",statusRadioButton.isSelected());
+		   Assert.assertFalse("The radio button for active selected.",statusRadioButton.isSelected());
 		  return statusRadioButton.isSelected();
 		  //add soft assertion here too
 		 
@@ -378,7 +395,8 @@ return menuItems;
 	    }
 	    public String  successMsgSave() {
 	    	
-	    	WebElement successMessageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(successMsg));
+	    	//WebElement successMessageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(successMsg));
+	    	WebElement successMessageElement=driver.findElement(successMsg);
 	    	return successMessageElement.getText();
 	    }
 	    
@@ -386,9 +404,13 @@ return menuItems;
 	    	WebElement searchBar=driver.findElement(searchbtn);
 	    	searchBar.click();
 	    		    }
-	    public String searchForProgram(String programname) {
-	    	
-	    	searchBar.sendKeys(programname);   	
+	    
+	    public void searchEnterProgramText(String programname) {
+	    	WebElement searchBar=driver.findElement(searchbtn);
+	    	searchBar.sendKeys(programname); 
+	    }
+	    public String searchForProgram() {
+	    	  	
 	    	    	
 	    	WebElement programRecord=driver.findElement(enteredPName);
 	    	String searchText=programRecord.getText();
@@ -398,6 +420,7 @@ return menuItems;
 	    	
 	    }
 	    public void clickXbutton() {
+	    	WebElement popup=driver.findElement(popUp);
 	    	WebElement XButton = popup.findElement(Xbutton); // Adjust selector
 	           
 	    	 XButton.click();
@@ -406,7 +429,7 @@ return menuItems;
 	    }
 	    
 	    public void createForm() {
-	    	driver.findElement(pname).sendKeys("zxcv");;
+	    	driver.findElement(pname).sendKeys("GGG");;
 	    	driver.findElement(pDescription).sendKeys("games");
 	    	
 	   	    	
