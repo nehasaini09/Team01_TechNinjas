@@ -757,24 +757,24 @@ public class BatchModule {
 	   
 	     //
 	     public void selectProgram(String programName) {
-	         // Open the dropdown
+	       
 	         Programdropdowntrigger.click();
 
-	         // Wait for options to be visible
+	       
 	         wait.until(ExpectedConditions.visibilityOfAllElements(programOptions));
 
-	         boolean programFound = false; // Flag for found program
+	         boolean programFound = false; 
 
 	         // Iterate through the options to find and click the desired one
 	         for (WebElement option : programOptions) {
-	             // Scroll to the option using the injected driver
+	             
 	             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", option);
-	             wait.until(ExpectedConditions.elementToBeClickable(option)); // Ensure the option is clickable
+	             wait.until(ExpectedConditions.elementToBeClickable(option)); 
 
 	             if (option.getText().equals(programName)) {
 	                 option.click(); // Select the desired option
 	                 programFound = true; // Mark as found
-	                 break; // Exit the loop once the option is selected
+	                 break; 
 	             }
 	         }
 
