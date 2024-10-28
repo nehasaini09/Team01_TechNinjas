@@ -125,6 +125,19 @@
     <version>7.17.0</version>
 </dependency>
 
+
 	</dependencies>
 	
 </project>
+
+	  <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-testng</artifactId>
+    <version>7.15.0</version>
+</dependency>
+
+	</dependencies>
+	
+</project>
+
