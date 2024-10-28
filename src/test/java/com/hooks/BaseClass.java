@@ -37,11 +37,29 @@ public class BaseClass {
         Log.logInfo("Navigating to: " + readConfig.getApplicationURL());
         Context.getDriver().get(readConfig.getApplicationURL());
     }
-
+    
     @After
+    public void tearDown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            try {
+                Log.logInfo("Scenario failed: capturing screenshot.");
+                byte[] sourcePath = ((TakesScreenshot) Context.getDriver()).getScreenshotAs(OutputType.BYTES);
+                
+                 Allure.addAttachment("Failed Screenshot: " + scenario.getName(), new ByteArrayInputStream(sourcePath));
+            } catch (Exception e) {
+                            }
+        }
+        
+        // Proceed to close the driver
+        Log.logInfo("Closing WebDriver");
+        Context.closeDriver();
+    }
+
+
+   /* @After
     public void tearDown() {    	
     	 Log.logInfo("Closing WebDriver");
         Context.closeDriver();
-    }
+    }*/
 }
 

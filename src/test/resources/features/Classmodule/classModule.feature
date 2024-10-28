@@ -139,3 +139,34 @@ Examples:
 |Batch Name||Micro service-01|
 |Class Topic||Java|
 |Staff Name||Getha Takur|
+
+    # Sorting 
+     
+  Scenario: Verify sorting of Batch name in Ascending order
+    When Admin clicks on Arrow next to Batch Name of Class module page for sort
+    Then Admin See the Batch Name is sorted Ascending order in Class module page for sort
+
+ 
+  Scenario: Verify sorting of Batch name in Descending order
+    When Admin clicks on Arrow next to Batch Name of Class module page for sort descend
+    Then Admin See the Batch Name is sorted Descending order in Class module page 
+
+ 
+  Scenario: Verify sorting of Class Topic in Ascending order
+    When Admin clicks on Arrow next to Class Topic of Class module page for sort 
+    Then Admin See the Class Topic is sorted Ascending order in Class module page 
+
+  
+  Scenario: Verify sorting of Class Topic in Descending order
+    When Admin clicks on Arrow next to Class Topic of Class module page for sort descend
+    Then Admin See the Class Topic is sorted Descending order in Class module page
+
+  
+  Scenario: Verify sorting of Class Description in Ascending order
+    When Admin clicks on Arrow next to Class Description of Class module page for sort
+    Then Admin See the Class Description is sorted Ascending order in Class module page
+
+  
+  Scenario: Verify sorting of Class Description in Descending order
+    When Admin clicks on Arrow next to Class Description of Class module page for sor descend
+    Then Admin See the Class Description is sorted Descending order in Class module page
