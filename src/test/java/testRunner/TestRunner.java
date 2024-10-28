@@ -7,7 +7,7 @@ import io.cucumber.junit.CucumberOptions;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(tags="@DashboardTitle",
+@CucumberOptions(tags="@logout2",
 		    features ={"src/test/resources/features/"},
             glue = {"com.hooks","com.stepDefinition"},
              monochrome = true,

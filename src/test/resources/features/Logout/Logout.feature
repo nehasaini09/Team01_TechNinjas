@@ -1,14 +1,19 @@
 @LogoutPage
 Feature: Validation on Logout button
 
+Background: 
+Given Admin launch the browser and Admin is in login Page
+
+@logout1
  Scenario: Verify logout function
-   Given Admin is in dashboard page after logging in
-   When Admin clicks on the logout in the menu bar
+    When Admin enter valid credentials and clicks login button
+   And Admin clicks on the logout in the menu bar
    Then Admin should be redirected to login page
 
+@logout2
  Scenario: Verify back button function
-   Given Admin is logged out of the application and Admin is in login page
-   When Admin clicks  browser back button
+ When Admin enter valid credentials and clicks login button
+  And  Admin clicks  browser back button
    Then Admin should receive error message
 
 
