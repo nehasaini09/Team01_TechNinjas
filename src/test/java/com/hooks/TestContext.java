@@ -6,7 +6,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.pageObject.BatchModule;
 import com.pageObject.ProgramModule;
-//import com.pageObject.ProgramModulePage;
 import com.utilities.ReadConfig;
 import org.openqa.selenium.interactions.Actions;
 
@@ -25,8 +24,6 @@ public class TestContext {
  // initializing the DriverFactory
     public TestContext() {
        this.driverFactory = new DriverFactory();
-       //this.driver = driverFactory.initialiseBrowser("chrome"); 
-       //this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
        this.readConfig = new ReadConfig(); // config reader initilise
        
     }  
@@ -72,3 +69,4 @@ public class TestContext {
     
 
 }
+
