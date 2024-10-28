@@ -9,9 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.hooks.TestContext;
 import com.pageObject.Login;
 import com.pageObject.Logout;
-import com.utilities.ReadConfig;
-
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
