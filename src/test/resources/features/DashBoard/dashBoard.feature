@@ -17,6 +17,7 @@ Feature: Dashboard Page
     When  Admin enter valid credentials and clicks login button
     Then HTTP response >= 400. Then the link is broken
 
+@DashboardTitle
   Scenario: Verify LMS title
     When  Admin enter valid credentials and clicks login button
     Then Admin should see LMS -Learning management system as title
