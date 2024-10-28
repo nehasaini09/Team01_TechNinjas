@@ -116,6 +116,9 @@ public class ClassModule {
 	@FindBy(xpath = "(//div[@class='action'])")	private List<WebElement> noOfRows;
 	@FindBy(xpath = "//input[@placeholder]")	private WebElement searchBx;
 	@FindBy(xpath = "//input[@placeholder]")	private WebElement searchox;
+	@FindBy(xpath="//tbody//td[2]") List<WebElement> listOfBatchNames;
+	@FindBy(xpath="//tbody//td[3]") List<WebElement> listOfClassTopic;
+	@FindBy(xpath="//tbody//td[7]") List<WebElement> listOfStaffNames;
 	
 	//sort element locators
 	//sort 
@@ -415,27 +418,26 @@ public class ClassModule {
 	public void searhBoxValidation(String field, String value) throws InterruptedException {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", searchBox);
-
+		boolean found = false;
 		switch (field) {
 		case "Batch Name":
 			searchBox.sendKeys(value);
-			logicForValidatingSearch(value);
+			logicForValidatingSearch(listOfBatchNames,value);
 			break;
 		case "Class Topic":
 			searchBox.sendKeys(value);
-			logicForValidatingSearch(value);
+			logicForValidatingSearch(listOfClassTopic,value);
 			break;
 		case "Staff Name":
 			searchBox.sendKeys(value);
-			logicForValidatingSearch(value);
+			logicForValidatingSearch(listOfStaffNames,value);
 			break;
 		}
 	}
 
-	public void logicForValidatingSearch(String value) {
+	public void logicForValidatingSearch(List<WebElement> searchedValues,String value) {
 		boolean found = false;
-		List<WebElement> searchedValues = driver.findElements(By.xpath("//tbody//td[2]"));
-					for (WebElement v : searchedValues) {
+		  for (WebElement v : searchedValues) {
 				if (v.getText().equalsIgnoreCase(value)) {
 					System.out.println("Search is success for value: " + value);
 					found = true;
