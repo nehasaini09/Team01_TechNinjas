@@ -34,8 +34,8 @@ public class Class_SD {
 	   public Class_SD(TestContext context) {
 		   this.context = context; 
 	        this.driver = context.getDriver(); 
-	       this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		     this.cp = new ClassModule(driver);
+	       //this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		     this.cp = new ClassModule(driver,context);
 		}
 
 	   
@@ -277,13 +277,13 @@ public class Class_SD {
 		   
 		}
 
-		@Then("Admin able to delete by clicking yes to confirmation pop up")
+		@Then("^Admin able to delete by clicking yes to confirmation pop up$")
 		public void admin_able_to_delete_by_clicking_yes_to_confirmation_pop_up() {
 		    cp.deleteSingleProgram();
 		}	
 
 
-		@Then("Admin able to delete by clicking No to confirmation pop up")
+		@Then("^Admin able to delete by clicking No to confirmation pop up$")
 		public void admin_able_to_delete_by_clicking_No_to_confirmation_pop_up() {
 		    cp.DropDeleteSingleProgram();
 		}
