@@ -603,7 +603,7 @@ Thread.sleep(1000);
 	    }
 	    
 	    public void createForm() {
-	    	driver.findElement(pname).sendKeys("JOOG");;
+	    	driver.findElement(pname).sendKeys("SDForce");;
 	    	driver.findElement(pDescription).sendKeys("games");
 	    	
 	   	    	

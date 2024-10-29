@@ -24,8 +24,8 @@ public class Dashboard_SD {
         this.context= testcontext;
         this.driver= context.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        this.homepage= new Dashboard(driver);
-        this.login= new Login(driver);
+        this.homepage= new Dashboard(driver,context);
+        this.login= new Login(driver,context);
     }
     @When("Admin enter valid credentials and clicks login button")
     public void admin_enter_valid_credentials_and_clicks_login_button() {

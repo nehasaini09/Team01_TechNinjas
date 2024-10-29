@@ -29,6 +29,7 @@ public class BaseClass {
 	        context.setDriver(driver); 
 	        Log.logInfo("Navigating to: " + readConfig.getApplicationURL());
 	        context.getDriver().get(readConfig.getApplicationURL());
+	        
 	    }
 
 	    @After

@@ -1,6 +1,7 @@
 package com.pageObject;
 
 import com.hooks.DriverFactory;
+import com.hooks.TestContext;
 import com.utilities.ReadConfig;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -24,6 +25,7 @@ public class Login extends DriverFactory {
 
     private WebDriver driver;
     private WebDriverWait wait;
+    TestContext context;
    ReadConfig config = new ReadConfig();
    Actions actions;
     Map<String, String> result = new HashMap<>();
@@ -36,10 +38,11 @@ public class Login extends DriverFactory {
     @FindBy(xpath="//mat-form-field[2]/div/div[3]/div/mat-error") WebElement passwordErrmsg;
 
 
-    public Login(WebDriver driver){
+    public Login(WebDriver driver,TestContext context){
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         this.actions= new Actions(driver);
+        this.context=context;
         PageFactory.initElements(driver, this);
     }
 //method for Login

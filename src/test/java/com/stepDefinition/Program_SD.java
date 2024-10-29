@@ -38,8 +38,8 @@ public class Program_SD {
  }
 	
 	
-	@Given("Admin is in login Page")
-	public void admin_is_in_login_Page() {
+	@Given("Admin is in login Page to test Program module")
+	public void admin_is_in_login_Page_Program() {
 		
 		Log.logInfo("Navigating to application URL");
 		 context.getApplicationURL(); 
@@ -48,17 +48,16 @@ public class Program_SD {
         	}
 	
 
-
-	@When("Admin enter valid credentials  and clicks login button through keyboard")
-	public void admin_enter_valid_credentials_and_clicks_login_button_through_keyboard() {
+	@When("Admin enter valid credentials  and clicks login button through keyboard for Program module")
+	public void admin_enter_valid_credentials_and_clicks_login_button_through_keyboard_Program() {
 		String username = "Sdet@gmail.com";
         String password = "LmsHackathon@2024";
         batchModule.login(username, password);   
         
 	}
 
-	@Then("Admin should land on dashboard page")
-	public void admin_should_land_on_dashboard_page() {
+	@Then("Admin should land on dashboard page On Program module")
+	public void admin_should_land_on_dashboard_page_Program() {
 		String TitleOfPortalpage=driver.getTitle();
 		Log.logInfo("successfully logged in and verified dashboard header LMS");
 		Assert.assertEquals("LMS", TitleOfPortalpage);
@@ -531,7 +530,61 @@ public class Program_SD {
 			Assert.assertTrue(originalList.equals(sortedList));
 		}
 
-
+//Pagination
+		@When("^Admin clicks the (Next|Last|Previous|First) link on the data table in program page$")
+	    public void adminClicksPageLink_program(String pageLink) {
+	    	
+	      	batchModule.navigateToBatch();
+	      	
+	        switch (pageLink.toLowerCase()) {
+	            case "next":
+	            	batchModule.clickNextPage();
+	                break;
+	            case "last":
+	                batchModule.clickLastPage();
+	                break;
+	            case "previous":
+	            	batchModule.clickPreviousPage();
+	                break;
+	            case "first":
+	            	batchModule.clickFirstPage();
+	                break;
+	        }
+	    }
+	    // Verify the results based on the <results> description
+	@Then("^Admin should see the (.*) on the data table in program module$")
+	    public void adminShouldSeeResults_program(String expectedResult) {
+	    	
+	    	
+	
+	    	switch (expectedResult.toLowerCase()) {
+	    	 case "next enabled link":
+	             Assert.assertTrue("Expected 'Next' button to be enabled.", batchModule.isNextButtonEnabled());
+	             break;
+	        case "last page link with next disabled":
+	            Assert.assertFalse("Expected 'Next' button to be disabled.", batchModule.isNextButtonEnabled());
+	            break;
+	        case "previous page":
+	            Assert.assertTrue("Expected 'Previous' button to be enabled.", batchModule.isPrevButtonEnabled());
+	            break;
+	        case "very first page":
+	            Assert.assertFalse("Expected 'Previous' button to be disabled.", batchModule.isPrevButtonEnabled());
+	            break;
+	        case "last results":
+	            Assert.assertTrue("Expected to see results on the last page.", batchModule.hasNextPageResults());
+	            break;
+	        case "previous results":
+	            Assert.assertTrue("Expected to see results on the previous page.", batchModule.hasNextPageResults());
+	            break;
+	        case "first results":
+	            Assert.assertTrue("Expected to see results on the first page.", batchModule.hasNextPageResults());
+	            break;
+	        default:
+	            Assert.fail("Unexpected result description: " + expectedResult);
+	           
+	           
+	    }
+	    }
 
 
 

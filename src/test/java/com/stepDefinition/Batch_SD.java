@@ -282,12 +282,14 @@ public class Batch_SD {
 	    }
 
 
-   @Then("Admin should get a successful message for editing the batch")
-	 public void admin_should_get_a_successful_message_for_editing_the_batch() {
+  // @Then("Admin should get a successful message for editing the batch")
+	// public void admin_should_get_a_successful_message_for_editing_the_batch() {
 	        //Assert.assertTrue("Error message should be displayed under the description field", 
 	       //         batchModule.isDescriptionErrorDisplayed());
 	       // Assert.assertTrue("Error message should be displayed under the number of classes field", 
 	      //          batchModule.isNumberOfClassesErrorDisplayed());
+  @Then("Admin should get  message batch updated")
+  public void admin_should_get_message_batch_updated() {
         	   Assert.assertTrue("Batch details pop-up should be closed", batchModule.isSuccessMessageDisplayed()); 
         	   
 	    }

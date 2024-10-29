@@ -25,8 +25,8 @@ public class Logout_SD {
 	        this.context= testcontext;
 	        this.driver= context.getDriver();
 	        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-	        this.login = new Login(driver);
-	        this.lg = new Logout(driver);
+	        this.login = new Login(driver,context);
+	        this.lg = new Logout(driver,context);
 	       
 	    }
 

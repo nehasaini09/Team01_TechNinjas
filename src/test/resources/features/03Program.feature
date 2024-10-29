@@ -2,9 +2,9 @@ Feature: Navigation,Menubar,Managepage,EditAddNewProgram Validation
 
   #These all steps are from login Module
 Background: Admin is logged in to LMS Portal
-Given Admin is in login Page
-When Admin enter valid credentials  and clicks login button through keyboard
-Then Admin should land on dashboard page
+Given Admin is in login Page to test Program module
+When Admin enter valid credentials  and clicks login button through keyboard for Program module
+Then Admin should land on dashboard page On Program module
 
   #This step is common in class module Given Admin is on dashboard page after Login
 Scenario: Verify that Admin is able to navigate to Program module
@@ -220,6 +220,17 @@ Scenario: Verify footer message in manage program
     When Admin clicks on Arrow next to program status of Program module page for sor descend
      Then Admin See the Program status is sorted Descending order in Program module page
     
+    #----------------------------pagination--------------------------------
+    Scenario Outline: Validate pagination links for program page
+    When Admin clicks the <pageLink> link on the data table in program page
+    Then Admin should see the <pageLink> results on the data table in program module
+
+  Examples:
+      | pageLink   | results                  |
+      | Next       | Next enabled link        |
+      | Last       | last page link with Next disabled |
+      | Previous   | previous page            |
+      | First      | very first page          |
     
     
     

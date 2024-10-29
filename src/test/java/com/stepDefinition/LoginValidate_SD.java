@@ -35,7 +35,7 @@ public class LoginValidate_SD {
         this.context= testcontext;
         this.driver= context.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        this.login = new Login(driver);
+        this.login = new Login(driver,context);
         this.config = new ReadConfig();
 
     }
