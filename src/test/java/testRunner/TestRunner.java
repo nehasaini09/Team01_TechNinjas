@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 
 
 
-@CucumberOptions(features ={"src/test/resources/features/BatchModule.feature"}, 
+@CucumberOptions(features ={"src/test/resources/features"}, 
 glue = {"com.hooks", "com.stepDefinition"},
 
 monochrome = true, 
