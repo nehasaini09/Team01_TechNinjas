@@ -1,19 +1,12 @@
 package com.hooks;
-
 import com.utilities.Log;
 import io.qameta.allure.Attachment;
-
-
-import java.io.ByteArrayInputStream;
-
-
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-
-import com.utilities.Log;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import com.utilities.ReadConfig;
-
 import io.cucumber.java.Scenario;
 import com.utilities.Screenshot;
 public class BaseClass {
@@ -55,7 +48,4 @@ public class BaseClass {
 	        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 	    }
 	}
-
-
-
 
