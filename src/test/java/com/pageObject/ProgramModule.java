@@ -113,6 +113,27 @@ public class ProgramModule {
 	By descriptionnmList=By.xpath( "//tbody//td[3]");
 	By programstatusList=By.xpath( "//tbody//td[4]");
 	
+	//Pagination frame locators
+    By pagination=By.xpath ( "//div[contains(@class, 'p-paginator')]");
+    
+
+    By currentEntriesText= By.xpath ( "//span[contains(@class, 'p-paginator-current')]");
+    
+
+    By firstButton=By.xpath ( "//button[contains(@class, 'p-paginator-first')]");
+    
+
+    By prevButton=By.xpath ( "//button[contains(@class, 'p-paginator-prev')]");
+    
+
+    By nextButton=By.xpath ( "//button[contains(@class, 'p-paginator-next')]");
+    
+
+    By lastButton=By.xpath ("//button[contains(@class, 'p-paginator-last')]");
+    
+
+    By pageButtons=By.xpath ( "//button[contains(@class, 'p-paginator-page')]");
+
 	
 	public void clickProgramNameSort(){	
 		WebElement proGNameSort=driver.findElement(progNameSort);
@@ -609,5 +630,52 @@ Thread.sleep(1000);
 	   	    	
 	    }
 	    
-	 
+	    // private List<WebElement> pageButtons;
+	    // Check if 'Next' button is enabled
+	    public boolean isNextButtonEnabled() {
+	    	WebElement nextbuttoN=driver.findElement(nextButton);
+	        return !nextbuttoN.getAttribute("class").contains("p-disabled");
+	    }
+	    // Check if 'Previous' button is enabled
+	    public boolean isPrevButtonEnabled() {
+	    	WebElement prevbuttoN=driver.findElement(prevButton);
+	        return !prevbuttoN.getAttribute("class").contains("p-disabled");
+	    }
+	   
+	    public void clickNextPage() {
+	        if (isNextButtonEnabled()) {
+	        	WebElement nextbuttoN=driver.findElement(nextButton);
+	            doubleClick(nextbuttoN);
+	          //  waitForResultsToLoad();
+	        }// Ensure results load after clicking
+	        }
+	    // Method to click 'Previous' button
+	    public void clickPreviousPage() {
+	        if (isPrevButtonEnabled()) {
+	        	WebElement prevbuttoN=driver.findElement(prevButton);
+	        	  doubleClick(prevbuttoN);
+	        }
+	    }
+	    // Method to click 'First' button
+	    public void clickFirstPage() {
+	    	WebElement firstButtoN=driver.findElement(firstButton);
+	          doubleClick(firstButtoN);
+	    }
+	    // Method to click 'Last' button
+	    public void clickLastPage() {
+	    	WebElement lastButtoN=driver.findElement(lastButton);
+	        doubleClick(lastButtoN);
+	    }
+	    private void doubleClick(WebElement element) {
+	        Actions actions = new Actions(driver); // Create an Actions instance
+	        actions.moveToElement(element).doubleClick().perform(); // Move to the element and double-click
+	    }
+
+
+
+
+
+
+
+
 }

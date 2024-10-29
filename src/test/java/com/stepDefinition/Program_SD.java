@@ -532,22 +532,23 @@ public class Program_SD {
 
 //Pagination
 		@When("^Admin clicks the (Next|Last|Previous|First) link on the data table in program page$")
-	    public void adminClicksPageLink_program(String pageLink) {
+	    public void adminClicksPageLink_program(String pageLink) throws InterruptedException {
 	    	
-	      	batchModule.navigateToBatch();
+	      	//batchModule.navigateToBatch();
+		 programModulePage.ProgramClick();
 	      	
 	        switch (pageLink.toLowerCase()) {
 	            case "next":
-	            	batchModule.clickNextPage();
+	            	programModulePage.clickNextPage();
 	                break;
 	            case "last":
-	                batchModule.clickLastPage();
+	            	programModulePage.clickLastPage();
 	                break;
 	            case "previous":
-	            	batchModule.clickPreviousPage();
+	            	programModulePage.clickPreviousPage();
 	                break;
 	            case "first":
-	            	batchModule.clickFirstPage();
+	            	programModulePage.clickFirstPage();
 	                break;
 	        }
 	    }

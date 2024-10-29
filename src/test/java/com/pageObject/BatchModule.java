@@ -372,7 +372,7 @@ public class BatchModule {
 	    public boolean isFieldDisplayed(String fieldName) {
 	    	 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	        switch (fieldName) {
-	        
+	       
 	            case "Batch Name":
 	                return batchNameLabel.isDisplayed();
 	            case "Number of classes":
@@ -382,37 +382,29 @@ public class BatchModule {
 	            case "Program Name as drop down":
 	                return programNameLabel.isDisplayed() && Programdropdowntrigger.isDisplayed();
 	            case "Status as radio button":
-	                
-	              
+	               
+	             
 	                wait.until(ExpectedConditions.visibilityOf(statusLabel));
-	                
+	               
 	                return statusLabel.isDisplayed()&& statusLabel.isEnabled();
 	            case "close":
 	                return closeButton.isDisplayed() && closeButton.isEnabled();
 	            case "save button": // Ensure consistent naming
-	                //wait.until(ExpectedConditions.visibilityOf(saveButton)); 
+	                //wait.until(ExpectedConditions.visibilityOf(saveButton));
 	               // return saveButton.isDisplayed() && saveButton.isEnabled();
-	                
-	            	try {
-	                   // Log.debug("Trying to find the Save Button");
-	                    
-	                    wait.until(ExpectedConditions.visibilityOf(saveButton)); // Wait for visibility
-	                   // Log.debug("Save Button - Displayed: " + saveButton.isDisplayed());
-	                    return saveButton.isDisplayed() && saveButton.isEnabled(); // Check if displayed and enabled
-	                } catch (TimeoutException e) {
-	                   /// Log.error("Save button not found or not visible: " + e.getMessage());
-	                    return false;
-	                }
-	                  
-	            case "cancelbutton":
-	            	  wait.until(ExpectedConditions.visibilityOf(closeButton));
+	               
+	            case "SaveButton":
+	                wait.until(ExpectedConditions.visibilityOf(saveButton)); // Wait for visibility
+	                return saveButton.isDisplayed() && saveButton.isEnabled();
+	            case "CancelButton":
+	                wait.until(ExpectedConditions.visibilityOf(cancelButton)); // Wait for visibility
 	                return cancelButton.isDisplayed() && cancelButton.isEnabled();
 	            default:
 	                return false;
 }
-	    
-	        
-	    
+	   
+	       
+	   
 	    }
 	  
 	    private void ensureDropdownIsClosed() {
