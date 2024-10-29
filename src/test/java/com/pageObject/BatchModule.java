@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.hooks.TestContext;
-import com.utilities.Log;
+//import com.utilities.Log;
 
 public class BatchModule {
 
@@ -394,13 +394,13 @@ public class BatchModule {
 	               // return saveButton.isDisplayed() && saveButton.isEnabled();
 	                
 	            	try {
-	                    Log.debug("Trying to find the Save Button");
+	                   // Log.debug("Trying to find the Save Button");
 	                    
 	                    wait.until(ExpectedConditions.visibilityOf(saveButton)); // Wait for visibility
-	                    Log.debug("Save Button - Displayed: " + saveButton.isDisplayed());
+	                   // Log.debug("Save Button - Displayed: " + saveButton.isDisplayed());
 	                    return saveButton.isDisplayed() && saveButton.isEnabled(); // Check if displayed and enabled
 	                } catch (TimeoutException e) {
-	                    Log.error("Save button not found or not visible: " + e.getMessage());
+	                   /// Log.error("Save button not found or not visible: " + e.getMessage());
 	                    return false;
 	                }
 	                  
