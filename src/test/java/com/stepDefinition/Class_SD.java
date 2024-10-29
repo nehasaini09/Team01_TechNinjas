@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.hooks.TestContext;
+import com.pageObject.BatchModule;
 import com.pageObject.ClassModule;
 import com.utilities.Log;
 
@@ -28,6 +29,7 @@ public class Class_SD {
 	  	   private WebDriver driver;
 	   private TestContext context;
 	   private ClassModule cp;
+	   private BatchModule batchModule;
 	   boolean status;
 	   
 	  
@@ -37,6 +39,7 @@ public class Class_SD {
 	        this.driver = context.getDriver(); 
 	       //this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		     this.cp = new ClassModule(driver,context);
+		     this.batchModule = new BatchModule(driver, context);
 		}
 
 	   
@@ -420,6 +423,60 @@ public void admin_See_the_Class_Description_is_sorted_Descending_order_in_Class_
 	Assert.assertTrue(originalList.equals(sortedList));
     
 }
-		
-		
+//Pagination
+		@When("^Admin clicks the (Next|Last|Previous|First) link on the data table in class page$")
+	    public void adminClicksPageLink_program(String pageLink) {
+	    	
+	      	//cp.clickClassBtn();
+	      	
+	        switch (pageLink.toLowerCase()) {
+	            case "next":
+	            	cp.clickNextPage();
+	                break;
+	            case "last":
+	                cp.clickLastPage();
+	                break;
+	            case "previous":
+	            	cp.clickPreviousPage();
+	                break;
+	            case "first":
+	            	cp.clickFirstPage();
+	                break;
+	        }
+	    }
+		@Then("^Admin should see the (.*) on the data table in class module$")
+	    public void adminShouldSeeResults_program(String expectedResult) {
+	    	
+	    	
+	
+	    	switch (expectedResult.toLowerCase()) {
+	    	 case "next enabled link":
+	             Assert.assertTrue("Expected 'Next' button to be enabled.", batchModule.isNextButtonEnabled());
+	             break;
+	        case "last page link with next disabled":
+	            Assert.assertFalse("Expected 'Next' button to be disabled.", batchModule.isNextButtonEnabled());
+	            break;
+	        case "previous page":
+	            Assert.assertTrue("Expected 'Previous' button to be enabled.", batchModule.isPrevButtonEnabled());
+	            break;
+	        case "very first page":
+	            Assert.assertFalse("Expected 'Previous' button to be disabled.", batchModule.isPrevButtonEnabled());
+	            break;
+	        case "last results":
+	            Assert.assertTrue("Expected to see results on the last page.", batchModule.hasNextPageResults());
+	            break;
+	        case "previous results":
+	            Assert.assertTrue("Expected to see results on the previous page.", batchModule.hasNextPageResults());
+	            break;
+	        case "first results":
+	            Assert.assertTrue("Expected to see results on the first page.", batchModule.hasNextPageResults());
+	            break;
+	        default:
+	            Assert.fail("Unexpected result description: " + expectedResult);
+	           
+	           
+	    }
+	    }
+
+
 }

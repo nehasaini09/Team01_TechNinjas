@@ -1,8 +1,11 @@
 package com.pageObject;
 
-import com.hooks.DriverFactory;
-import com.hooks.TestContext;
-import com.utilities.ReadConfig;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -14,11 +17,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import com.hooks.DriverFactory;
+import com.hooks.TestContext;
+import com.utilities.ExcelReader;
+import com.utilities.ReadConfig;
 
 public class Login extends DriverFactory {
 
@@ -29,6 +31,7 @@ public class Login extends DriverFactory {
    ReadConfig config = new ReadConfig();
    Actions actions;
     Map<String, String> result = new HashMap<>();
+    ExcelReader reader = new ExcelReader();
 
     @FindBy(id="username") WebElement username;
     @FindBy(id="password") WebElement password;
@@ -48,28 +51,29 @@ public class Login extends DriverFactory {
 //method for Login
         public Map<String,String> validLogin(String credentials) {
              result = new HashMap<>();
+             List<Map<String,String>> testData=reader.ReadExcelFile("Login");
             String uName = "";
             String pwd = "";
             switch(credentials) {
-                case "valid credentials":
-                    System.out.println("Enter valid credentials");
-                    uName = config.getUSername();
-                    pwd = config.getpassword();
-                    break;
-                case "invalid credentials":
-                    System.out.println("Enter invalid credentials");
-                    uName = config.getinvalidUSername();
-                    pwd = config.getinvalidpassword();
-                    break;
-                case "password":
-                    System.out.println("Enter only the password");
-                    pwd = config.getpassword();
-                    break;
-                case "username":
-                    System.out.println("Enter only the username");
-                    uName = config.getUSername();
-                    break;
-            }
+            case "valid credentials":
+                System.out.println("Enter valid credentials");
+                uName = testData.get(0).get("User");                    		//config.getUSername();
+                pwd = testData.get(0).get("Password");
+                break;
+            case "invalid credentials":
+                System.out.println("Enter invalid credentials");
+                uName = testData.get(1).get("User");                    		
+                pwd = testData.get(1).get("Password");
+                break;
+            case "password":
+                System.out.println("Enter only the password");
+                pwd = testData.get(2).get("Password");
+                break;
+            case "username":
+                System.out.println("Enter only the username");
+                uName = testData.get(3).get("User");
+                break;
+        }
             wait.until(ExpectedConditions.visibilityOf(username)).clear();
             username.sendKeys(uName);
             wait.until(ExpectedConditions.visibilityOf(password)).clear();

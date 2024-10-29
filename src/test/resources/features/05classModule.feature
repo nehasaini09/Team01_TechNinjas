@@ -173,4 +173,14 @@ Examples:
     When Admin clicks on Arrow next to Class Description of Class module page for sor descend
     Then Admin See the Class Description is sorted Descending order in Class module page
     
-    #---------------------------------pagination----------------------------------------
+   #----------------------------pagination--------------------------------
+    Scenario Outline: Validate pagination links for class page
+    When Admin clicks the <pageLink> link on the data table in class page
+    Then Admin should see the <pageLink> results on the data table in class module
+
+  Examples:
+      | pageLink   | results                  |
+      | Next       | Next enabled link        |
+      | Last       | last page link with Next disabled |
+      | Previous   | previous page            |
+      | First      | very first page          |

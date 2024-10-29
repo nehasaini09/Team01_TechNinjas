@@ -54,6 +54,15 @@ public class ReadConfig {
 			String HomepageURL=pro.getProperty("DashBoardURL");
 			return HomepageURL;
 		}
+		
+		// read excelpath
+				public String getExcelPath() {
+					String path = pro.getProperty("excelPath");
+					if (path != null)
+						return path;
+					else
+						throw new RuntimeException("path not specified in the Configuration.properties file.");
+				}
 	
 
 }
