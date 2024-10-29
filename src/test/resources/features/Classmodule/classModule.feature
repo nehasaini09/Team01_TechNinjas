@@ -1,7 +1,9 @@
 Feature: Class Page Validation and Add new class
 
   Background: Admin Is on the Dashboard page after login
-    Given Admin is on the dashboard page after login
+  Given Admin is on the dashboard page after login
+    # Given Admin launch the browser and Admin is in login Page
+     #When  Admin enter valid credentials and clicks login button
     When Admin clicks the Class Navigation bar in the Header
 
   Scenario Outline: Validating the headers in the class page

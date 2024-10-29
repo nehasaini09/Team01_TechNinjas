@@ -20,14 +20,15 @@ import io.cucumber.java.en.When;
 
 public class Class_SD {
 	
-	String uName = "Sdet@gmail.com";
-	String pwsd ="LmsHackathon@2024";
+	String uName="Sdet@gmail.com";
+	String pwsd="LmsHackathon@2024";
 	
 	  private WebDriverWait wait;
 	  	   private WebDriver driver;
 	   private TestContext context;
 	   private ClassModule cp;
 	   boolean status;
+	   
 	  
 	
 	   public Class_SD(TestContext context) {
@@ -45,6 +46,14 @@ public class Class_SD {
 		cp.clickLoginBtn();
 
 	}
+	  /* @Given("Admin launch the browser and Admin is in login Page")
+	    public void admin_is_in_login_Page() {
+	        applicationURL = context.getApplicationURL();
+	        driver.get(applicationURL);
+	       System.out.println("The login page URL is :" + driver.getCurrentUrl());
+
+
+	    }*/
 
 	@When("Admin clicks the Class Navigation bar in the Header")
 	public void admin_clicks_the_Class_Navigation_bar_in_the_Header() {
@@ -151,7 +160,17 @@ public class Class_SD {
 		public void admin_should_see_no_of_class_value_is_added_automatically() {
 		   cp.validateNoOfClassessUpdated();
 		}
-		
+		@When("Admin clicks date picker")
+		public void admin_clicks_date_picker() {
+					    
+		}
+
+		@Then("Admin should see weekend dates are disabled")
+		public void admin_should_see_weekend_dates_are_disabled() {
+			//assertTrue(cp.verifyWeekendDatesDisabled());
+		    
+		}
+
 		@When("Admin skips to add value in mandatory field and enter only the optional field {string} {string} {string}")
 		public void admin_skips_to_add_value_in_mandatory_field_and_enter_only_the_optional_field(String comments,String notes,String recording) {
 		   cp.selectOptionalFields(comments,notes,recording);

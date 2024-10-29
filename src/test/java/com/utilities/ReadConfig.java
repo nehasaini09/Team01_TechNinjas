@@ -32,5 +32,28 @@ public class ReadConfig {
 		return browser;
 	}
 	
+	//get Login credentials
+		public  String getUSername(){
+			String username= pro.getProperty("LMSUserName");
+			return username;
+		}
+		public String getpassword(){
+			String pwd= pro.getProperty("LMSPassword");
+			return pwd;
+		}
+		// get invalid login credentials
+		public  String getinvalidUSername(){
+			String username= pro.getProperty("InvalidUserName");
+			return username;
+		}
+		public String getinvalidpassword(){
+			String pwd= pro.getProperty("InvalidPwd");
+			return pwd;
+		}
+		public String getDashboardurl(){
+			String HomepageURL=pro.getProperty("DashBoardURL");
+			return HomepageURL;
+		}
+	
 
 }
