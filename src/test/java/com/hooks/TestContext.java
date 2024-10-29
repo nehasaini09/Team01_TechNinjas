@@ -1,14 +1,20 @@
+
+
+
+
 package com.hooks;
+import com.pageObject.ClassModule;
 
 import java.time.Duration;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.pageObject.ClassModule;
-import com.utilities.ReadConfig;
+import com.pageObject.BatchModule;
 
+import com.pageObject.ProgramModule;
+
+import com.utilities.ReadConfig;
+import org.openqa.selenium.interactions.Actions;
 
 
 public class TestContext {
@@ -17,46 +23,68 @@ public class TestContext {
     private DriverFactory driverFactory;
     private WebDriverWait wait;
     private ReadConfig readConfig;
-    private ClassModule cp;
-    Actions action;
+
+
+    private ProgramModule programModulepage;
+	 private ClassModule cp;
+
+    private BatchModule batchModule;
+    private Actions actions;
     
-	// initializing the DriverFactory
+ // initializing the DriverFactory
     public TestContext() {
        this.driverFactory = new DriverFactory();
-        this.readConfig = new ReadConfig();        
-       
+       this.readConfig = new ReadConfig(); // config reader initilise
+       //this.batchModule = new BatchModule(driver);
+    
     }  
     public void setDriver(WebDriver driver) {
         this.driver = driver;
-       // this.js=(JavascriptExecutor) driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(30)); 
+
+
+        this.batchModule = new BatchModule(driver, this);
+
+        this.actions = new Actions(driver);
+        this.programModulepage=new ProgramModule(driver, this);
+        this.batchModule=new BatchModule(driver,this);
+
     }
     public DriverFactory getDriverFactory() {
         return driverFactory;
     }
  // WebDriver instance
     public WebDriver getDriver() {
+    	
         return driver;
     }  
-   
 // driver close
     public void closeDriver() {
-      driverFactory.closeDriver();
+        driverFactory.closeDriver();
     }
     public WebDriverWait getWait() {
         return wait;
-    }
-    
-    public Actions performAction() {
-    	return action;
     }
 
     public String getApplicationURL() {
         return readConfig.getApplicationURL(); // Method to get URL
     }
-    
-    public ClassModule getClassModule() {
+    public ProgramModule getProgramModule() {
+    	return programModulepage;
+    }
+    public BatchModule getBatchModule() {
+        return batchModule; // Getter for BatchModule
+    }
+    public Actions getActions() {
+        return actions;
+    }
+	public ClassModule getClassModule() {
     	return cp;
     }
 
+    
+
+  
 }
+
+
