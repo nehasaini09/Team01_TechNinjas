@@ -118,21 +118,21 @@ Feature: Class Page Validation and Add new class
     When Admin clicks Cancel button on edit popup
     Then Admin can see the class details popup disappears and can see nothing changed for particular Class
 
-  # Delete/multiple deletion
+  #---------------------- Delete/multiple deletion---------------------------------------
   Scenario: Admin checks Succes delete operation with single class delete
     When Admin clicks on the delete icon on class module page
-    Then Admin able to delete by clicking yes to confirmation pop up
+    Then Admin able to delete by clicking yes to confirmation pop up on Class module
 
-  Scenario: Admin checks delete operation unsucces with single program delete
+  Scenario: Admin checks delete operation unsucces with single class delete
     When Admin clicks on the delete icon on class module page
-    Then Admin able to delete by clicking No to confirmation pop up
+    Then Admin able to delete by clicking No to confirmation pop up on Class module
 
-  Scenario: Admin validate delete by deleting multiple programs
+  Scenario: Admin validate delete by deleting multiple classes
     When Admin clicks on the multiple checkboxes on class module page
     And Admin clicks  on the left delete button on class module page
     Then Admin able to delete multiple class by clicking yes to confirm
     
-    # Search box validation
+    #--------------------------- Search box validation------------------------------------
     Scenario Outline: Search class by Batch Name
 When Admin enter the "<field>" "<value>" in search textbox
 Then Admin should see Class details are searched by given fields
@@ -142,7 +142,7 @@ Examples:
 |Class Topic||Java|
 |Staff Name||Getha Takur|
 
-    # Sorting 
+    #----------------------------- Sorting---------------------------------------------------- 
      
   Scenario: Verify sorting of Batch name in Ascending order
     When Admin clicks on Arrow next to Batch Name of Class module page for sort
@@ -172,3 +172,5 @@ Examples:
   Scenario: Verify sorting of Class Description in Descending order
     When Admin clicks on Arrow next to Class Description of Class module page for sor descend
     Then Admin See the Class Description is sorted Descending order in Class module page
+    
+    #---------------------------------pagination----------------------------------------

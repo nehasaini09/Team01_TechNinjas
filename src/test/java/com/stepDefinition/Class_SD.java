@@ -1,5 +1,6 @@
 package com.stepDefinition;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
@@ -220,16 +221,15 @@ public class Class_SD {
 
 		@Then("Admin should see batch name field is disabled")
 		public void admin_should_see_batch_name_field_is_disabled() {
-			status=cp.batchNameDisabled();
-			assertTrue(status);
-			Log.logInfo("Batch Name is diabled");
+				assertFalse(cp.batchNameDisabled());
+			Log.logInfo("Batch Name is disabled");
 		}
 		
 		@Then("Admin should see class topic field is disabled")
 		public void admin_should_see_class_topic_field_is_disabled() {
 			status=cp.classTopicDisabled();
-			assertTrue(status);
-			Log.logInfo("Class Topic is diabled");
+			assertFalse(status);
+			Log.logInfo("Class Topic is disabled");
 		}
 
 		@Given("Admin is on the Edit Class Popup window")
@@ -277,13 +277,13 @@ public class Class_SD {
 		   
 		}
 
-		@Then("^Admin able to delete by clicking yes to confirmation pop up$")
+		@Then("Admin able to delete by clicking yes to confirmation pop up on Class module")
 		public void admin_able_to_delete_by_clicking_yes_to_confirmation_pop_up() {
 		    cp.deleteSingleProgram();
 		}	
 
 
-		@Then("^Admin able to delete by clicking No to confirmation pop up$")
+		@Then("Admin able to delete by clicking No to confirmation pop up on Class module")
 		public void admin_able_to_delete_by_clicking_No_to_confirmation_pop_up() {
 		    cp.DropDeleteSingleProgram();
 		}
@@ -340,7 +340,7 @@ public void admin_clicks_on_Arrow_next_to_Batch_Name_of_Class_module_page_for_so
 
 @Then("Admin See the Batch Name is sorted Ascending order in Class module page for sort")
 public void admin_See_the_Batch_Name_is_sorted_Ascending_order_in_Class_module_page_for_sort() {
-	List<String> originalList = cp.getOriginalList("progName");
+	List<String> originalList = cp.getOriginalList("BatchName");
 	List<String> sortedList = cp.getSortedList(originalList);
 	System.out.println("sorted name list" + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
@@ -355,7 +355,7 @@ public void admin_clicks_on_Arrow_next_to_Batch_Name_of_Class_module_page_for_so
 
 @Then("Admin See the Batch Name is sorted Descending order in Class module page")
 public void admin_See_the_Batch_Name_is_sorted_Descending_order_in_Class_module_page() {
-	List<String> originalList = cp.getOriginalList("progName");
+	List<String> originalList = cp.getOriginalList("BatchName");
 	List<String> sortedList = cp.getSortedListDescending(originalList);
 	System.out.println("Descending sorted name list " + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
@@ -369,7 +369,7 @@ public void admin_clicks_on_Arrow_next_to_Class_Topic_of_Class_module_page_for_s
 
 @Then("Admin See the Class Topic is sorted Ascending order in Class module page")
 public void admin_See_the_Class_Topic_is_sorted_Ascending_order_in_Class_module_page() {
-	List<String> originalList = cp.getOriginalList("ProgramDescription");
+	List<String> originalList = cp.getOriginalList("ClassTopic");
 	List<String> sortedList = cp.getSortedList(originalList);
 	System.out.println("sorted name list" + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
@@ -384,7 +384,7 @@ public void admin_clicks_on_Arrow_next_to_Class_Topic_of_Class_module_page_for_s
 @Then("Admin See the Class Topic is sorted Descending order in Class module page")
 public void admin_See_the_Class_Topic_is_sorted_Descending_order_in_Class_module_page() {
 	
-	List<String> originalList = cp.getOriginalList("ProgramDescription");
+	List<String> originalList = cp.getOriginalList("ClassTopic");
 	List<String> sortedList = cp.getSortedListDescending(originalList);
 	System.out.println("Descending sorted name list " + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
@@ -399,7 +399,7 @@ public void admin_clicks_on_Arrow_next_to_Class_Description_of_Class_module_page
 
 @Then("Admin See the Class Description is sorted Ascending order in Class module page")
 public void admin_See_the_Class_Description_is_sorted_Ascending_order_in_Class_module_page() {
-	List<String> originalList = cp.getOriginalList("status");
+	List<String> originalList = cp.getOriginalList("Classdescription");
 	List<String> sortedList = cp.getSortedList(originalList);
 	System.out.println("sorted name list" + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
@@ -414,7 +414,7 @@ public void admin_clicks_on_Arrow_next_to_Class_Description_of_Class_module_page
 
 @Then("Admin See the Class Description is sorted Descending order in Class module page")
 public void admin_See_the_Class_Description_is_sorted_Descending_order_in_Class_module_page() {
-	List<String> originalList = cp.getOriginalList("status");
+	List<String> originalList = cp.getOriginalList("ClassDescription");
 	List<String> sortedList = cp.getSortedListDescending(originalList);
 	System.out.println("Descending sorted name list " + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));

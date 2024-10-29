@@ -81,7 +81,7 @@ public class ClassModule {
 	// Mandatory fields
 
 	@FindBy(xpath = "//input[@placeholder='Select a Batch Name']")
-	private WebElement batchNameDrpdw;;
+	private WebElement batchNameDrpdw;
 	@FindBy(xpath = "//input[@id='classTopic']")
 	private WebElement classTopic;
 	@FindBy(xpath = "//input[@id='classDescription']")
