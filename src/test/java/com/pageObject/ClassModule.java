@@ -16,13 +16,15 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.hooks.TestContext;
+
 public class ClassModule {
 
 	private WebDriver driver;
 	private WebDriverWait wait;
 	Actions action;
 
-	// TestContext context;
+	TestContext context;
 	// JavascriptExecutor js = (JavascriptExecutor) driver;
 
 	@FindBy(id = "username")
@@ -202,11 +204,14 @@ public class ClassModule {
 	@FindBy(id = "logout")
 	private WebElement logoutBtn;
 
-	public ClassModule(WebDriver driver) {
-		this.driver = driver;
-		this.action = new Actions(driver);
+	public ClassModule(WebDriver driver,TestContext context) {
+		
+		this.driver = context.getDriver();
+		
+		this.context=context;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		PageFactory.initElements(driver, this);
+		this.action = new Actions(driver);
 		// this.js=context.getJs();
 	}
 
