@@ -24,10 +24,8 @@ public class TestContext {
  // initializing the DriverFactory
     public TestContext() {
        this.driverFactory = new DriverFactory();
-       //this.driver = driverFactory.initialiseBrowser("chrome"); 
-       //this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-       this.readConfig = new ReadConfig(); // config reader initilise
-       //this.batchModule = new BatchModule(driver);
+        this.readConfig = new ReadConfig(); // config reader initilise
+       
     
     }  
     public void setDriver(WebDriver driver) {

@@ -88,7 +88,7 @@ public class LoginValidate_SD {
        }
     }
 
-    @When("Admin enter valid credentials  and clicks login button through keyboard")
+    @When("^Admin enter valid credentials  and clicks login button through keyboard$")
     public void admin_enter_valid_credentials_and_clicks_login_button_through_keyboard() {
         uName = config.getUSername();
         pwd = config.getpassword();
@@ -96,7 +96,7 @@ public class LoginValidate_SD {
 
     }
 
-    @Then("Admin should land on dashboard page")
+    @Then("^Admin should land on dashboard page$")
     public void admin_should_land_on_dashboard_page() {
         if (result.containsKey("current_URL")) {
             actualurl=result.get("current_URL");
@@ -107,7 +107,7 @@ public class LoginValidate_SD {
 
     }
 
-    @When("Admin enter valid credentials  and clicks login button through mouse")
+    @When("^Admin enter valid credentials  and clicks login button through mouse$")
     public void admin_enter_valid_credentials_and_clicks_login_button_through_mouse() {
         uName = config.getUSername();
         pwd = config.getpassword();
