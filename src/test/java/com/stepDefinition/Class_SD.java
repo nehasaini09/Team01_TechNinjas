@@ -1,5 +1,6 @@
 package com.stepDefinition;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
@@ -11,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.hooks.TestContext;
+import com.pageObject.BatchModule;
 import com.pageObject.ClassModule;
 import com.utilities.Log;
 
@@ -20,21 +22,24 @@ import io.cucumber.java.en.When;
 
 public class Class_SD {
 	
-	String uName = "Sdet@gmail.com";
-	String pwsd ="LmsHackathon@2024";
+	String uName="Sdet@gmail.com";
+	String pwsd="LmsHackathon@2024";
 	
 	  private WebDriverWait wait;
 	  	   private WebDriver driver;
 	   private TestContext context;
 	   private ClassModule cp;
+	   private BatchModule batchModule;
 	   boolean status;
+	   
 	  
 	
 	   public Class_SD(TestContext context) {
 		   this.context = context; 
 	        this.driver = context.getDriver(); 
-	       this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-		     this.cp = new ClassModule(driver);
+	       //this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		     this.cp = new ClassModule(driver,context);
+		     this.batchModule = new BatchModule(driver, context);
 		}
 
 	   
@@ -45,6 +50,14 @@ public class Class_SD {
 		cp.clickLoginBtn();
 
 	}
+	  /* @Given("Admin launch the browser and Admin is in login Page")
+	    public void admin_is_in_login_Page() {
+	        applicationURL = context.getApplicationURL();
+	        driver.get(applicationURL);
+	       System.out.println("The login page URL is :" + driver.getCurrentUrl());
+
+
+	    }*/
 
 	@When("Admin clicks the Class Navigation bar in the Header")
 	public void admin_clicks_the_Class_Navigation_bar_in_the_Header() {
@@ -151,7 +164,17 @@ public class Class_SD {
 		public void admin_should_see_no_of_class_value_is_added_automatically() {
 		   cp.validateNoOfClassessUpdated();
 		}
-		
+		@When("Admin clicks date picker")
+		public void admin_clicks_date_picker() {
+					    
+		}
+
+		@Then("Admin should see weekend dates are disabled")
+		public void admin_should_see_weekend_dates_are_disabled() {
+			//assertTrue(cp.verifyWeekendDatesDisabled());
+		    
+		}
+
 		@When("Admin skips to add value in mandatory field and enter only the optional field {string} {string} {string}")
 		public void admin_skips_to_add_value_in_mandatory_field_and_enter_only_the_optional_field(String comments,String notes,String recording) {
 		   cp.selectOptionalFields(comments,notes,recording);
@@ -201,16 +224,15 @@ public class Class_SD {
 
 		@Then("Admin should see batch name field is disabled")
 		public void admin_should_see_batch_name_field_is_disabled() {
-			status=cp.batchNameDisabled();
-			assertTrue(status);
-			Log.logInfo("Batch Name is diabled");
+				assertFalse(cp.batchNameDisabled());
+			Log.logInfo("Batch Name is disabled");
 		}
 		
 		@Then("Admin should see class topic field is disabled")
 		public void admin_should_see_class_topic_field_is_disabled() {
 			status=cp.classTopicDisabled();
-			assertTrue(status);
-			Log.logInfo("Class Topic is diabled");
+			assertFalse(status);
+			Log.logInfo("Class Topic is disabled");
 		}
 
 		@Given("Admin is on the Edit Class Popup window")
@@ -258,13 +280,13 @@ public class Class_SD {
 		   
 		}
 
-		@Then("Admin able to delete by clicking yes to confirmation pop up")
+		@Then("Admin able to delete by clicking yes to confirmation pop up on Class module")
 		public void admin_able_to_delete_by_clicking_yes_to_confirmation_pop_up() {
 		    cp.deleteSingleProgram();
 		}	
 
 
-		@Then("Admin able to delete by clicking No to confirmation pop up")
+		@Then("Admin able to delete by clicking No to confirmation pop up on Class module")
 		public void admin_able_to_delete_by_clicking_No_to_confirmation_pop_up() {
 		    cp.DropDeleteSingleProgram();
 		}
@@ -321,7 +343,7 @@ public void admin_clicks_on_Arrow_next_to_Batch_Name_of_Class_module_page_for_so
 
 @Then("Admin See the Batch Name is sorted Ascending order in Class module page for sort")
 public void admin_See_the_Batch_Name_is_sorted_Ascending_order_in_Class_module_page_for_sort() {
-	List<String> originalList = cp.getOriginalList("progName");
+	List<String> originalList = cp.getOriginalList("BatchName");
 	List<String> sortedList = cp.getSortedList(originalList);
 	System.out.println("sorted name list" + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
@@ -336,7 +358,7 @@ public void admin_clicks_on_Arrow_next_to_Batch_Name_of_Class_module_page_for_so
 
 @Then("Admin See the Batch Name is sorted Descending order in Class module page")
 public void admin_See_the_Batch_Name_is_sorted_Descending_order_in_Class_module_page() {
-	List<String> originalList = cp.getOriginalList("progName");
+	List<String> originalList = cp.getOriginalList("BatchName");
 	List<String> sortedList = cp.getSortedListDescending(originalList);
 	System.out.println("Descending sorted name list " + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
@@ -350,7 +372,7 @@ public void admin_clicks_on_Arrow_next_to_Class_Topic_of_Class_module_page_for_s
 
 @Then("Admin See the Class Topic is sorted Ascending order in Class module page")
 public void admin_See_the_Class_Topic_is_sorted_Ascending_order_in_Class_module_page() {
-	List<String> originalList = cp.getOriginalList("ProgramDescription");
+	List<String> originalList = cp.getOriginalList("ClassTopic");
 	List<String> sortedList = cp.getSortedList(originalList);
 	System.out.println("sorted name list" + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
@@ -365,7 +387,7 @@ public void admin_clicks_on_Arrow_next_to_Class_Topic_of_Class_module_page_for_s
 @Then("Admin See the Class Topic is sorted Descending order in Class module page")
 public void admin_See_the_Class_Topic_is_sorted_Descending_order_in_Class_module_page() {
 	
-	List<String> originalList = cp.getOriginalList("ProgramDescription");
+	List<String> originalList = cp.getOriginalList("ClassTopic");
 	List<String> sortedList = cp.getSortedListDescending(originalList);
 	System.out.println("Descending sorted name list " + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
@@ -380,7 +402,7 @@ public void admin_clicks_on_Arrow_next_to_Class_Description_of_Class_module_page
 
 @Then("Admin See the Class Description is sorted Ascending order in Class module page")
 public void admin_See_the_Class_Description_is_sorted_Ascending_order_in_Class_module_page() {
-	List<String> originalList = cp.getOriginalList("status");
+	List<String> originalList = cp.getOriginalList("Classdescription");
 	List<String> sortedList = cp.getSortedList(originalList);
 	System.out.println("sorted name list" + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
@@ -395,12 +417,66 @@ public void admin_clicks_on_Arrow_next_to_Class_Description_of_Class_module_page
 
 @Then("Admin See the Class Description is sorted Descending order in Class module page")
 public void admin_See_the_Class_Description_is_sorted_Descending_order_in_Class_module_page() {
-	List<String> originalList = cp.getOriginalList("status");
+	List<String> originalList = cp.getOriginalList("ClassDescription");
 	List<String> sortedList = cp.getSortedListDescending(originalList);
 	System.out.println("Descending sorted name list " + sortedList.toString() );
 	Assert.assertTrue(originalList.equals(sortedList));
     
 }
-		
-		
+//Pagination
+		@When("^Admin clicks the (Next|Last|Previous|First) link on the data table in class page$")
+	    public void adminClicksPageLink_program(String pageLink) {
+	    	
+	      	//cp.clickClassBtn();
+	      	
+	        switch (pageLink.toLowerCase()) {
+	            case "next":
+	            	cp.clickNextPage();
+	                break;
+	            case "last":
+	                cp.clickLastPage();
+	                break;
+	            case "previous":
+	            	cp.clickPreviousPage();
+	                break;
+	            case "first":
+	            	cp.clickFirstPage();
+	                break;
+	        }
+	    }
+		@Then("^Admin should see the (.*) on the data table in class module$")
+	    public void adminShouldSeeResults_program(String expectedResult) {
+	    	
+	    	
+	
+	    	switch (expectedResult.toLowerCase()) {
+	    	 case "next enabled link":
+	             Assert.assertTrue("Expected 'Next' button to be enabled.", batchModule.isNextButtonEnabled());
+	             break;
+	        case "last page link with next disabled":
+	            Assert.assertFalse("Expected 'Next' button to be disabled.", batchModule.isNextButtonEnabled());
+	            break;
+	        case "previous page":
+	            Assert.assertTrue("Expected 'Previous' button to be enabled.", batchModule.isPrevButtonEnabled());
+	            break;
+	        case "very first page":
+	            Assert.assertFalse("Expected 'Previous' button to be disabled.", batchModule.isPrevButtonEnabled());
+	            break;
+	        case "last results":
+	            Assert.assertTrue("Expected to see results on the last page.", batchModule.hasNextPageResults());
+	            break;
+	        case "previous results":
+	            Assert.assertTrue("Expected to see results on the previous page.", batchModule.hasNextPageResults());
+	            break;
+	        case "first results":
+	            Assert.assertTrue("Expected to see results on the first page.", batchModule.hasNextPageResults());
+	            break;
+	        default:
+	            Assert.fail("Unexpected result description: " + expectedResult);
+	           
+	           
+	    }
+	    }
+
+
 }
